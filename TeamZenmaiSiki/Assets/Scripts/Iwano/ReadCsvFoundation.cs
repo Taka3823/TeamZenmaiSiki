@@ -8,7 +8,7 @@ using System.IO;
 public class ReadCsvFoundation : MonoBehaviour
 {
     //第一引数…読み込むCSVデータファイルのパス　
-    string[] ReadCsvData(string path_)
+    static string[] ReadCsvData(string path_)
     {
         //ファイル読み込み
         StreamReader sr = new StreamReader(path_);
@@ -27,7 +27,7 @@ public class ReadCsvFoundation : MonoBehaviour
     //第一引数…ReadCsvData関数で一行にされたデータ
     //第二引数…渡されたデータを区切る文字
     //第三引数…第一引数のデータの要素数。for文の周回数
-    public string[] DataSeparation(string lines_, char[] spliter_, int trialNumber_)
+    static public string[] DataSeparation(string lines_, char[] spliter_, int trialNumber_)
     {
         //カンマとカンマの間に何もなかったら格納しないことにする設定
         System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;
