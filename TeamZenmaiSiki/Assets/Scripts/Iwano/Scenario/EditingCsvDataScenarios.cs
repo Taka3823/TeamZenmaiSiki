@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ReadCsv : MonoBehaviour
+public class EditingCsvDataScenarios : MonoBehaviour
 {
+    ReadCsvFoundation readCsvBase;
+
+
 	// Use this for initialization
 	void Start ()
     {
+        
 	
 	}
 	
