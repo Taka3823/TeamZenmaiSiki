@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - DmageArea
+  - AttackCircle
   layers:
   - Default
   - TransparentFX
