@@ -55,9 +55,10 @@ GameObject:
   - 212: {fileID: 212000013340446862}
   - 114: {fileID: 114000013269948390}
   - 58: {fileID: 58000011057910918}
+  - 50: {fileID: 50000014220935488}
   m_Layer: 0
   m_Name: SecondaryCircle
-  m_TagString: Untagged
+  m_TagString: AttackCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +133,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011890878166}
   m_RootOrder: 0
+--- !u!50 &50000014220935488
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011294862544}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58000011057910918
 CircleCollider2D:
   m_ObjectHideFlags: 1
