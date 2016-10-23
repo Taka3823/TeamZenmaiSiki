@@ -73,6 +73,7 @@ GameObject:
   - 222: {fileID: 222000012577642956}
   - 114: {fileID: 114000011156789648}
   - 114: {fileID: 114000010600780428}
+  - 61: {fileID: 61000013303822448}
   m_Layer: 5
   m_Name: ChoicesNode
   m_TagString: Untagged
@@ -97,6 +98,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &61000013303822448
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012247729970}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!114 &114000010600780428
 MonoBehaviour:
   m_ObjectHideFlags: 1
