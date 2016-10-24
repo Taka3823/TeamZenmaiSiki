@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour {
+    private static TurnManager instance;
+
+    public static TurnManager Instance
+    {
+        get { return instance; }
+    }
+
+    //ターンのフェイズごとに名前をつける。
     enum FunctionID
     {
         LIBRA = 0,
@@ -10,9 +18,10 @@ public class TurnManager : MonoBehaviour {
         ENEMY_ATTACK
     }
 
+    //戦闘画面中に表示されるボタンのID
     enum ButtonID
     {
-        ATTACK,
+        ATTACK = 0,
         AVOID
     }
 
@@ -22,23 +31,26 @@ public class TurnManager : MonoBehaviour {
     [SerializeField]
     bool enemyLast;                         //エネミーが最後の１体かどうか
 
+    private List<Vector3> enemies;        //エネミーたちの座標取得用 
+    private int enemyElements;              //エネミーの人数
+
     private delegate void Functions();      //関数のデリゲート型
     private List<Functions> turnFunctions;  //ターンのフェーズごとに関数に格納
     private int functionNumber;             //現在の関数のID
     private int functionElements;           //格納する関数の個数
+    private int oldID;                      //1フレーム前のFunctionID
 
-    // Use this for initialization
-    void Start () {
-        functionNumber = 0;
-        functionElements = 3;
+    void Awake()
+    {
+        if (instance == null) { instance = this; }
+    }
 
-        turnFunctions = new List<Functions>();
-        turnFunctions.Add(Libra);
-        turnFunctions.Add(PlayerAttack);
-        turnFunctions.Add(EnemyAttack);
+    void Start ()
+    {
+        SetupEnemies();
+        SetupTurnFunctions();   
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -47,26 +59,37 @@ public class TurnManager : MonoBehaviour {
             if (functionNumber >= turnFunctions.Count) functionNumber = 0;
         }
 
-        ButtonManagement();
+        if (oldID != functionNumber)
+        {
+            ButtonManagement();
+        }
+
         turnFunctions[functionNumber]();
+        oldID = functionNumber;
 	}
 
     //ターン最初の情報等見ておけるフェーズ
     void Libra()
     {
-        Debug.Log("Libra()");
+        //TODO:長押しで情報表示
     }
 
     //プレイヤーのアタックフェーズ
     void PlayerAttack()
     {
-        Debug.Log("PlayerAttack()");
+        //TODO:敵の数だけAttackCircle描画。攻撃のサイクルを実装。
+
+        //TODO:AttckCircleが存在していなかった場合生成。
+        if (false)
+        {
+
+        }
     }
 
     //エネミーのアタックフェーズ
     void EnemyAttack()
     {
-        Debug.Log("EnemyAttack()");
+        
     }
 
     //フェーズや状態によってボタンの状態や種類を変更
@@ -77,34 +100,58 @@ public class TurnManager : MonoBehaviour {
         {
             if (!enemyLast)
             {
-                buttonManager[(int)ButtonID.ATTACK].EnableButton();
-                buttonManager[(int)ButtonID.AVOID].DisableButton();
+                buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
+                buttonManager[(int)ButtonID.ATTACK].SetInteractable(true);
             }
-            buttonManager[(int)ButtonID.AVOID].SetInteractable(true);
-            buttonManager[(int)ButtonID.ATTACK].SetInteractable(true);
+            else
+            {
+                buttonManager[(int)ButtonID.AVOID].SetInteractable(true);
+                buttonManager[(int)ButtonID.ATTACK].SetInteractable(true);
+            }
         }
 
         //プレイヤーのアタックフェーズ時処理
         if (functionNumber == (int)FunctionID.PLAYER_ATTACK)
         {
-            //敵キャラが独りじゃないとき
-            if (!enemyLast)
-            {
-                buttonManager[(int)ButtonID.ATTACK].SetInteractable(false);
-                buttonManager[(int)ButtonID.AVOID].DisableButton();
-            }
-            else
-            {
-                buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
-                buttonManager[(int)ButtonID.ATTACK].DisableButton();
-                buttonManager[(int)ButtonID.AVOID].EnableButton();
-            }
+            buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
+            buttonManager[(int)ButtonID.ATTACK].SetInteractable(false);
         }
 
         //エネミーのアタックフェーズ時処理
         if (functionNumber == (int)FunctionID.ENEMY_ATTACK)
         {
             buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
+            buttonManager[(int)ButtonID.ATTACK].SetInteractable(false);
         }
     }
+
+    private void SetupTurnFunctions()
+    {
+        functionNumber = 0;
+        functionElements = 3;
+
+        turnFunctions = new List<Functions>();
+        turnFunctions.Add(Libra);
+        turnFunctions.Add(PlayerAttack);
+        turnFunctions.Add(EnemyAttack);
+    }
+
+    private void SetupEnemies()
+    {
+        enemies = new List<Vector3>();
+        var refObj = GameObject.FindGameObjectsWithTag("Enemy");
+
+        GameObject temp = refObj[0];
+        refObj[0] = refObj[1];
+        refObj[1] = temp;
+
+        for (int i = 0; i < refObj.Length; i++)
+        {
+            enemies.Add(refObj[i].transform.position);
+            Debug.Log(refObj[i].name);
+        }
+        
+    }
+
+    public List<Vector3> GetEnemiesPos() { return enemies; }
 }

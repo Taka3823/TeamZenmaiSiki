@@ -18,7 +18,7 @@ public class PrimaryCircle : MonoBehaviour
     void Start()
     {
         primaryCircleScale = new Vector3(minCircleRadius, minCircleRadius, 1f);
-        primaryAngle = 0f;
+        primaryAngle = Mathf.PI / 2;
     }
 
     public void PrimaryScaling()
@@ -27,9 +27,9 @@ public class PrimaryCircle : MonoBehaviour
                                                                 (diffCircleRadius / 2) + (diffCircleRadius / 2) * Mathf.Sin(primaryAngle),
                                                                 0f);
         primaryAngle += circleScalingSpeed;
-        if (primaryAngle >= (Mathf.PI * 2))
+        if (primaryAngle >= (Mathf.PI * 3 / 2))
         {
-            primaryAngle = 0f;
+            primaryAngle = Mathf.PI / 2;
         }
     }
 }
