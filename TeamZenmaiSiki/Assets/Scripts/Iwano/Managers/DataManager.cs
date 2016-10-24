@@ -3,7 +3,6 @@ using System.Collections;
 
 using UnityEngine.SceneManagement;
 
-
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
@@ -14,7 +13,7 @@ public class DataManager : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         if(instance == null)
         {
@@ -26,10 +25,48 @@ public class DataManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    //*****************************************************//
+    //                                                     //
+    //                     岩野記述欄                       //
+    //                                                     //
+    //*****************************************************//
+
+    //呼び出すシナリオのID
+    private int scenarioDictionaryNumber;
+
+    public int ScenarioDictionaryNumber
     {
-	
-	}
+        get { return scenarioDictionaryNumber; }
+        set { scenarioDictionaryNumber = value; }
+    }
+
+
+
+
+
+
+    //*****************************************************//
+    //                                                     //
+    //                     平沢記述欄                       //
+    //                                                     //
+    //*****************************************************//
+
+    //*****************************************************//
+    //                                                     //
+    //                     丸本記述欄                       //
+    //                                                     //
+    //*****************************************************//
+
+    //*****************************************************//
+    //                                                     //
+    //                     三井記述欄                       //
+    //                                                     //
+    //*****************************************************//
+
+    //*****************************************************//
+    //                                                     //
+    //                     竹中記述欄                       //
+    //                                                     //
+    //*****************************************************//
 }

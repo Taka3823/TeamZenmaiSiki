@@ -9,9 +9,6 @@ public class ManagerLorder : MonoBehaviour
     {
         //データマネージャーオブジェクトの生成
         GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/DataManager"));
-
-        Debug.Log("0.5");
-
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -19,7 +16,5 @@ public class ManagerLorder : MonoBehaviour
     {
         //オーディオマネージャーオブジェクトの生成
         GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/AudioManager"));
-
-        Debug.Log("1");
     }
 }

@@ -42,9 +42,6 @@ public class AudioManager : MonoBehaviour
     
     void Awake()
     {
-        Debug.Log("2");
-
-
         if (instance == null)
         {
             instance = this;
@@ -63,8 +60,8 @@ public class AudioManager : MonoBehaviour
         bgmDictionary = new Dictionary<string, AudioClip>();
         seDictionary  = new Dictionary<string, AudioClip>();
 
-        object[] bgmList = Resources.LoadAll("Audios/BGM");
-        object[] seList = Resources.LoadAll("Audios/SE");
+        var bgmList = Resources.LoadAll<AudioClip>("Audios/BGM");
+        var seList  = Resources.LoadAll<AudioClip>("Audios/SE");
 
         foreach(AudioClip bgm in bgmList)
         {
@@ -81,10 +78,6 @@ public class AudioManager : MonoBehaviour
     {
         //BGMとSEの音量初期値を設定
         bgmVolume = bgmAudio.volume;
-
-        Debug.Log("3");
-        Debug.Log("音量Is" + bgmVolume);
-
     }
 
     //******************************************** 
@@ -93,7 +86,7 @@ public class AudioManager : MonoBehaviour
 
     //第一引数…SEの名前
     //第二引数…指定した秒数分再生まで遅延する
-    public void PlaySe(string seName_, float delay)
+    public void PlaySe(string seName_, float delay = 0.0f)
     {
         //nullチェック
         if (!seDictionary.ContainsKey(seName_))
