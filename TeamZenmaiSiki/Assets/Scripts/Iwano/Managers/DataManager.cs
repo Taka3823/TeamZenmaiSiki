@@ -40,12 +40,7 @@ public class DataManager : MonoBehaviour
         get { return scenarioDictionaryNumber; }
         set { scenarioDictionaryNumber = value; }
     }
-
-
-
-
-
-
+    
     //*****************************************************//
     //                                                     //
     //                     平沢記述欄                       //
