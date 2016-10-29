@@ -49,7 +49,7 @@ public class EnemyDataReader : MonoBehaviour
             string[] str2 = ReadCsvFoundation.DataSeparation(str[i], commaSpliter, 3);
             //[Unit1の][２番目の敵]など・・・
             EnemyData.EnemyInternalDatas enemybuf = new EnemyData.EnemyInternalDatas();
-            enemybuf.name = str2[0];
+            enemybuf.name = str2[0] + unitNumber.ToString()+i.ToString();
             line.Add(enemybuf);
         }
 

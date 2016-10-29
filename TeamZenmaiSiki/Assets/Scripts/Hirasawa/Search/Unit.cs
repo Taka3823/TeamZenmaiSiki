@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class Unit : MonoBehaviour {
 
     // Use this for initialization
     private bool isViewData;
+    private List<EnemyData.EnemyInternalDatas> enemyDatas;
+    public List<EnemyData.EnemyInternalDatas> getEnemyDatas()
+    {
+        return enemyDatas;
+    }
+    public void setEnemyDatas(List<EnemyData.EnemyInternalDatas> _enemyDatas)
+    {
+        enemyDatas = _enemyDatas;
+    }
     public bool getIsViewData()
     {
         return isViewData;
@@ -15,7 +24,12 @@ public class Unit : MonoBehaviour {
     }
 
     void Start () {
-	
+        enemyDatas = new List<EnemyData.EnemyInternalDatas>();
+        for(int i = 0; i < enemyDatas.Count; i++)
+        {
+            Debug.Log(enemyDatas[i].name);
+        }
+        
 	}
 	
 	// Update is called once per frame
