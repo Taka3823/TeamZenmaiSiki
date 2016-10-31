@@ -22,18 +22,53 @@ public class Unit : MonoBehaviour {
     {
         isViewData = _isViewData;
     }
-
     void Start () {
-        enemyDatas = new List<EnemyData.EnemyInternalDatas>();
-        for(int i = 0; i < enemyDatas.Count; i++)
+
+
+    }
+	public void veiw()
+    {
+   
+
+    }
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.name == "Player")
         {
-            Debug.Log(enemyDatas[i].name);
+            MyCanvas.SetInteractive("Button", true);
+            for (int i = 0; i < enemyDatas.Count; i++)
+            {
+                Debug.Log(enemyDatas[i].name);
+            }
+            //データをおくる
         }
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
+  
+    }
+    void OnTriggerStay(Collider collision)
+    {
+
+        if (collision.gameObject.name == "Player")
+        {
+            MyCanvas.SetInteractive("Button", true);
+            //データをおくる
+        }
+        else {
+            Debug.Log("anotherHit");
+        }
+    }
+    void OnTriggerExit(Collider collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            MyCanvas.SetInteractive("Button", false);
+        }
+        else {
+            Debug.Log("anotherHit");
+        }
+    }
+    
+    // Update is called once per frame
+    void Update () {
 
         //メインカメラ上のマウスカーソルのある位置からRayを飛ばす
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
