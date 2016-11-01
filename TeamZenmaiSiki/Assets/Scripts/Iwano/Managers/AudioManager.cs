@@ -142,8 +142,7 @@ public class AudioManager : MonoBehaviour
         bgmFadeSpeed = fadeOutSpeed_;
         isFadeOut = true;
     }
-
-
+    
     // Update is called once per frame
     void Update ()
     {
