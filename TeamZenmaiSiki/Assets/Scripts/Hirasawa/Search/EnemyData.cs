@@ -7,17 +7,22 @@ public class EnemyData : MonoBehaviour {
     public struct EnemyInternalDatas
     {
         public string name;
-        public EnemyType.EnemyTypes enemyType;
+        public int age;
+        public string sex;
+        public string bloodType;
+        public string memos;
         public string serchTexturePass;
-        public string[] texts;
-
-        public int power;
-        public int enemyHp;
-        public int[] subHp;
-        public int[] downPower;
-        public string[] subName;
-        public string[] skilName;
+      
+        public int mainHp;
+        public int mainPower;
+        public int mainDefense;
+        public int coreNum;
+        public string[] coreName;
+        public int[] corebHp;
+        public int[] corePower;
+        public int[] coreDefense;
         public string battleTexturePass;
+        public string collisionPass;
     }
     // Use this for initialization
     void Start () {

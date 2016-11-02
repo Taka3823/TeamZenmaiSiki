@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-
 public class ReadScenario : MonoBehaviour
 {
     public struct ScenariosData
@@ -66,7 +65,9 @@ public class ReadScenario : MonoBehaviour
         ReadFile(0);
     }
 
-
+    //ファイル読み込みをしてくれる
+    //第一引数…読み込みたいシナリオの名前を入力。
+    //TIPS：内部でファイルまでのパスは記述しているので、名前だけで大丈夫
     void ReadFile(int dictionaryNumber_)
     {
         //読み込むパスを決定
@@ -186,7 +187,9 @@ public class ReadScenario : MonoBehaviour
     //第三引数…第一引数のデータの要素数。for文の周回数
     string[] DataSeparation(string lines_, char[] spliter_, int trialNumber_)
     {
-        //カンマとカンマの間に何もなかったら格納しないことにする設定
+        //TIPS:カンマとカンマの間に何もなかったら格納しないことにする設定だが、
+        //ここでなにも格納しないことにしてしまうと、
+        //後のFor文で""の情報確認ができないため、コメントアウト
         //System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;
 
         //リターン値。カンマ分けしたデータを一行分格納する。

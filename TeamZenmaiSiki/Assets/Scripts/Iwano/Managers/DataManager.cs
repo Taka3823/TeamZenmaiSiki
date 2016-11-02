@@ -2,6 +2,7 @@
 using System.Collections;
 
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class DataManager : MonoBehaviour
 {
@@ -40,12 +41,31 @@ public class DataManager : MonoBehaviour
         get { return scenarioDictionaryNumber; }
         set { scenarioDictionaryNumber = value; }
     }
-    
+
     //*****************************************************//
     //                                                     //
     //                     平沢記述欄                       //
     //                                                     //
     //*****************************************************//
+
+    private List<EnemyData.EnemyInternalDatas> enemyInternalDatas;
+
+    public List<EnemyData.EnemyInternalDatas> EnemyInternalDatas
+    {
+        get { return enemyInternalDatas; }
+        set { enemyInternalDatas = value; }
+    }
+
+    private bool isAppAwake = false;
+
+    public bool IsAppAwake
+    {
+        get { return isAppAwake; }
+        set { isAppAwake = value; }
+    }
+
+
+
 
     //*****************************************************//
     //                                                     //

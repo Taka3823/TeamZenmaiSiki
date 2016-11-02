@@ -8,6 +8,7 @@ public class UnitCreater : MonoBehaviour {
 
     // Use this for initialization
     EnemyDataReader enemyDataReader;
+   
     private int createNum;
     private List<Vector3> UnitPos;
     void Awake()
@@ -65,7 +66,17 @@ public class UnitCreater : MonoBehaviour {
             //u.setIsViewData(false);
 
             unitObj.GetComponent<Unit>().setIsViewData(false);
-
+            List<EnemyData.EnemyInternalDatas> enemyDataList=new List<EnemyData.EnemyInternalDatas>();
+            //unitObj.GetComponent<Unit>().setEnemyDatas()
+            for (int j = 0; j < enemyDataReader.GetEnemyData[i].Count; j++)//Unit内の敵の数だけ
+            {
+                EnemyData.EnemyInternalDatas buf = new EnemyData.EnemyInternalDatas();
+                buf = enemyDataReader.GetEnemyData[i][j];
+                enemyDataList.Add(buf);//それぞれのデータを格納
+            }
+            unitObj.GetComponent<Unit>().setEnemyDatas(enemyDataList);
+            //dataBuf.name = "aaa";
+            //unitObj.GetComponent<Unit>().setEnemyDatas(dataBuf);
         }
         
     }
