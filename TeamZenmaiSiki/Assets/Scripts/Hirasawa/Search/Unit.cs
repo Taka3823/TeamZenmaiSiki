@@ -44,6 +44,15 @@ public class Unit : MonoBehaviour {
         }
   
     }
+   public void OnTouchDown()
+    {
+ 
+
+        SearchManager.Instance.setEnemyDatas(enemyDatas);
+
+        MyCanvas.SetInteractive("Button", true);
+    }
+
     void OnTriggerStay(Collider collision)
     {
 
@@ -69,23 +78,8 @@ public class Unit : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
+      
 
-        //メインカメラ上のマウスカーソルのある位置からRayを飛ばす
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        ////レイヤーマスク作成
-        ////int layerMask = LayerMaskNo.DEFAULT;
-
-        ////Rayの長さ
-        //float maxDistance = 10;
-
-        //RaycastHit2D hit = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, maxDistance, layerMask);
-
-        ////なにかと衝突した時だけそのオブジェクトの名前をログに出す
-        //if (hit.collider)
-        //{
-        //    Debug.Log(hit.collider.gameObject.name);
-        //}
     }
 
 }
