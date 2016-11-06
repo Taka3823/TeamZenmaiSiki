@@ -35,27 +35,16 @@ public class EnemyStatus : MonoBehaviour {
         {
             didCommaSeparationData = ReadCsvFoundation.DataSeparation(lines[i], commaSpliter, CSVDATA_ELEMENTS);
             Debug.Log(didCommaSeparationData[0]);
-        }
-
-       
-
+        }   
     }
 
     // Use this for initialization
     void Start () {
         ReadFile();
-
-
-	}
+        	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        Debug.Log("Hit!");
-    }
 }
