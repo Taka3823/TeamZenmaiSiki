@@ -45,4 +45,20 @@ public class ReadCsvFoundation : MonoBehaviour
         }
         return CommaSeparationData;
     }
+
+    public static string[] NotOptionDataSeparation(string lines_, char[] spliter_, int trialNumber_)
+    {
+        //リターン値。カンマ分けしたデータを一行分格納する。
+        string[] CommaSeparationData = new string[trialNumber_];
+        for (int i = 0; i < trialNumber_; i++)
+        {
+            //１行にあるCsvDataの要素数分準備する
+            string[] readStrData = new string[trialNumber_];
+            //CsvDataを引数の文字で区切って1つずつ格納
+            readStrData = lines_.Split(spliter_);
+            //readStrDataをリターン値に格納
+            CommaSeparationData[i] = readStrData[i];
+        }
+        return CommaSeparationData;
+    }
 }

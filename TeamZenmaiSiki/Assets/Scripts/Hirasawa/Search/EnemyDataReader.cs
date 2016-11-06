@@ -19,7 +19,6 @@ public class EnemyDataReader : MonoBehaviour
 
     public void setEnemyData(List<List<EnemyData.EnemyInternalDatas>> _enemyData)
     {
-
         enemyData = _enemyData;
     }
 
@@ -40,21 +39,58 @@ public class EnemyDataReader : MonoBehaviour
         string pass = Application.dataPath +
             "/CSVFiles/Search/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
 
-        string[] str = ReadCsvFoundation.ReadCsvData(pass + "Unit" + (unitNumber).ToString() + ".csv");
+        string[] str = ReadCsvFoundation.ReadCsvData(pass + "Unit" + unitNumber.ToString() + ".csv");
         char[] commaSpliter = { ',' };
 
         List<EnemyData.EnemyInternalDatas> line = new List<EnemyData.EnemyInternalDatas>();
-        for (int i = 0; i < str.Length; i++)//そのユニット内の敵の数だけデータを取得
+        for (int i = 1; i < str.Length; i++)//そのユニット内の敵の数だけデータを取得
         {
-            string[] str2 = ReadCsvFoundation.DataSeparation(str[i], commaSpliter, 3);
+            string[] str2 = ReadCsvFoundation.NotOptionDataSeparation(str[i], commaSpliter, 24);
             //[Unit1の][２番目の敵]など・・・
             EnemyData.EnemyInternalDatas enemybuf = new EnemyData.EnemyInternalDatas();
-        
-            enemybuf.name = str2[0];
 
+            enemybuf.coreName = new string[3];
+            enemybuf.coreHp = new int[3];
+            enemybuf.corePower = new int[3];
+            enemybuf.coreDefense = new int[3];
+            enemybuf.isbattle = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.ISBATTLE)] == "はい";
+            enemybuf.name = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.NAME)];
+            enemybuf.age =  convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.AGE)]);
+            enemybuf.sex = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.SEX)];
+            enemybuf.bloodType = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.BLOODTYPE)];
+            enemybuf.memos = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MEMOS)];
+
+            enemybuf.mainHp = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MAINHP)]);
+            enemybuf.mainPower = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MAINPOWER)]);
+            enemybuf.mainDefense = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MAINDEFENCE)]);
+            enemybuf.battleTexturePass= str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.BATTLETEXTUREPASS)];
+            enemybuf.collisionPass= str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.COLLISIONPASS)];
+            enemybuf.coreNum = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.CORENUM)]);
+
+            int num = 3;
+
+            for (int j = 0; j < num; j++)
+            {
+                enemybuf.coreName[j] = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.CORENAME) + (j * 4)];
+                enemybuf.coreHp[j] = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.CORENAME) + (j * 4) + 1]);
+                enemybuf.corePower[j] = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.CORENAME) + (j * 4) + 2]);
+                enemybuf.coreDefense[j] = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.CORENAME) + (j * 4) + 3]);
+            }
             line.Add(enemybuf);
         }
 
         enemyData.Add(line);
+    }
+    private int convert(string _str)
+    {
+        if (_str == "")
+        {
+            return 0;
+        }
+        else
+        {
+            return int.Parse(_str);
+        }
+        
     }
 }
