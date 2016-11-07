@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - DmageArea
   - AttackCircle
+  - Unit
+  - Menu
   layers:
   - Default
   - TransparentFX

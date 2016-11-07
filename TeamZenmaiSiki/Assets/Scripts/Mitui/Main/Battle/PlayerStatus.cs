@@ -1,14 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D collision)
+    void Start()
     {
-        if (collision.tag == "AttackCircle")
+    }
+
+
+    private int Damage;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log("Hit!");
-            Destroy(this.gameObject);
+            Damage--;
+        }
+        PlayerRead();
+    }
+
+    public void PlayerRead()
+    {
+        string pass = Application.dataPath + "/Scripts/Mitui/Main/Battle/";
+
+        string[] str = ReadCsvFoundation.ReadCsvData(pass + "Player" + ".csv");
+        char[] commaSpliter = { ',' };
+
+        for (int i = 0; i < str.Length; i++)
+        {
+            string[] str2 = ReadCsvFoundation.DataSeparation(str[i], commaSpliter, 3);
+
+            string LucusStatus = str2[0] + "    " + "HP:" + (int.Parse(str2[1]) + Damage) + "  ATK:" + int.Parse(str2[2]);
+            Text textComponent = GetComponent<Text>();
+            textComponent.text = LucusStatus;
         }
     }
 }

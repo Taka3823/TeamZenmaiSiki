@@ -28,7 +28,7 @@ public class UnitCreater : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
     private void ReadUnitData(int episodeNum,int stageNum)//Unitの
     {
@@ -39,11 +39,11 @@ public class UnitCreater : MonoBehaviour {
         string[] unitPosition = ReadCsvFoundation.ReadCsvData(pass + "UnitsPos.csv");
         char[] commaSpliter = { ',' };
         
-        createNum = unitPosition.Length;//Unitの数を取得
+        createNum = unitPosition.Length-1;//Unitの数を取得
 
-        for (int i = 0; i < createNum; i++)
+        for (int i = 1; i < createNum+1; i++)
         {
-           string[] strPos= ReadCsvFoundation.DataSeparation(unitPosition[i], commaSpliter, 3);
+           string[] strPos= ReadCsvFoundation.DataSeparation(unitPosition[i], commaSpliter, 4);
             Vector3 pos = new Vector3();
             pos.x = float.Parse(strPos[0]);
             pos.y = float.Parse(strPos[1]);
@@ -93,4 +93,5 @@ public class UnitCreater : MonoBehaviour {
     {
 
     }
+   
 }
