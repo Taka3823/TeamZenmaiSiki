@@ -19,6 +19,10 @@ public class SearchManager : MonoBehaviour {
     {
         return sendDatas;
     }
+    public List<EnemyData.EnemyInternalDatas> getBattleEnemyDatas()
+    {
+        return batlleDataList;
+    }
     public void setEnemyDatas(List<EnemyData.EnemyInternalDatas> _sendDatas)
     {
         sendDatas = _sendDatas;
