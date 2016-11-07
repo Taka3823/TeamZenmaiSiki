@@ -12,6 +12,9 @@ public class SecondaryCircle : MonoBehaviour {
     float circleScale;
 
     private Vector2 scaleDiff;
+    private bool isHit;
+    public bool colliderIsActive;
+    private GameObject deleteObject;
 
     void Start()
     {
@@ -21,11 +24,25 @@ public class SecondaryCircle : MonoBehaviour {
         transform.position = new Vector3(primaryCircle.transform.position.x, 
                                          primaryCircle.transform.position.y + scaleDiff.y, 
                                          0);
+        isHit = false;
+        colliderIsActive = false;
     }
 
     void Update()
     {
+        HitSequence();
+        //Debug.Log(GetComponent<CircleCollider2D>().enabled);
+    }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        isHit = true;
+        deleteObject = other.gameObject;
+        ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
+        ObjToPhaseManager.Instance.SetEraseFlag(true);
+        ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
+        Destroy(other.gameObject);
+        Destroy(this.gameObject.transform.root.gameObject);
     }
 
     public void SecondaryRotating()
@@ -40,14 +57,35 @@ public class SecondaryCircle : MonoBehaviour {
 
     public void IsActiveCollider()
     {
-        if (!GetComponent<CircleCollider2D>().enabled)
+        colliderIsActive = true;
+    }
+
+    private void HitSequence()
+    {
+        if (GetComponent<CircleCollider2D>().enabled)
         {
-            GetComponent<CircleCollider2D>().enabled = true;
+            if(!isHit)
+            {
+                //Debug.Log("Non-Hit");
+                ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
+                Destroy(this.gameObject.transform.root.gameObject);
+            }
+            else
+            {
+                ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
+                ObjToPhaseManager.Instance.SetEraseFlag(true);
+                ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
+                Destroy(deleteObject);
+                Destroy(this.gameObject.transform.root.gameObject);
+                isHit = false;
+            }
+            colliderIsActive = false;
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void SetColliderEnabled(bool _cond)
     {
-        Debug.Log(other.gameObject.name);
+        this.gameObject.GetComponent<CircleCollider2D>().enabled = _cond;
+        Debug.Log(this.gameObject.GetComponent<CircleCollider2D>().enabled);
     }
 }

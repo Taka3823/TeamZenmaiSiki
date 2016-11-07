@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     //ターンのフェイズごとに名前をつける。
-    enum FunctionID
+    public enum FunctionID
     {
         LIBRA = 0,
         PLAYER_ATTACK,
@@ -28,36 +28,40 @@ public class TurnManager : MonoBehaviour {
     [SerializeField]
     ButtonManager[] buttonManager;          //戦う&逃がすボタンの表示コントロールスクリプトの配列
 
+    //この三つはターンのフェーズごとのスクリプト
+    [SerializeField]
+    LibraController libraController;
+    [SerializeField]
+    PlayerAttackController playerAttackController;
+    [SerializeField]
+    EnemyAttackController enemyAttackController;
+
     [SerializeField]
     bool enemyLast;                         //エネミーが最後の１体かどうか
 
-    private List<Vector3> enemies;        //エネミーたちの座標取得用 
+    private List<Vector3> enemies;          //エネミーたちの座標取得用 
     private int enemyElements;              //エネミーの人数
 
     private delegate void Functions();      //関数のデリゲート型
     private List<Functions> turnFunctions;  //ターンのフェーズごとに関数に格納
     private int functionNumber;             //現在の関数のID
-    private int functionElements;           //格納する関数の個数
     private int oldID;                      //1フレーム前のFunctionID
 
     void Awake()
     {
         if (instance == null) { instance = this; }
-    }
-
-    void Start ()
-    {
         SetupEnemies();
-        SetupTurnFunctions();   
-	}
+        SetupTurnFunctions();
+    }
 	
-	void Update ()
+	void LateUpdate ()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             functionNumber++;
-            if (functionNumber >= turnFunctions.Count) functionNumber = 0;
         }
+
+        if (functionNumber == turnFunctions.Count) functionNumber = 0;
 
         if (oldID != functionNumber)
         {
@@ -72,24 +76,21 @@ public class TurnManager : MonoBehaviour {
     void Libra()
     {
         //TODO:長押しで情報表示
+        //Debug.Log("Libra");
     }
 
     //プレイヤーのアタックフェーズ
     void PlayerAttack()
     {
         //TODO:敵の数だけAttackCircle描画。攻撃のサイクルを実装。
-
+        playerAttackController.GenerateAttackCircle();
         //TODO:AttckCircleが存在していなかった場合生成。
-        if (false)
-        {
-
-        }
     }
 
     //エネミーのアタックフェーズ
     void EnemyAttack()
     {
-        
+        //Debug.Log("EnemyAttack");
     }
 
     //フェーズや状態によってボタンの状態や種類を変更
@@ -128,8 +129,6 @@ public class TurnManager : MonoBehaviour {
     private void SetupTurnFunctions()
     {
         functionNumber = 0;
-        functionElements = 3;
-
         turnFunctions = new List<Functions>();
         turnFunctions.Add(Libra);
         turnFunctions.Add(PlayerAttack);
@@ -148,10 +147,12 @@ public class TurnManager : MonoBehaviour {
         for (int i = 0; i < refObj.Length; i++)
         {
             enemies.Add(refObj[i].transform.position);
-            Debug.Log(refObj[i].name);
+            //Debug.Log(refObj[i].name);
         }
         
     }
 
     public List<Vector3> GetEnemiesPos() { return enemies; }
+    public void ProgressFunction() { functionNumber++; }
+    public int GetFunctionNumber() { return functionNumber; }
 }
