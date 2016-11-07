@@ -42,9 +42,17 @@ public class DataManager : MonoBehaviour
         set { scenarioDictionaryNumber = value; }
     }
 
+    private bool isAppAwake = false;
+
+    public bool IsAppAwake
+    {
+        get { return isAppAwake; }
+        set { isAppAwake = value; }
+    }
 
     //仮で製作
     //指令書に書かれている目標の名前を仮保存
+    //TIPS:CSVデータから格納する前に、Clearをかけてから格納すること
     /***********************************************/
     private List<string> targetName = new List<string>();
 
@@ -53,11 +61,17 @@ public class DataManager : MonoBehaviour
         get { return targetName; }
         set { targetName = value; }
     }
+
+    private int targetNumber = 0;
+
+    public int TargetNumber
+    {
+        get { return targetNumber; }
+        set { targetNumber = value; }
+    }
     
     /**********************************************/
-
-
-
+    
     //*****************************************************//
     //                                                     //
     //                     平沢記述欄                       //
@@ -72,13 +86,7 @@ public class DataManager : MonoBehaviour
         set { enemyInternalDatas = value; }
     }
 
-    private bool isAppAwake = false;
-
-    public bool IsAppAwake
-    {
-        get { return isAppAwake; }
-        set { isAppAwake = value; }
-    }
+    
 
     Vector3 pos = new Vector3();
 

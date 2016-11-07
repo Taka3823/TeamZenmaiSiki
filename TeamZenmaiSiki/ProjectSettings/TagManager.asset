@@ -9,6 +9,8 @@ TagManager:
   - AttackCircle
   - Unit
   - Menu
+  - InfoTab
+  - BattleButton
   layers:
   - Default
   - TransparentFX

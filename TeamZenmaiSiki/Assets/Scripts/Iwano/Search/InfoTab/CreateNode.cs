@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
 public class CreateNode : MonoBehaviour
 {
     //ノードのプレハブ
     [SerializeField]
     GameObject nodePrefab;
 
-    //スライド可能範囲をしているオブジェクト
+    //スライド可能範囲を指定しているオブジェクト
     [SerializeField]
     GameObject content;
 
@@ -24,17 +26,15 @@ public class CreateNode : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        if(DataManager.Instance.TargetNumber == 0)
+        {
+            DataManager.Instance.TargetNumber = 0;
+        }
+        
         for(int i = 0;i < DataManager.Instance.TargetName.Count; i++)
         {
             GameObject obj = Instantiate(nodePrefab);
             obj.transform.parent = content.transform;
-            //obj.name = nodePrefab.name + i;
-
-            //GameObject obj2 = obj.transform.FindChild("EnemyNameNode" + i).gameObject;
-
-           // Debug.Log(obj2);
-
-            //obj2.GetComponent<NameDecision>().SetNameText(i);
         }
 	}
 }
