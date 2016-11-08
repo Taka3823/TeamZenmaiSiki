@@ -10,6 +10,7 @@ public class MyCanvas : MonoBehaviour
     {
         // Canvasコンポーネントを保持
         _canvas = GetComponent<Canvas>();
+        SetInteractive("Button", false);
     }
 
     /// 表示・非表示を設定する
@@ -35,17 +36,31 @@ public class MyCanvas : MonoBehaviour
         foreach (Transform child in _canvas.transform)
         {
             // 子の要素をたどる
-            if (child.name == name)
+            if (child.name == "InfoTabBase")
             {
-                // 指定した名前と一致
-                // Buttonコンポーネントを取得する
-                Button btn = child.GetComponent<Button>();
-                // 有効・無効フラグを設定
-                btn.interactable = b;
-                // おしまい
-                return;
+                foreach (Transform child2 in child.transform)
+                {
+                    if (child2.name == "BattleButton")
+                    {
+                        foreach (Transform child3 in child2.transform)
+                        {
+                            if (child3.name == name)
+                            {
+                                // Buttonコンポーネントを取得する
+                                Button btn = child3.GetComponent<Button>();
+                                // 有効・無効フラグを設定
+                                btn.interactable = b;
+                                // おしまい
+                                return;
+                            }
+                        }
+                    }
+                }
+                    // 指定した名前と一致
+            
             }
         }
+        
         // 指定したオブジェクト名が見つからなかった
         Debug.LogWarning("Not found objname:" + name);
     }
