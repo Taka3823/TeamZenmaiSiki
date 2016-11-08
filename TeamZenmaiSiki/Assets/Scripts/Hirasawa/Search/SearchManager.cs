@@ -34,10 +34,11 @@ public class SearchManager : MonoBehaviour {
                 buf.Add(sendDatas[i]);
             }
         }
-        batlleDataList = buf;
-        for(int j = 0; j < batlleDataList.Count; j++)
+        //batlleDataList = buf;
+        DataManager.Instance.EnemyInternalDatas = buf;
+        for (int j = 0; j < sendDatas.Count; j++)
         {
-            Debug.Log(batlleDataList[j].name);
+            Debug.Log(sendDatas[j].name);
         }
     }
     void Start()
@@ -57,7 +58,6 @@ public class SearchManager : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())
         {
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit = new RaycastHit();
 

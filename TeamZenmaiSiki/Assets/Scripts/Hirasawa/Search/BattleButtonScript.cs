@@ -23,7 +23,7 @@ public class BattleButtonScript : MonoBehaviour , ISceneBase
     public void SceneChange(string nextSceneName)
     {
 
-         SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
+         SceneManager.LoadScene("Battle");
 
 
     }
