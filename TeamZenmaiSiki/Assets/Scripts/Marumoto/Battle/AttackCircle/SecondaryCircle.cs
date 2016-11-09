@@ -30,19 +30,20 @@ public class SecondaryCircle : MonoBehaviour {
 
     void Update()
     {
-        HitSequence();
+        //HitSequence();
         //Debug.Log(GetComponent<CircleCollider2D>().enabled);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        isHit = true;
-        deleteObject = other.gameObject;
-        ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
-        ObjToPhaseManager.Instance.SetEraseFlag(true);
-        ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
-        Destroy(other.gameObject);
-        Destroy(this.gameObject.transform.root.gameObject);
+        Debug.Log("SecondaryCircle Hit!!");
+        PlayerAttackUpdateManager.Instance.SetIsHit(true);
+        PlayerAttackUpdateManager.Instance.SetTargetObject(other.gameObject);
+        //ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
+        //ObjToPhaseManager.Instance.SetEraseFlag(true);
+        //ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
+        //Destroy(other.gameObject);
+        //Destroy(this.gameObject.transform.root.gameObject);
     }
 
     public void SecondaryRotating()
@@ -66,18 +67,19 @@ public class SecondaryCircle : MonoBehaviour {
         {
             if(!isHit)
             {
-                //Debug.Log("Non-Hit");
-                ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
-                Destroy(this.gameObject.transform.root.gameObject);
+                Debug.Log("Non-Hit");
+                //ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
+                //Destroy(this.gameObject.transform.root.gameObject);
             }
             else
             {
-                ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
-                ObjToPhaseManager.Instance.SetEraseFlag(true);
-                ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
-                Destroy(deleteObject);
-                Destroy(this.gameObject.transform.root.gameObject);
-                isHit = false;
+                Debug.Log("isHit");
+                //ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
+                //ObjToPhaseManager.Instance.SetEraseFlag(true);
+                //ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
+                //Destroy(deleteObject);
+               // Destroy(this.gameObject.transform.root.gameObject);
+                //isHit = false;
             }
             colliderIsActive = false;
         }

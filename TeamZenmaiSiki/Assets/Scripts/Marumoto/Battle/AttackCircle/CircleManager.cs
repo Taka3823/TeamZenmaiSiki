@@ -45,9 +45,10 @@ public class CircleManager : MonoBehaviour
         {
             if (!circleCollider2D.enabled)
             {
-                secondaryCircleScript.IsActiveCollider();
+                //TODO:CircleCollider2Dを有効化する処理
                 circleCollider2D.enabled = true;
-                //Debug.Log("isActiveCollider");
+                PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);
+                Debug.Log("isActiveCollider");
             }
         }
 	}
