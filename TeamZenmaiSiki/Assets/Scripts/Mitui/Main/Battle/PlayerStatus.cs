@@ -16,7 +16,7 @@ public class PlayerStatus : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Damage--;
+            IncreaseDamage();
         }
         PlayerRead();
     }
@@ -32,9 +32,14 @@ public class PlayerStatus : MonoBehaviour
         {
             string[] str2 = ReadCsvFoundation.DataSeparation(str[i], commaSpliter, 3);
 
-            string LucusStatus = str2[0] + "    " + "HP:" + (int.Parse(str2[1]) + Damage) + "  ATK:" + int.Parse(str2[2]);
+            string LucusStatus = str2[0] + "    " + "HP:" + (int.Parse(str2[1]) - Damage) + "  ATK:" + int.Parse(str2[2]);
             Text textComponent = GetComponent<Text>();
             textComponent.text = LucusStatus;
         }
+    }
+
+    public void IncreaseDamage(int _value = 1)
+    {
+        Damage += _value;
     }
 }
