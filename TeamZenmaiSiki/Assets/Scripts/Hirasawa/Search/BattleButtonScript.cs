@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class BattleButtonScript : MonoBehaviour {
+public class BattleButtonScript : MonoBehaviour , ISceneBase
+{
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,15 @@ public class BattleButtonScript : MonoBehaviour {
     public void OnClick()
     {
         Debug.Log("Buttonテスト");
-        SceneManager.LoadScene("Battle");
+        SceneChange("Battle");
     }
+
+    public void SceneChange(string nextSceneName)
+    {
+
+         SceneManager.LoadScene("Battle");
+
+
+    }
+
 }

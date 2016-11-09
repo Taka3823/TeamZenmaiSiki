@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:TeamZenmaiSiki/Assets/Scripts/Marumoto/Battle/Enemy.meta
 guid: e097e0f34255f50408e46b91e2e077e7
 folderAsset: yes
 timeCreated: 1478486867
+=======
+guid: 3a258bc6975266d45b203186562bf4e4
+folderAsset: yes
+timeCreated: 1478411340
+>>>>>>> bc7ff9c3baecfbb74b46863e384b808e54d85826:TeamZenmaiSiki/Assets/Resources/Sprits/Search.meta
 licenseType: Free
 DefaultImporter:
   userData: 

@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        MyCanvas.SetInteractive("Button",false);//仮です
+        //MyCanvas.SetInteractive("Button",false);//仮です
 	}
 	
 	// Update is called once per frame

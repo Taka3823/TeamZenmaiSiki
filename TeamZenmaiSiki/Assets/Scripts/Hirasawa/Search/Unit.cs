@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour {
     {
         if (collision.gameObject.name == "Player")
         {
-            MyCanvas.SetInteractive("Button", true);
+            //MyCanvas.SetInteractive("Button", true);
             for (int i = 0; i < enemyDatas.Count; i++)
             {
                 Debug.Log(enemyDatas[i].name);
@@ -46,11 +46,17 @@ public class Unit : MonoBehaviour {
     }
    public void OnTouchDown()
     {
- 
 
         SearchManager.Instance.setEnemyDatas(enemyDatas);
-
-        MyCanvas.SetInteractive("Button", true);
+        for (int i = 0; i < enemyDatas.Count; i++)
+        {
+            if (enemyDatas[i].isbattle)
+            {
+                MyCanvas.SetInteractive("Button", true);
+                return;
+            }
+        }
+        MyCanvas.SetInteractive("Button", false);
     }
 
     void OnTriggerStay(Collider collision)
