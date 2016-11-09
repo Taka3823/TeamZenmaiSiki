@@ -13,10 +13,10 @@ public class DataManager : MonoBehaviour
         get { return instance; }
     }
 
-	// Use this for initialization
-	void Awake ()
+    // Use this for initialization
+    void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -69,9 +69,9 @@ public class DataManager : MonoBehaviour
         get { return targetNumber; }
         set { targetNumber = value; }
     }
-    
+
     /**********************************************/
-    
+
     //*****************************************************//
     //                                                     //
     //                     平沢記述欄                       //
@@ -86,7 +86,7 @@ public class DataManager : MonoBehaviour
         set { enemyInternalDatas = value; }
     }
 
-    
+
 
     Vector3 pos = new Vector3();
 
@@ -160,6 +160,23 @@ public class DataManager : MonoBehaviour
         get { return isAchieveBounties; }
         set { isAchieveBounties = value; }
     }
+
+
+    public struct PlayerDatas
+    {
+        int hp;
+        int attack;
+    }
+
+    private PlayerDatas playerData = new PlayerDatas();
+
+    public PlayerDatas PlayerData
+    {
+        get{ return playerData; }
+        set { playerData = value; }
+        
+    }
+
     //*****************************************************//
     //                                                     //
     //                     丸本記述欄                       //

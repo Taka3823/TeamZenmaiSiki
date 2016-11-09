@@ -7,12 +7,33 @@ using System.IO;
 
 public class ReadScenario : MonoBehaviour
 {
+    private static ReadScenario instance;
+
+    public static ReadScenario Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                Type t = typeof(ReadScenario);
+                instance = (ReadScenario)FindObjectOfType(t);
+
+                if (instance == null)
+                {
+                    Debug.LogError("ReadScenarioのインスタンスがnullです");
+                }
+            }
+            return instance;
+        }
+    }
+
     public struct ScenariosData
     {
         public string command;           //命令コマンド
         public string drawName;          //描画する名前
         public string drawCharacterPos;  //キャラクターを描画する位置
-        public List<string> sentences; //本文
+        //public List<string> sentences; //本文
+        public List<string> sentences;
 
         public List<string> backGroundBgm;     //BGM
         public List<string> soundEffect;       //SE
@@ -33,9 +54,9 @@ public class ReadScenario : MonoBehaviour
         charaSprite        //描画するキャラクターのイラスト
     }
 
-    const string COMMAND_SENTENCE = "Sentence";
-    const string COMMAND_DRAW = "Draw";
-    const string COMMAND_BRANK = "Brank";
+    public const string COMMAND_SENTENCE = "Sentence";
+    public const string COMMAND_DRAW = "Draw";
+    public const string COMMAND_BRANK = "Brank";
 
     private ScenariosData[] scenariosData;
 
@@ -49,30 +70,36 @@ public class ReadScenario : MonoBehaviour
 
     //パスの名前
     //TIPS:必要なCSVファイルの名前をここに登録する
-    private string[] scenarioDictionary =
+    string[] scenarioDictionary =
     {
         "Sample.csv"
     };
 
     string[] didCommaSeparationData;
 
-    void Start()
+    void Awake()
     {
-        //TIPS:本来はこちらを使用する。
-        //ReadFile(DataManager.Instance.ScenarioDictionaryNumber);
-        
-        //現在はデバッグ用のためこうしている
+        if (this != Instance)
+        {
+            Destroy(this);
+        }
+
         ReadFile(0);
+
+        for(int i= 0;i < scenariosData.Length;i++)
+        {
+            Debug.Log(scenariosData[i].sentences);
+        }
     }
 
     //ファイル読み込みをしてくれる
     //第一引数…読み込みたいシナリオの名前を入力。
     //TIPS：内部でファイルまでのパスは記述しているので、名前だけで大丈夫
-    void ReadFile(int dictionaryNumber_)
+    public void ReadFile(int dictionaryNumber_)
     {
         //読み込むパスを決定
         //FIXED:データマネージャーからのデータの受け取りは、
-        //      ReadFileを呼ぶときに引数で渡すほうがいいかも？
+        //ReadFileを呼ぶときに引数で渡すほうがいいかも？
         string path = Application.dataPath + "/CSVFiles/Scenario/" + scenarioDictionary[dictionaryNumber_];
 
         //行にわけられたデータを保存
@@ -103,7 +130,7 @@ public class ReadScenario : MonoBehaviour
         for (int i = 0; i < lines.Length; i++)
         {
             //一行をカンマわけされたデータを格納
-            didCommaSeparationData = DataSeparation(lines[i], commaSplitter, CSVDATA_ELEMENTS-1);
+            didCommaSeparationData = DataSeparation(lines[i], commaSplitter, CSVDATA_ELEMENTS - 1);
 
             scenariosData[i].command = didCommaSeparationData[(int)ElementNames.command];
 
@@ -114,7 +141,7 @@ public class ReadScenario : MonoBehaviour
                 scenariosData[i].soundEffect = new List<string>();
             }
 
-            scenariosData[i].CharaSprite   = new List<string>();
+            scenariosData[i].CharaSprite = new List<string>();
 
             if (scenariosData[i].command == COMMAND_SENTENCE)
             {
@@ -174,8 +201,9 @@ public class ReadScenario : MonoBehaviour
     {
         scenariosData[elementNum_].drawName = didCommaSeparationData[(int)ElementNames.drawName];
         scenariosData[elementNum_].drawCharacterPos = didCommaSeparationData[(int)ElementNames.drawCharacterPos];
-        scenariosData[elementNum_].sentences.Add(didCommaSeparationData[(int)ElementNames.sentences]);
 
+        scenariosData[elementNum_].sentences.Add(didCommaSeparationData[(int)ElementNames.sentences]);
+       
         scenariosData[elementNum_].backGroundBgm.Add(didCommaSeparationData[(int)ElementNames.backGroundBgm]);
         scenariosData[elementNum_].soundEffect.Add(didCommaSeparationData[(int)ElementNames.soundEffect]);
 
@@ -187,11 +215,6 @@ public class ReadScenario : MonoBehaviour
     //第三引数…第一引数のデータの要素数。for文の周回数
     string[] DataSeparation(string lines_, char[] spliter_, int trialNumber_)
     {
-        //TIPS:カンマとカンマの間に何もなかったら格納しないことにする設定だが、
-        //ここでなにも格納しないことにしてしまうと、
-        //後のFor文で""の情報確認ができないため、コメントアウト
-        //System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;
-
         //リターン値。カンマ分けしたデータを一行分格納する。
         string[] CommaSeparationData = new string[trialNumber_];
         for (int i = 0; i < trialNumber_; i++)
