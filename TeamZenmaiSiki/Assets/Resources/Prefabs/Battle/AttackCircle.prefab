@@ -55,7 +55,6 @@ GameObject:
   - 212: {fileID: 212000013340446862}
   - 114: {fileID: 114000013269948390}
   - 58: {fileID: 58000011057910918}
-  - 50: {fileID: 50000014220935488}
   m_Layer: 0
   m_Name: SecondaryCircle
   m_TagString: AttackCircle
@@ -133,23 +132,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011890878166}
   m_RootOrder: 0
---- !u!50 &50000014220935488
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011294862544}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 0
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!58 &58000011057910918
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -192,6 +174,7 @@ MonoBehaviour:
   primaryCircle: {fileID: 1000010092340010}
   angleSpeed: 5
   circleScale: 0.1
+  colliderIsActive: 0
 --- !u!114 &114000013727688294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,7 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primaryCircle: {fileID: 114000011003262736}
-  secondaryCircle: {fileID: 114000013269948390}
+  secondaryCircle: {fileID: 1000011294862544}
+  circleCollider2D: {fileID: 58000011057910918}
 --- !u!212 &212000010349545798
 SpriteRenderer:
   m_ObjectHideFlags: 1

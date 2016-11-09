@@ -6,17 +6,24 @@ public class CircleManager : MonoBehaviour
     [SerializeField]
     PrimaryCircle primaryCircle;
     [SerializeField]
-    SecondaryCircle secondaryCircle;
+    GameObject secondaryCircle;
+
+    [SerializeField]
+    CircleCollider2D circleCollider2D;
+
+    SecondaryCircle secondaryCircleScript;
 
     private int clickCount;
 
 	// Use this for initialization
 	void Start () {
         clickCount = 0;
+        secondaryCircleScript = secondaryCircle.GetComponent<SecondaryCircle>();
+        circleCollider2D = secondaryCircle.GetComponent<CircleCollider2D>();
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void LateUpdate ()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -27,17 +34,22 @@ public class CircleManager : MonoBehaviour
         {
             primaryCircle.PrimaryScaling();
         }
-
-        if (clickCount==1)
+        else if (clickCount==1)
         {
-            if (!secondaryCircle.enabled) secondaryCircle.enabled = true;
+            if (!secondaryCircleScript.enabled) secondaryCircleScript.enabled = true;
 
-            secondaryCircle.SecondaryRotating();
+            secondaryCircleScript.SecondaryRotating();
         }
 
-        if (clickCount == 2)
+        else if (clickCount == 2)
         {
-            secondaryCircle.IsActiveCollider();
+            if (!circleCollider2D.enabled)
+            {
+                //TODO:CircleCollider2Dを有効化する処理
+                circleCollider2D.enabled = true;
+                PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);
+                Debug.Log("isActiveCollider");
+            }
         }
 	}
 }
