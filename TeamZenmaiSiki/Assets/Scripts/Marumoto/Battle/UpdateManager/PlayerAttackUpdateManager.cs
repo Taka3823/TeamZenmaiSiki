@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// PlayerAttackのフェーズにおける「順序を保証したい関数」をこのクラスのUpdateで呼ぶ。
+/// </summary>
 public class PlayerAttackUpdateManager : MonoBehaviour {
     private static PlayerAttackUpdateManager instance;
     public static PlayerAttackUpdateManager Instance
@@ -45,11 +48,9 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         SetCircleColliderEnable(false);
         yield return null;
 
-        Debug.Log("Coroutine");
         HitSequence();
         playerAttackController.ProgressCurrentTargetIndex();
         Destroy(attackCircle);
-        Debug.Log("Destroy AttackCircle!");
     }
 
     /// <summary>
@@ -60,9 +61,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     {
         if (isHit)
         {
-            Debug.Log("isHit");
             Destroy(targetObject);
-            Debug.Log("Destroy TargetObject");
             EnemyManager.Instance.EnemyPosErase();
             playerAttackController.DecreaseCurrentTargetIndex();
             isHit = false;

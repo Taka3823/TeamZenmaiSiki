@@ -57,16 +57,16 @@ public class TurnManager : MonoBehaviour {
         SetupTurnFunctions();
     }
 	
+    void Start()
+    {
+        ButtonManagement();
+    }
+
 	void LateUpdate ()
     {
         if (EnemyNothing())
         {
             ReturnToSearch();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            functionNumber++;
         }
 
         if (functionNumber == turnFunctions.Count) functionNumber = 0;
@@ -102,7 +102,7 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     void EnemyAttack()
     {
-        Debug.Log("EnemyAttack");
+        enemyAttackController.EnemyAttacking();
     }
 
     /// <summary>
@@ -152,12 +152,20 @@ public class TurnManager : MonoBehaviour {
         turnFunctions.Add(EnemyAttack);
     }
 
+    /// <summary>
+    /// エネミーが残り1体であるかを判定。
+    /// </summary>
+    /// <returns>もし1体しかいないのであれば"true",それ以外は"false"</returns>
     private bool EnemyLast()
     {
         if (EnemyManager.Instance.GetEnemyElems() == (int)EnemyElements.LAST) return true;
         return false;
     }
 
+    /// <summary>
+    /// エネミーが0体であるかを判定。
+    /// </summary>
+    /// <returns>もし0体なら"true",それ以外は"false"</returns>
     private bool EnemyNothing()
     {
         if (EnemyManager.Instance.GetEnemyElems() == (int)EnemyElements.NOTHING) return true;

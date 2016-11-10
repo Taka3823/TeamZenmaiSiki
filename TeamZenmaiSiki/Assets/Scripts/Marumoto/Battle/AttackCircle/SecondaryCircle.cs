@@ -12,7 +12,6 @@ public class SecondaryCircle : MonoBehaviour {
     float circleScale;
 
     private Vector2 scaleDiff;
-    private bool isHit;
     public bool colliderIsActive;
     private GameObject deleteObject;
 
@@ -24,28 +23,18 @@ public class SecondaryCircle : MonoBehaviour {
         transform.position = new Vector3(primaryCircle.transform.position.x, 
                                          primaryCircle.transform.position.y + scaleDiff.y, 
                                          0);
-        isHit = false;
         colliderIsActive = false;
-    }
-
-    void Update()
-    {
-        //HitSequence();
-        //Debug.Log(GetComponent<CircleCollider2D>().enabled);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("SecondaryCircle Hit!!");
         PlayerAttackUpdateManager.Instance.SetIsHit(true);
         PlayerAttackUpdateManager.Instance.SetTargetObject(other.gameObject);
-        //ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
-        //ObjToPhaseManager.Instance.SetEraseFlag(true);
-        //ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
-        //Destroy(other.gameObject);
-        //Destroy(this.gameObject.transform.root.gameObject);
     }
 
+    /// <summary>
+    /// SecondaryCircleの回転。
+    /// </summary>
     public void SecondaryRotating()
     {
         if (!GetComponent<SpriteRenderer>().enabled)
@@ -56,38 +45,11 @@ public class SecondaryCircle : MonoBehaviour {
         transform.RotateAround(primaryCircle.transform.position, Vector3.forward, angleSpeed);
     }
 
+    /// <summary>
+    /// CircleCollider2Dを有効化する。
+    /// </summary>
     public void IsActiveCollider()
     {
         colliderIsActive = true;
-    }
-
-    private void HitSequence()
-    {
-        if (GetComponent<CircleCollider2D>().enabled)
-        {
-            if(!isHit)
-            {
-                Debug.Log("Non-Hit");
-                //ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
-                //Destroy(this.gameObject.transform.root.gameObject);
-            }
-            else
-            {
-                Debug.Log("isHit");
-                //ObjToPhaseManager.Instance.SetPosition(this.gameObject.transform.root.gameObject.transform.position);
-                //ObjToPhaseManager.Instance.SetEraseFlag(true);
-                //ObjToPhaseManager.Instance.SetProgressPhaseFlag(true);
-                //Destroy(deleteObject);
-               // Destroy(this.gameObject.transform.root.gameObject);
-                //isHit = false;
-            }
-            colliderIsActive = false;
-        }
-    }
-
-    public void SetColliderEnabled(bool _cond)
-    {
-        this.gameObject.GetComponent<CircleCollider2D>().enabled = _cond;
-        Debug.Log(this.gameObject.GetComponent<CircleCollider2D>().enabled);
     }
 }

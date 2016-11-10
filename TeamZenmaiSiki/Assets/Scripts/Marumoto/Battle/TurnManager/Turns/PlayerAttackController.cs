@@ -26,13 +26,11 @@ public class PlayerAttackController : MonoBehaviour
     {
         if (attackCircle == null)
         {
-            //Debug.Log(currentTargetEnemyIndex);
             //現在ターゲットの敵にサークル描画
 
             attackCircle = (GameObject)Instantiate(prefab,
                             enemiesPos[currentTargetEnemyIndex],
                             Quaternion.identity);
-            Debug.Log("Clear");
             PlayerAttackUpdateManager.Instance.SetAttackCircleObject(attackCircle);
             EnemyManager.Instance.SetCurrentTargetPos(currentTargetEnemyIndex);
         }
