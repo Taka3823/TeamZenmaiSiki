@@ -3,7 +3,10 @@ using System.Collections;
 
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-public class SearchManager : MonoBehaviour {
+using UnityEngine.SceneManagement;
+
+public class SearchManager : MonoBehaviour , ISceneBase
+{
 
 	// Use this for initialization
 	
@@ -53,6 +56,10 @@ public class SearchManager : MonoBehaviour {
     {
         OnTouchDown();
     }
+    public void GoScenario()
+    {
+        SceneChange("Scenario");
+    }
     void OnTouchDown()
     {
 
@@ -76,6 +83,10 @@ public class SearchManager : MonoBehaviour {
                     //Debug.Log("よくわからないもの");
                     MyCanvas.SetInteractive("Button", false);
                 }
+                else if (hit.collider.tag == "Goal")
+                {
+                    ReturnCanvas.setenableReturnUI(true);
+                }
 
             }
             else
@@ -85,5 +96,10 @@ public class SearchManager : MonoBehaviour {
             }
         }
 
+    }
+
+    public void SceneChange(string nextSceneName_)
+    {
+        SceneManager.LoadScene(nextSceneName_);
     }
 }

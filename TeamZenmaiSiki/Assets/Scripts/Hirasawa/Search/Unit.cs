@@ -31,19 +31,7 @@ public class Unit : MonoBehaviour {
    
 
     }
-    void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.name == "Player")
-        {
-            //MyCanvas.SetInteractive("Button", true);
-            for (int i = 0; i < enemyDatas.Count; i++)
-            {
-                Debug.Log(enemyDatas[i].name);
-            }
-            //データをおくる
-        }
-  
-    }
+   
    public void OnTouchDown()
     {
 
@@ -59,29 +47,6 @@ public class Unit : MonoBehaviour {
         MyCanvas.SetInteractive("Button", false);
     }
 
-    void OnTriggerStay(Collider collision)
-    {
-
-        if (collision.gameObject.name == "Player")
-        {
-            MyCanvas.SetInteractive("Button", true);
-            //データをおくる
-        }
-        else {
-            Debug.Log("anotherHit");
-        }
-    }
-    void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.name == "Player")
-        {
-            MyCanvas.SetInteractive("Button", false);
-        }
-        else {
-            Debug.Log("anotherHit");
-        }
-    }
-    
     // Update is called once per frame
     void Update () {
       
