@@ -29,6 +29,9 @@ public class BloodshedProduction : MonoBehaviour
     private float startTime;
     /**/
 
+    [SerializeField]
+    SerchSceneChanger sceneChanger;
+
     Slider slider;
 
     int productTime = 0;
@@ -66,6 +69,8 @@ public class BloodshedProduction : MonoBehaviour
             Debug.Log("SE鳴ったよ！");
             //AudioManager.Instance.PlaySe("SE_Name.wav");
             isProductIn = false;
+
+            sceneChanger.SceneChange("Battle");
         }
     }
 
@@ -82,7 +87,7 @@ public class BloodshedProduction : MonoBehaviour
         }
         /**/
     }
-
+    
     //Easingに使う
     /**
     //第一引数……動かし始める時間

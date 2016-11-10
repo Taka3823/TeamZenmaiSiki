@@ -39,6 +39,7 @@ public class ScenarioManager : MonoBehaviour
     //private float timeUntilDisplay = 0;
     //// 文字列の表示を開始した時間
     //private float timeElapsed = 1;
+   
     //現在の行番号
     private int currentLine = 0;
     ////表示中の文字数
@@ -71,10 +72,10 @@ public class ScenarioManager : MonoBehaviour
         maxScenariosDataElement = scenariosData.Length;
 
 
-       // for(int i= 0;i < scenariosData[])
-        {
+        //for(int i= 0;i < maxScenariosDataElement;i++)
+        //{
 
-        }
+        //}
 
         /**
         for (int i = 0; i < scenariosData.Length; i++)
@@ -207,16 +208,15 @@ public class ScenarioManager : MonoBehaviour
 
     void CommandCheck(int element_)
     {
-        if(scenariosData[element_].command == ReadScenario.COMMAND_SENTENCE)
+        if(scenariosData[element_].command == ReadScenario.COMMAND_SENTENCE ||
+           scenariosData[element_].command == ReadScenario.COMMAND_BRANK)
+        {
+            
+        }
+        else if(scenariosData[element_].command == ReadScenario.COMMAND_DRAW)
         {
 
         }
-       // else if(scenariosData[element_])
-        {
-
-        }
-
     }
-
 }
 
