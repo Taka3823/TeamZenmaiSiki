@@ -50,6 +50,7 @@ public class TurnManager : MonoBehaviour {
     private List<Functions> turnFunctions;  //ターンのフェーズごとに関数に格納
     private int functionNumber;             //現在の関数のID
     private int oldID;                      //1フレーム前のFunctionID
+    private bool libraCheck;                //Libra画面を一度確認したかどうか。
 
     void Awake()
     {
@@ -85,6 +86,10 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     void Libra()
     {
+        if (libraCheck)
+        {
+            ProgressFunction();
+        }
         //TODO:長押しで情報表示
         //Debug.Log("Libra");
     }
@@ -94,6 +99,7 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     void PlayerAttack()
     {
+        if (!libraCheck) libraCheck = true;
         playerAttackController.GenerateAttackCircle();
     }
 
@@ -106,37 +112,13 @@ public class TurnManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// フェーズごとにボタンの状態を管理する。
+    /// ボタンの状態を変更。
     /// </summary>
-    void ButtonManagement()
+    public void ButtonManagement()
     {
-        //ターン先頭（Libra関数）での処理
-        if (functionNumber == (int)FunctionID.LIBRA)
+        if (EnemyLast())
         {
-            if (!EnemyLast())
-            {
-                buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
-                buttonManager[(int)ButtonID.ATTACK].SetInteractable(true);
-            }
-            else
-            {
-                buttonManager[(int)ButtonID.AVOID].SetInteractable(true);
-                buttonManager[(int)ButtonID.ATTACK].SetInteractable(true);
-            }
-        }
-
-        //プレイヤーのアタックフェーズ時処理
-        if (functionNumber == (int)FunctionID.PLAYER_ATTACK)
-        {
-            buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
-            buttonManager[(int)ButtonID.ATTACK].SetInteractable(false);
-        }
-
-        //エネミーのアタックフェーズ時処理
-        if (functionNumber == (int)FunctionID.ENEMY_ATTACK)
-        {
-            buttonManager[(int)ButtonID.AVOID].SetInteractable(false);
-            buttonManager[(int)ButtonID.ATTACK].SetInteractable(false);
+            CanAvoid();
         }
     }
 
@@ -145,6 +127,7 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     private void SetupTurnFunctions()
     {
+        libraCheck = false;
         functionNumber = 0;
         turnFunctions = new List<Functions>();
         turnFunctions.Add(Libra);
@@ -170,6 +153,14 @@ public class TurnManager : MonoBehaviour {
     {
         if (EnemyManager.Instance.GetEnemyElems() == (int)EnemyElements.NOTHING) return true;
         return false;
+    }
+
+    /// <summary>
+    /// 逃げるボタンを有効化。
+    /// </summary>
+    private void CanAvoid()
+    {
+        buttonManager[(int)ButtonID.AVOID].SetInteractable(true);
     }
 
     public void ProgressFunction() { functionNumber++; }

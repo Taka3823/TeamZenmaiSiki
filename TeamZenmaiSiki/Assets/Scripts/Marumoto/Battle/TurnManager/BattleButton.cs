@@ -5,5 +5,6 @@ public class BattleButton : MonoBehaviour {
     public void BattleStart()
     {
         TurnManager.Instance.ProgressFunction();
+        Destroy(this.gameObject);
     }
 }
