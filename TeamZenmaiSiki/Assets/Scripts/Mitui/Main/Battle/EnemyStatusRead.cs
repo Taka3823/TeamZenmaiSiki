@@ -6,7 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class EnemyStatusRead : MonoBehaviour
 {
-    private List<EnemyData.EnemyInternalDatas> list;
+    public GameObject EnemyModel1;
+    public GameObject EnemyModel2;
+    public GameObject EnemyModel3;
+
+    void EnemySpawn()
+    {
+        // エネミーの数に応じて敵表示
+        if (DataManager.Instance.EnemyInternalDatas.Count == 1)
+        {
+            Instantiate(EnemyModel1, new Vector3(0, 0, 0), Quaternion.identity);
+        }
+
+        if (DataManager.Instance.EnemyInternalDatas.Count == 2)
+        {
+            Instantiate(EnemyModel1, new Vector3(-2, 0, 0), Quaternion.identity);
+            Instantiate(EnemyModel2, new Vector3(2, 0, 0), Quaternion.identity);
+        }
+        if (DataManager.Instance.EnemyInternalDatas.Count == 3)
+        {
+            Instantiate(EnemyModel1, new Vector3(-3, 0, 0), Quaternion.identity);
+            Instantiate(EnemyModel2, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(EnemyModel3, new Vector3(3, 0, 0), Quaternion.identity);
+        }
+    }
+
     void EnemyRead()
     {
         // エネミーのサーチテンプレ(この場合敵１体目のコアの名前)
@@ -14,10 +38,13 @@ public class EnemyStatusRead : MonoBehaviour
         //Debug.Log(str);
         //DataManager.Instance.EnemyInternalDatas
 
+
         // サーチから敵データを読み込む
         for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; i++)
         {
-            Debug.Log(DataManager.Instance.EnemyInternalDatas[i].name);
+            int a = DataManager.Instance.EnemyInternalDatas[0].age;
+            Debug.Log(a);
+            Debug.Log(DataManager.Instance.EnemyInternalDatas[i].age);
         }
 
     }
@@ -26,24 +53,13 @@ public class EnemyStatusRead : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // 仮置き
-        //list = new List<EnemyData.EnemyInternalDatas>();
-        //for(int i = 0; i < 3; i++)
-        //{
-        //    EnemyData.EnemyInternalDatas buf;
-        //    buf = new EnemyData.EnemyInternalDatas();
-        //    buf.name = "mitsui" + i.ToString();
-        //    buf.mainHp = 10 + i;
-        //    buf.mainPower = 5 + i;
-        //    list.Add(buf);
-        //}
+        EnemySpawn();
         EnemyRead();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //list[0]
     }
 
 }
