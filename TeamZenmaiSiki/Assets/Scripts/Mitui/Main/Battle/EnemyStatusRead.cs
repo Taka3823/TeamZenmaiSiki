@@ -6,60 +6,70 @@ using UnityEngine.SceneManagement;
 
 public class EnemyStatusRead : MonoBehaviour
 {
-    public GameObject EnemyModel1;
-    public GameObject EnemyModel2;
-    public GameObject EnemyModel3;
-
-    void EnemySpawn()
-    {
-        // エネミーの数に応じて敵表示
-        if (DataManager.Instance.EnemyInternalDatas.Count == 1)
-        {
-            Instantiate(EnemyModel1, new Vector3(0, 0, 0), Quaternion.identity);
-        }
-
-        if (DataManager.Instance.EnemyInternalDatas.Count == 2)
-        {
-            Instantiate(EnemyModel1, new Vector3(-2, 0, 0), Quaternion.identity);
-            Instantiate(EnemyModel2, new Vector3(2, 0, 0), Quaternion.identity);
-        }
-        if (DataManager.Instance.EnemyInternalDatas.Count == 3)
-        {
-            Instantiate(EnemyModel1, new Vector3(-3, 0, 0), Quaternion.identity);
-            Instantiate(EnemyModel2, new Vector3(0, 0, 0), Quaternion.identity);
-            Instantiate(EnemyModel3, new Vector3(3, 0, 0), Quaternion.identity);
-        }
-    }
+    [SerializeField]
+    Text[] enemyName;
+    [SerializeField]
+    Text[] age;
+    [SerializeField]
+    Text[] bloodType;
+    [SerializeField]
+    Text[] mainHp;
+    [SerializeField]
+    Text[] mainPower;
+    [SerializeField]
+    Text[] defence;
 
     void EnemyRead()
     {
-        // エネミーのサーチテンプレ(この場合敵１体目のコアの名前)
-        //string str = SearchManager.Instance.getBattleEnemyDatas()[0].coreName[0];
-        //Debug.Log(str);
-        //DataManager.Instance.EnemyInternalDatas
+        List<EnemyData.EnemyInternalDatas> enemyData = DataManager.Instance.EnemyInternalDatas;
 
-
-        // サーチから敵データを読み込む
-        for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; i++)
+        for (int i = 0; i < enemyData.Count; i++)
         {
-            int a = DataManager.Instance.EnemyInternalDatas[0].age;
-            Debug.Log(a);
-            Debug.Log(DataManager.Instance.EnemyInternalDatas[i].age);
+            enemyName[i].text = "名前: " + enemyData[i].name;
+            age[i].text = "年齢: " + enemyData[i].age;
+            bloodType[i].text = "血液型: " + enemyData[i].bloodType;
+            mainHp[i].text = "HP: " + enemyData[i].mainHp;
+            mainPower[i].text = "ATK: " + enemyData[i].mainPower;
+            defence[i].text = "DEF: " + enemyData[i].mainDefense;
         }
-
     }
 
 
     // Use this for initialization
     void Start()
     {
-        EnemySpawn();
+        //EnemySpawn();
         EnemyRead();
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+
+
+    [SerializeField]
+    GameObject[] enemyModel;
+    void EnemySpawn()
+    {
+        // エネミーの数に応じて敵表示
+        if (DataManager.Instance.EnemyInternalDatas.Count == 1)
+        {
+            Instantiate(enemyModel[0], new Vector3(0, 0, 0), Quaternion.identity);
+        }
+
+        if (DataManager.Instance.EnemyInternalDatas.Count == 2)
+        {
+            Instantiate(enemyModel[0], new Vector3(-2, 0, 0), Quaternion.identity);
+            Instantiate(enemyModel[1], new Vector3(2, 0, 0), Quaternion.identity);
+        }
+        if (DataManager.Instance.EnemyInternalDatas.Count == 3)
+        {
+            Instantiate(enemyModel[0], new Vector3(-3, 0, 0), Quaternion.identity);
+            Instantiate(enemyModel[1], new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(enemyModel[2], new Vector3(3, 0, 0), Quaternion.identity);
+        }
     }
 
 }
