@@ -4,8 +4,8 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
     private bool scrollStartFlg = false; // スクロールが始まったかのフラグ
     private Vector3 scrollStartPos  =   new Vector3(); // スクロールの起点となるタッチポジション
-    private static float SCROLL_END_LEFT = -15f; // 左側への移動制限(これ以上左には進まない)
-    private static float SCROLL_END_RIGHT = 15f; // 右側への移動制限(これ以上右には進まない)
+    private static float SCROLL_END_LEFT = 0.0f; // 左側への移動制限(これ以上左には進まない)
+    private static float SCROLL_END_RIGHT = 37f; // 右側への移動制限(これ以上右には進まない)
     private static float SCROLL_DISTANCE_CORRECTION = 0.8f; // スクロール距離の調整
 
     private Vector3 touchPosition   =   new Vector3(); // タッチポジション初期化
@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour {
                 // タッチ位置にオブジェクトがあったらそのオブジェクトを取得する
                 // スクロール移動とオブジェクトタッチの処理を区別するために記載しました
                 GameObject obj = collide2dObj.transform.gameObject;
-                Debug.Log(obj.name);
+                //Debug.Log(obj.name);
             }
             else {
                 // タッチした場所に何もない場合、スクロールフラグをtrueに

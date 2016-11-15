@@ -26,15 +26,9 @@ public class Unit : MonoBehaviour {
 
 
     }
-	public void veiw()
-    {
-   
 
-    }
-   
    public void OnTouchDown()
     {
-
         SearchManager.Instance.setEnemyDatas(enemyDatas);
         for (int i = 0; i < enemyDatas.Count; i++)
         {
@@ -45,6 +39,7 @@ public class Unit : MonoBehaviour {
             }
         }
         MyCanvas.SetInteractive("Button", false);
+
     }
 
     // Update is called once per frame

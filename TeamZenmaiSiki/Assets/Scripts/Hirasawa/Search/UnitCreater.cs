@@ -11,6 +11,7 @@ public class UnitCreater : MonoBehaviour {
    
     private int createNum;
     private List<Vector3> UnitPos;
+    private List<string> unittexlist;
     void Awake()
     {
 
@@ -21,6 +22,7 @@ public class UnitCreater : MonoBehaviour {
         int stageNum = 1;
         createNum = new int();
         UnitPos = new List<Vector3>();
+        unittexlist = new List<string>();
         ReadUnitData(episodeNum, stageNum);
         ReadEnemyData(episodeNum, stageNum);
         CreateUnit();
@@ -49,6 +51,7 @@ public class UnitCreater : MonoBehaviour {
             pos.y = float.Parse(strPos[1]);
             pos.z = float.Parse(strPos[2]);
             UnitPos.Add(pos);
+            unittexlist.Add(strPos[3]);
         }
        
        
@@ -75,10 +78,18 @@ public class UnitCreater : MonoBehaviour {
                 enemyDataList.Add(buf);//それぞれのデータを格納
             }
             unitObj.GetComponent<Unit>().setEnemyDatas(enemyDataList);
+           
+            string pass =
+            "Sprits/Search/Character";
+            Debug.Log(pass);
+            //Sprite image = Resources.Load<Sprite>(pass);
+            //Debug.Log(image.name);
+            Sprite sprite = new Sprite();
+            unitObj.GetComponent<SpriteRenderer>().sprite = GetSprite(pass, unittexlist[i]);
             //dataBuf.name = "aaa";
             //unitObj.GetComponent<Unit>().setEnemyDatas(dataBuf);
         }
-        
+
     }
 
     private void ReadEnemyData(int episodeNum, int stageNum)
@@ -89,9 +100,10 @@ public class UnitCreater : MonoBehaviour {
             enemyDataReader.ReadData(episodeNum, stageNum, i + 1);
         }
     }
-    private void AddEnemyDataToUnits()
+    private Sprite GetSprite(string fileName, string spriteName)
     {
-
+        Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);
+        return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals(spriteName));
     }
-   
+
 }
