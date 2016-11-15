@@ -66,16 +66,12 @@ public class SearchManager : MonoBehaviour , ISceneBase
         if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit = new RaycastHit();
-
-            if (Physics.Raycast(ray, out hit))
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if(hit)
             {
-
                 GameObject obj = hit.collider.gameObject;
-
                 if (hit.collider.gameObject.tag == "Unit")
                 {
-                    //Debug.Log("Unit");
                     obj.GetComponent<Unit>().OnTouchDown();
                 }
                 else if (hit.collider.tag == "Untagged")
@@ -91,7 +87,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
             }
             else
             {
-                //Debug.Log("はずれ");
+                Debug.Log("はずれ");
                 MyCanvas.SetInteractive("Button", false);
             }
         }
