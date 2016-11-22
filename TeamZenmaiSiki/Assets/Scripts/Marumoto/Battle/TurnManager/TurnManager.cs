@@ -43,9 +43,6 @@ public class TurnManager : MonoBehaviour {
     [SerializeField]
     EnemyAttackController enemyAttackController;
 
-    [SerializeField]
-    bool enemyLast;                         //エネミーが最後の１体かどうか
-
     private delegate void Functions();      //関数のデリゲート型
     private List<Functions> turnFunctions;  //ターンのフェーズごとに関数に格納
     private int functionNumber;             //現在の関数のID
