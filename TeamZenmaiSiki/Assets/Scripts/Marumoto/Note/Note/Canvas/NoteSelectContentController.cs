@@ -18,12 +18,15 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
     private Vector3 endPos = new Vector3();
     private float startTime;
     private bool curveIsActive = false;
+    private int currentTargetIndex = 0;
+    private int noteSelectContentsElem = 0;
 
     void Start()
     {
         moveDistance = new Vector3(1334.0f, 0.0f, 0.0f);
         startPos = transform.localPosition;
         endPos = transform.localPosition - moveDistance;
+        noteSelectContentsElem = GameObject.FindGameObjectsWithTag("NoteSelect").Length;
     }
 
     void Update()
@@ -55,6 +58,12 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         if (_eventData.delta.x < -enableFlickValue)
         {
             if (curveIsActive) return;
+            currentTargetIndex++;
+            if (currentTargetIndex >= noteSelectContentsElem)
+            {
+                currentTargetIndex--;
+                return;
+            }
             EasingSetup();
             endPos = startPos - moveDistance;
         }
@@ -63,6 +72,12 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         else if (_eventData.delta.x > enableFlickValue)
         {
             if (curveIsActive) return;
+            currentTargetIndex--;
+            if (currentTargetIndex < 0)
+            {
+                currentTargetIndex++;
+                return;
+            }
             EasingSetup();
             endPos = startPos + moveDistance;
         }
