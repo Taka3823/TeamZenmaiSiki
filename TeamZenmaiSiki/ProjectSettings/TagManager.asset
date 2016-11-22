@@ -12,6 +12,7 @@ TagManager:
   - InfoTab
   - BattleButton
   - Goal
+  - NoteSelect
   layers:
   - Default
   - TransparentFX
