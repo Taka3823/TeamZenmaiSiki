@@ -25,6 +25,13 @@ public class DataManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        //デバッグ用
+        DataManager.Instance.TargetName.Add("クック");
+        DataManager.Instance.TargetName.Add("エンリケス");
+        DataManager.Instance.TargetName.Add("アリアス");
+        DataManager.Instance.TargetName.Add("サリー");
+        DataManager.Instance.TargetName.Add("ベネット");
     }
 
     //*****************************************************//
@@ -32,11 +39,20 @@ public class DataManager : MonoBehaviour
     //                     岩野記述欄                       //
     //                                                     //
     //*****************************************************//
-
-    //呼び出すシナリオのID
+   
+    //呼び出すシナリオのEpナンバー
     private int scenarioDictionaryNumber;
 
     public int ScenarioDictionaryNumber
+    {
+        get { return scenarioDictionaryNumber; }
+        set { scenarioDictionaryNumber = value; }
+    }
+
+    //呼び出すシナリオのEpの何節かの数字
+    private int scenarioSectionDictionaryNumber;
+
+    public int ScenarioSectionDictionaryNumber
     {
         get { return scenarioDictionaryNumber; }
         set { scenarioDictionaryNumber = value; }
@@ -176,6 +192,9 @@ public class DataManager : MonoBehaviour
         set { playerData = value; }
         
     }
+
+    int episodeNum;
+    int sectionNum;
 
     //*****************************************************//
     //                                                     //

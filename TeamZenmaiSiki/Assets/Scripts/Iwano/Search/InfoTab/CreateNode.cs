@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
 public class CreateNode : MonoBehaviour
 {
     //ノードのプレハブ
@@ -15,12 +13,7 @@ public class CreateNode : MonoBehaviour
 
     void Awake()
     {
-       //デバッグ用
-        DataManager.Instance.TargetName.Add("田中太郎");
-        DataManager.Instance.TargetName.Add("砂糖次郎");
-        DataManager.Instance.TargetName.Add("里中一郎");
-        DataManager.Instance.TargetName.Add("丸太中俊介");
-        DataManager.Instance.TargetName.Add("五郎丸五郎");
+       
     }
 
     // Use this for initialization

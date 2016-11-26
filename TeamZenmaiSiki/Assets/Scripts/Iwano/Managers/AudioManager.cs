@@ -65,12 +65,12 @@ public class AudioManager : MonoBehaviour
 
         foreach(AudioClip bgm in bgmList)
         {
-            bgmDictionary[bgm.name] = bgm;
+            bgmDictionary.Add(bgm.name + ".ogg", bgm);
         }
 
         foreach(AudioClip se in seList)
         {
-            seDictionary[se.name] = se;
+            seDictionary.Add(se.name + ".wav", se);
         }
     }
 

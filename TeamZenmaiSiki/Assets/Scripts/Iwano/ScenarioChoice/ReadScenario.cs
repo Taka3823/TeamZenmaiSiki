@@ -32,13 +32,18 @@ public class ReadScenario : MonoBehaviour
         public string command;           //命令コマンド
         public string drawName;          //描画する名前
         public string drawCharacterPos;  //キャラクターを描画する位置
-        //public List<string> sentences; //本文
+
         public List<string> sentences;
+
+        public List<string> backGround;
 
         public List<string> backGroundBgm;     //BGM
         public List<string> soundEffect;       //SE
 
-        public List<string> CharaSprite;     //描画するキャラクターのイラスト
+        //FIXED:
+        //キャラクターが一つの要素中に二つ描画されることはないので、
+        //List型にしているのは間違い。α版提出後に修正すること
+        public List<string> charaSprite;     //描画するキャラクターのイラスト
     }
 
     enum ElementNames
@@ -47,6 +52,8 @@ public class ReadScenario : MonoBehaviour
         drawName,          //描画する名前
         drawCharacterPos,  //キャラクターを描画する位置
         sentences,         //本文
+
+        backGround,        //背景
 
         backGroundBgm,     //BGM
         soundEffect,       //SE
@@ -82,13 +89,6 @@ public class ReadScenario : MonoBehaviour
         if (this != Instance)
         {
             Destroy(this);
-        }
-
-        ReadFile(0);
-
-        for(int i= 0;i < scenariosData.Length;i++)
-        {
-            Debug.Log(scenariosData[i].sentences);
         }
     }
 
@@ -130,7 +130,7 @@ public class ReadScenario : MonoBehaviour
         for (int i = 0; i < lines.Length; i++)
         {
             //一行をカンマわけされたデータを格納
-            didCommaSeparationData = DataSeparation(lines[i], commaSplitter, CSVDATA_ELEMENTS - 1);
+            didCommaSeparationData = DataSeparation(lines[i], commaSplitter, CSVDATA_ELEMENTS);
 
             scenariosData[i].command = didCommaSeparationData[(int)ElementNames.command];
 
@@ -141,9 +141,11 @@ public class ReadScenario : MonoBehaviour
                 scenariosData[i].soundEffect = new List<string>();
             }
 
-            scenariosData[i].CharaSprite = new List<string>();
+            scenariosData[i].charaSprite = new List<string>();
+            scenariosData[i].backGround = new List<string>();
 
-            if (scenariosData[i].command == COMMAND_SENTENCE)
+            if (scenariosData[i].command == COMMAND_SENTENCE ||
+                scenariosData[i].command == COMMAND_BRANK)
             {
                 StorageAll(i);
             }
@@ -164,7 +166,7 @@ public class ReadScenario : MonoBehaviour
         //１つ前のコマンドが「Sentence」か「Brank」の場合、
         //１つ前の要素を指定して必要なデータだけ格納
         if (scenariosData[elementNum_ - 1].command == COMMAND_SENTENCE ||
-           scenariosData[elementNum_ - 1].command == COMMAND_BRANK)
+            scenariosData[elementNum_ - 1].command == COMMAND_BRANK)
         {
             AdditionalStorage(elementNum_ - 1);
         }
@@ -180,7 +182,8 @@ public class ReadScenario : MonoBehaviour
     void StorageForDrawCommand(int elementNum_)
     {
         scenariosData[elementNum_].drawCharacterPos = didCommaSeparationData[(int)ElementNames.drawCharacterPos];
-        scenariosData[elementNum_].CharaSprite.Add(didCommaSeparationData[(int)ElementNames.charaSprite]);
+        scenariosData[elementNum_].backGround.Add(didCommaSeparationData[(int)ElementNames.backGround]);
+        scenariosData[elementNum_].charaSprite.Add(didCommaSeparationData[(int)ElementNames.charaSprite]);
     }
 
     //Addするものだけ格納
@@ -191,9 +194,11 @@ public class ReadScenario : MonoBehaviour
         scenariosData[elementNum_].backGroundBgm.Add(didCommaSeparationData[(int)ElementNames.backGroundBgm]);
         scenariosData[elementNum_].soundEffect.Add(didCommaSeparationData[(int)ElementNames.soundEffect]);
 
+        scenariosData[elementNum_].backGround.Add(didCommaSeparationData[(int)ElementNames.backGround]);
+
         //TIPS：CharaSpriteは本来格納しなくてもいいが、ランダムアクセスする都合上、
         //空データも入れておかなければいけないため格納している
-        scenariosData[elementNum_].CharaSprite.Add(didCommaSeparationData[(int)ElementNames.charaSprite]);
+        scenariosData[elementNum_].charaSprite.Add(didCommaSeparationData[(int)ElementNames.charaSprite]);
     }
 
     //全要素を格納
@@ -203,11 +208,13 @@ public class ReadScenario : MonoBehaviour
         scenariosData[elementNum_].drawCharacterPos = didCommaSeparationData[(int)ElementNames.drawCharacterPos];
 
         scenariosData[elementNum_].sentences.Add(didCommaSeparationData[(int)ElementNames.sentences]);
+
+        scenariosData[elementNum_].backGround.Add(didCommaSeparationData[(int)ElementNames.backGround]);
        
         scenariosData[elementNum_].backGroundBgm.Add(didCommaSeparationData[(int)ElementNames.backGroundBgm]);
         scenariosData[elementNum_].soundEffect.Add(didCommaSeparationData[(int)ElementNames.soundEffect]);
 
-        scenariosData[elementNum_].CharaSprite.Add(didCommaSeparationData[(int)ElementNames.charaSprite]);
+        scenariosData[elementNum_].charaSprite.Add(didCommaSeparationData[(int)ElementNames.charaSprite]);
     }
 
     //第一引数…ReadCsvData関数で一行にされたデータ

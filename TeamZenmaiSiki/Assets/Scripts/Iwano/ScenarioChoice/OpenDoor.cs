@@ -38,26 +38,27 @@ public class OpenDoor : MonoBehaviour
 
         //エンドポジションの決定
         endPositon[0] = rightEye.transform.localPosition + endPositionDistance[0];
-        endPositon[1] = leftEye.transform.localPosition  + endPositionDistance[1];
+        endPositon[1] = leftEye.transform.localPosition + endPositionDistance[1];
     }
 
     void Update()
     {
-        if(canEasing)
+        if (canEasing)
         {
             StartEasing(startTime);
         }
-        if(DataManager.Instance.IsAppAwake)
+        if (DataManager.Instance.IsAppAwake)
         {
             Destroy(rightEye);
             Destroy(leftEye);
         }
     }
-    
+
     //第一引数……動かし始める時間
     //第二引数……シーンを遷移させるまでの時間。兼、Easingで目的地に到着させる時間
     void StartEasing(float startTime_)
     {
+        
         var diff = Time.timeSinceLevelLoad - startTime_;
 
         if (diff > moveTime)
@@ -71,9 +72,9 @@ public class OpenDoor : MonoBehaviour
         var pos = curve.Evaluate(rate);
 
         rightEye.transform.localPosition = Vector3.Lerp(startPosition[0], endPositon[0], pos);
-        leftEye.transform.localPosition  = Vector3.Lerp(startPosition[1], endPositon[1], pos);
+        leftEye.transform.localPosition = Vector3.Lerp(startPosition[1], endPositon[1], pos);
 
-        if(rate >= 1)
+        if (rate >= 1)
         {
             DataManager.Instance.IsAppAwake = true;
         }
@@ -81,10 +82,13 @@ public class OpenDoor : MonoBehaviour
 
     public void OnClick()
     {
-        if(!canEasing)
+        if (!canEasing)
         {
             canEasing = true;
             startTime = Time.timeSinceLevelLoad;
+
         }
     }
+
+   
 }
