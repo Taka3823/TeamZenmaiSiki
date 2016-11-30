@@ -44,6 +44,9 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         get { return Time.time > timeElapsed + timeUntilDisplay; }
     }
 
+    //bool isDivide = false;
+
+
     void Start()
     {
         //TIPS:現在はデバッグ用にこうしている
@@ -89,13 +92,29 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
                 timeUntilDisplay = 0;
             }
         }
-        
+
+        //if(isDivide)
+        //{
+        //    displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * (drawSentences[lineNumber].Length));
+        //}
+        //else if(!isDivide)
+        //{
+        //    displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * (drawSentences[lineNumber].Length))+ 1;
+        //}
+
+
         //クリックから経過した時間が想定表示時間の何%か確認し、表示文字数を出す
-        int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * drawSentences[lineNumber].Length);
+        int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * drawSentences[lineNumber].Length + 1);
+
 
         // 表示文字数が前回の表示文字数と異なるならテキストを更新する
         if (displayCharacterCount != lastUpdateCharacter)
         {
+            if(drawSentences[lineNumber].Length < displayCharacterCount)
+            {
+                displayCharacterCount = drawSentences[lineNumber].Length;
+            }
+
             uiText[lineNumber].text = drawSentences[lineNumber].Substring(0, displayCharacterCount);
             lastUpdateCharacter = displayCharacterCount;
         }
@@ -136,6 +155,15 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     void ExcuteSentenceSystem(int elementNum_)
     {
         drawSentences[elementNum_] = scenariosData[currentLine].sentences[elementNum_];
+
+        //if (drawSentences[lineNumber].Length % 2f != 0)
+        //{
+        //    isDivide = false;
+        //}
+        //else
+        //{
+        //    isDivide = true;
+        //}
 
         if (scenariosData[currentLine].charaSprite[elementNum_] != "" &&
             scenariosData[currentLine].drawCharacterPos != "")
