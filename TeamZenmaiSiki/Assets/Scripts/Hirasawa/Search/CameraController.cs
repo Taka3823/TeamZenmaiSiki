@@ -17,53 +17,53 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetMouseButton(0))
-        {
+	//void Update () {
+ //       if (Input.GetMouseButton(0))
+ //       {
 
-            touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            collide2dObj = Physics2D.OverlapPoint(touchPosition);
+ //           touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+ //           collide2dObj = Physics2D.OverlapPoint(touchPosition);
 
-            if (scrollStartFlg == false && collide2dObj)
-            {
-                // タッチ位置にオブジェクトがあったらそのオブジェクトを取得する
-                // スクロール移動とオブジェクトタッチの処理を区別するために記載しました
-                GameObject obj = collide2dObj.transform.gameObject;
-                //Debug.Log(obj.name);
-            }
-            else {
-                // タッチした場所に何もない場合、スクロールフラグをtrueに
-                scrollStartFlg = true;
-                if (scrollStartPos.x == 0.0f)
-                {
-                    // スクロール開始位置を取得
-                    scrollStartPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                }
-                else {
-                    Vector2 touchMovePos = touchPosition;
-                    if (scrollStartPos.x != touchMovePos.x)
-                    {
-                        // 直前のタッチ位置との差を取得する
-                        float diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos.x - scrollStartPos.x);
+ //           if (scrollStartFlg == false && collide2dObj)
+ //           {
+ //               // タッチ位置にオブジェクトがあったらそのオブジェクトを取得する
+ //               // スクロール移動とオブジェクトタッチの処理を区別するために記載しました
+ //               GameObject obj = collide2dObj.transform.gameObject;
+ //               //Debug.Log(obj.name);
+ //           }
+ //           else {
+ //               // タッチした場所に何もない場合、スクロールフラグをtrueに
+ //               scrollStartFlg = true;
+ //               if (scrollStartPos.x == 0.0f)
+ //               {
+ //                   // スクロール開始位置を取得
+ //                   scrollStartPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+ //               }
+ //               else {
+ //                   Vector2 touchMovePos = touchPosition;
+ //                   if (scrollStartPos.x != touchMovePos.x)
+ //                   {
+ //                       // 直前のタッチ位置との差を取得する
+ //                       float diffPos = SCROLL_DISTANCE_CORRECTION * (touchMovePos.x - scrollStartPos.x);
 
-                        Vector3 pos = this.transform.position;
-                        pos.x -= diffPos;
-                        // スクロールが制限を超過する場合、処理を止める
-                        if (pos.x > SCROLL_END_RIGHT || pos.x < SCROLL_END_LEFT)
-                        {
+ //                       Vector3 pos = this.transform.position;
+ //                       pos.x -= diffPos;
+ //                       // スクロールが制限を超過する場合、処理を止める
+ //                       if (pos.x > SCROLL_END_RIGHT || pos.x < SCROLL_END_LEFT)
+ //                       {
                            
-                            return;
-                        }
-                        this.transform.position = pos;
-                        scrollStartPos = touchMovePos;
-                    }
-                }
-            }
-        }
-        else {
-            // タッチを離したらフラグを落とし、スクロール開始位置も初期化する 
-            scrollStartFlg = false;
-            scrollStartPos = new Vector2();
-        }
-    }
+ //                           return;
+ //                       }
+ //                       this.transform.position = pos;
+ //                       scrollStartPos = touchMovePos;
+ //                   }
+ //               }
+ //           }
+ //       }
+ //       else {
+ //           // タッチを離したらフラグを落とし、スクロール開始位置も初期化する 
+ //           scrollStartFlg = false;
+ //           scrollStartPos = new Vector2();
+ //       }
+ //   }
 }

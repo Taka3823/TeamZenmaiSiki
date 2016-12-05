@@ -12,7 +12,7 @@ public class EnemyData : MonoBehaviour {
         public int age;
         public string sex;
         public string bloodType;
-        public string memos;
+        public string[] memos;
 
         public int mainHp;
         public int mainPower;
@@ -30,7 +30,7 @@ public class EnemyData : MonoBehaviour {
     public enum EnemyDataIndex
     {
         ISBATTLE,
-        NAME,AGE,SEX,BLOODTYPE,MEMOS,
+        NAME,AGE,SEX,BLOODTYPE,MEMOS1,MEMOS2,
         MAINHP,MAINPOWER,MAINDEFENCE, BATTLETEXTUREPASS, COLLISIONPASS,
         CORENUM,CORENAME,COREHP,
         COREPOWER,COREDEFENCE,
