@@ -80,11 +80,8 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!RayCast("InfoTab"))
-        {
-            Debug.Log("return");
-            return;
-        }
+        if (!RayCast("InfoTab")) return;
+
         startPos = eventData.position.x;
     }
 
@@ -107,8 +104,6 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     bool RayCast(string tagName_)
     {
-        Debug.Log(" raycast ");
-
         //カメラの場所からポインタの場所に向かってレイを飛ばす
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit = new RaycastHit();
@@ -119,17 +114,10 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             //当たったオブジェクトを格納
             GameObject obj = hit.collider.gameObject;
 
-            Debug.Log(" HIT ");
             if (obj.CompareTag(tagName_))
             {
-
                 return true;
-
             }
-        }
-        else
-        {
-            Debug.Log(" NoHIT ");
         }
         return false;
     }
