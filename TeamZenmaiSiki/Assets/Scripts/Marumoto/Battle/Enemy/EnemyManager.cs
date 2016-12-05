@@ -38,6 +38,9 @@ public class EnemyManager : MonoBehaviour {
         var refObj = GameObject.FindGameObjectsWithTag("Enemy");
         enemyElems = refObj.Length;
 
+        GameObject temp = refObj[0];
+        refObj[0] = refObj[1];
+        refObj[1] = temp;
 
         for (int i = 0; i < refObj.Length; i++)
         {
