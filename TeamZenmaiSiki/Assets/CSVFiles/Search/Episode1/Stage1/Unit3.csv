@@ -1,3 +1,3 @@
-�키���ǂ���,�G�̖��O,�N��,����,���t�^,�ꌾ����,HP,�U����,�h���,�o�g���Ŏg���e�N�X�`���[,�����蔻��̃t�@�C��,�R�A�̐�,�R�A�̖��O�P,�R�A��HP�P,�R�A�̍U���͂P,�R�A�̖h��͂P,�R�A�̖��O�Q,�R�A��HP�Q,�R�A�̍U���͂Q,�R�A�̖h��͂Q,�R�A�̖��O�R,�R�A��HP�R,�R�A�̍U���͂R,�R�A�̖h��͂R
-0,hiroshi,25,men,B,huoooooo,10,5,6,battle.png,battlecoli.png,3,ude,5,5,10,ahi,8,3,4,kata,7,9,6
-0,nomoto,30,men,B,huoooooo,10,5,6,battle.png,battlecoli.png,3,ude,5,5,10,ahi,8,3,4,kata,7,9,7
+﻿戦うかどうか,敵の名前,年齢,性別,血液型,一言メモ1,一言メモ2,HP,攻撃力,防御力,バトルで使うテクスチャー,当たり判定のファイル,コアの数,コアの名前１,コアのHP１,コアの攻撃力１,コアの防御力１,コアの名前２,コアのHP２,コアの攻撃力２,コアの防御力２,コアの名前３,コアのHP３,コアの攻撃力３,コアの防御力３
+いいえ,のもと,25,men,B,あんぽんたん,げきおこ,15,5,6,battle.png,battlecoli.csv,3,ude,5,5,10,ahi,8,3,4,kata,7,9,6
+はい,ジョージ,30,men,B,huoooooo,おなかすいた,10,5,6,battle.png,battlecoli.csv,3,ude,5,5,10,ahi,8,3,4,kata,7,9,7
