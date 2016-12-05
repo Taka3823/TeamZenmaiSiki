@@ -10,7 +10,7 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
     [SerializeField, Tooltip("移動にかける時間"), Range(0.5f, 5.0f)]
     float moveTime;
 
-    [SerializeField, Range(0.0f, 10.0f)]
+    [SerializeField, Tooltip("フリックを有効と判断する指の移動距離"), Range(0.0f, 10.0f)]
     float enableFlickValue;
 
     private Vector3 moveDistance = new Vector3();
@@ -37,21 +37,31 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         }
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
+    /// <summary>
+    /// エラー回避のためにオーバーライド。
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnDrag(PointerEventData eventData) { }
 
-    }
+    /// <summary>
+    /// エラー回避のためにオーバーライド
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnBeginDrag(PointerEventData eventData) { }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
-    }
-
+    /// <summary>
+    /// ドラッグ判定
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
         PageFlick(eventData);
     }
 
+    /// <summary>
+    /// フリックでページをめくる処理の詳細部分。
+    /// </summary>
+    /// <param name="_eventData"></param>
     private void PageFlick(PointerEventData _eventData)
     {
         //ページ送り
@@ -83,6 +93,10 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         }
     }
 
+    /// <summary>
+    /// ページめくりのイージング処理
+    /// </summary>
+    /// <param name="_startTime"></param>
     private void StartEasing(float _startTime)
     {
         float diffTime = Time.timeSinceLevelLoad - _startTime;
@@ -96,6 +110,9 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         transform.localPosition = Vector3.Lerp(startPos, endPos, pos);
     }
 
+    /// <summary>
+    /// イージング開始前に有効化、および開始点を設定。
+    /// </summary>
     private void EasingSetup()
     {
         curveIsActive = true;
