@@ -69,6 +69,7 @@ public class UnitCreater : MonoBehaviour {
             //u.setIsViewData(false);
 
             unitObj.GetComponent<Unit>().setIsViewData(false);
+            unitObj.GetComponent<Unit>().SetNumber(i);
             List<EnemyData.EnemyInternalDatas> enemyDataList=new List<EnemyData.EnemyInternalDatas>();
             //unitObj.GetComponent<Unit>().setEnemyDatas()
             for (int j = 0; j < enemyDataReader.GetEnemyData[i].Count; j++)//Unit内の敵の数だけ
@@ -77,11 +78,10 @@ public class UnitCreater : MonoBehaviour {
                 buf = enemyDataReader.GetEnemyData[i][j];
                 enemyDataList.Add(buf);//それぞれのデータを格納
             }
-            unitObj.GetComponent<Unit>().setEnemyDatas(enemyDataList);
+            unitObj.GetComponent<Unit>().setEnemyDatas(enemyDataList,UnitPos[i]);
            
             string pass =
             "Sprits/Search/Character";
-            Debug.Log(pass);
             //Sprite image = Resources.Load<Sprite>(pass);
             //Debug.Log(image.name);
             Sprite sprite = new Sprite();

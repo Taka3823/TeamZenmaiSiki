@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SearchManager : MonoBehaviour , ISceneBase
 {
@@ -16,6 +17,28 @@ public class SearchManager : MonoBehaviour , ISceneBase
     {
         get { return instance; }
     }
+    private int episodeNum;
+    private int stageNum;
+    public int EpisodeNum()
+    {
+        return episodeNum;
+    }
+    public int StageNum()
+    {
+        return stageNum;
+    }
+    private int enemynumber;
+
+    public int GetEnemyNum()
+    {
+        return enemynumber;
+    }
+    public void setEnemyNUm(int n)
+    {
+        enemynumber = n;
+    }
+    [SerializeField]
+    EnemyDataPlate plate;
     private List<EnemyData.EnemyInternalDatas> sendDatas;
     private List<EnemyData.EnemyInternalDatas> batlleDataList;
     public List<EnemyData.EnemyInternalDatas> getSendEnemyDatas()
@@ -39,16 +62,14 @@ public class SearchManager : MonoBehaviour , ISceneBase
         }
         //batlleDataList = buf;
         DataManager.Instance.EnemyInternalDatas = buf;
-        for (int j = 0; j < sendDatas.Count; j++)
-        {
-            Debug.Log(sendDatas[j].name);
-        }
     }
     void Start()
     {
         instance = this;
         batlleDataList = new List<EnemyData.EnemyInternalDatas>();
         sendDatas = new List<EnemyData.EnemyInternalDatas>();
+        setEpisodeStage();
+
     }
 
     // Update is called once per frame
@@ -83,10 +104,15 @@ public class SearchManager : MonoBehaviour , ISceneBase
                 {
                     ReturnCanvas.setenableReturnUI(true);
                 }
-
+                if (hit.collider.gameObject.tag != "Unit")
+                {
+                   
+                }
             }
             else
             {
+                EnemyDataCanvas.Instance.DestroyPlate();
+                setEnemyDatas(new List<EnemyData.EnemyInternalDatas>());
                 Debug.Log("はずれ");
                 MyCanvas.SetInteractive("Button", false);
             }
@@ -97,5 +123,32 @@ public class SearchManager : MonoBehaviour , ISceneBase
     public void SceneChange(string nextSceneName_)
     {
         SceneManager.LoadScene(nextSceneName_);
+    }
+
+    public string[] EpisodeStageNum(string lines_, char[] spliter_, int trialNumber_)
+    {
+        //カンマとカンマの間に何もなかったら格納しないことにする設定
+        System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;
+
+        //リターン値。カンマ分けしたデータを一行分格納する。
+        string[] CommaSeparationData = new string[trialNumber_];
+        for (int i = 0; i < trialNumber_; i++)
+        {
+            //１行にあるCsvDataの要素数分準備する
+            string[] readStrData = new string[trialNumber_];
+            //CsvDataを引数の文字で区切って1つずつ格納
+            readStrData = lines_.Split(spliter_, option);
+            //readStrDataをリターン値に格納
+            CommaSeparationData[i] = readStrData[i];
+        }
+        return CommaSeparationData;
+    }
+    private void setEpisodeStage()
+    {
+        string stage = "1_4";
+        char[] commaSpliter = { '_' };
+        string[] ep = EpisodeStageNum(stage, commaSpliter, 2);
+        episodeNum = int.Parse(ep[0]);
+        stageNum = int.Parse(ep[1]);
     }
 }

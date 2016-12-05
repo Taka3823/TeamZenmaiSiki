@@ -45,7 +45,7 @@ public class EnemyDataReader : MonoBehaviour
         List<EnemyData.EnemyInternalDatas> line = new List<EnemyData.EnemyInternalDatas>();
         for (int i = 1; i < str.Length; i++)//そのユニット内の敵の数だけデータを取得
         {
-            string[] str2 = ReadCsvFoundation.NotOptionDataSeparation(str[i], commaSpliter, 24);
+            string[] str2 = ReadCsvFoundation.NotOptionDataSeparation(str[i], commaSpliter, 25);
             //[Unit1の][２番目の敵]など・・・
             EnemyData.EnemyInternalDatas enemybuf = new EnemyData.EnemyInternalDatas();
 
@@ -53,12 +53,14 @@ public class EnemyDataReader : MonoBehaviour
             enemybuf.coreHp = new int[3];
             enemybuf.corePower = new int[3];
             enemybuf.coreDefense = new int[3];
+            enemybuf.memos = new string[2];
             enemybuf.isbattle = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.ISBATTLE)] == "はい";
             enemybuf.name = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.NAME)];
             enemybuf.age =  convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.AGE)]);
             enemybuf.sex = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.SEX)];
             enemybuf.bloodType = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.BLOODTYPE)];
-            enemybuf.memos = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MEMOS)];
+            enemybuf.memos[0] = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MEMOS1)];
+            enemybuf.memos[1] = str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MEMOS2)];
 
             enemybuf.mainHp = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MAINHP)]);
             enemybuf.mainPower = convert(str2[System.Convert.ToInt32(EnemyData.EnemyDataIndex.MAINPOWER)]);
