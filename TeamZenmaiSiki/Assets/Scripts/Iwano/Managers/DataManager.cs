@@ -39,25 +39,26 @@ public class DataManager : MonoBehaviour
     //                     岩野記述欄                       //
     //                                                     //
     //*****************************************************//
-   
-    //呼び出すシナリオのEpナンバー
-    private int scenarioDictionaryNumber;
 
-    public int ScenarioDictionaryNumber
+    //呼び出すシナリオのEpナンバー
+    private int scenarioChapterNumber;
+
+    public int ScenarioChapterNumber
     {
-        get { return scenarioDictionaryNumber; }
-        set { scenarioDictionaryNumber = value; }
+        get { return scenarioChapterNumber; }
+        set { scenarioChapterNumber = value; }
     }
 
     //呼び出すシナリオのEpの何節かの数字
-    private int scenarioSectionDictionaryNumber;
+    private int scenarioSectionNumber;
 
-    public int ScenarioSectionDictionaryNumber
+    public int ScenarioSectionNumber
     {
-        get { return scenarioDictionaryNumber; }
-        set { scenarioDictionaryNumber = value; }
+        get { return scenarioSectionNumber; }
+        set { scenarioSectionNumber = value; }
     }
 
+    //アプリを一度起動したかどうか
     private bool isAppAwake = false;
 
     public bool IsAppAwake
@@ -66,10 +67,59 @@ public class DataManager : MonoBehaviour
         set { isAppAwake = value; }
     }
 
-    //仮で製作
+    //シナリオが何章まであるかの数字
+    //onst int FINAL_VOLUME_NUMBER = 1;
+
+
+    //解放されているシナリオの情報を確保している
+    //FIX:jsonでデータを格納するべき。
+    //今はそこまでの余裕がないのでここで格納しておく    
+    //TIPS:[章,節]
+    //private bool[,] openScenario = { };
+
+    //public bool[,] OpenScenario
+    //{
+    //    get { return openScenario; }
+    //    set { openScenario = value; }
+    //}
+
+
+    //指令書のデータ項目
+
+    public struct DirectiveData
+    {
+        public string scenarioNumberBaseData;            //シナリオのナンバー。文字列で保管
+        public string scenarioTitle;                     //シナリオのタイトル
+        public string missionObjective;                  //今回の指令の名前（目的？）
+
+        public string firstMission;                      //1つ目のミッション
+        public string firstMissionAchievementCondition;  //1つ目のミッションの目標数や回収対象の名前
+
+        public string secondMission;                     //2つ目のミッション
+        public string secondMissionAchievementCondition; //2つ目のミッションの目標数や回収対象の名前
+
+        public string thirdMission;                      //3つ目のミッション
+        public string thirdMissionAchievementCondition;  //3つ目のミッションの目標数や回収対象の名前
+
+        public List<string> collectionTargetName;        //回収対象者名
+    }
+
+    private List<DirectiveData[]> directiveDatas = new List<DirectiveData[]>();
+
+    public List<DirectiveData[]> DirectiveDatas
+    {
+        get { return directiveDatas; }
+        set { directiveDatas = value; }
+    }
+
+    //シナリオのナンバーを”string型”で返す
+    public string GetScenarioNumber(int chapterNum_,int sectionNum_)
+    {
+        return DirectiveDatas[chapterNum_][sectionNum_].scenarioNumberBaseData;
+    }
+
     //指令書に書かれている目標の名前を仮保存
     //TIPS:CSVデータから格納する前に、Clearをかけてから格納すること
-    /***********************************************/
     private List<string> targetName = new List<string>();
 
     public List<string> TargetName
@@ -101,8 +151,6 @@ public class DataManager : MonoBehaviour
         get { return enemyInternalDatas; }
         set { enemyInternalDatas = value; }
     }
-
-
 
     Vector3 pos = new Vector3();
 
@@ -188,9 +236,9 @@ public class DataManager : MonoBehaviour
 
     public PlayerDatas PlayerData
     {
-        get{ return playerData; }
+        get { return playerData; }
         set { playerData = value; }
-        
+
     }
 
     int episodeNum;

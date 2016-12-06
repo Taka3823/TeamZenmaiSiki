@@ -43,14 +43,10 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     {
         get { return Time.time > timeElapsed + timeUntilDisplay; }
     }
-
-    //bool isDivide = false;
-
-
+    
     void Start()
-    {
-        //TIPS:現在はデバッグ用にこうしている
-        ReadScenario.Instance.ReadFile(0);
+    { 
+        ReadScenario.Instance.ReadFile(DataManager.Instance.ScenarioChapterNumber,DataManager.Instance.ScenarioSectionNumber);
 
         scenariosData = new ReadScenario.ScenariosData[ReadScenario.Instance.ScenariosDatas.Length];
         scenariosData = ReadScenario.Instance.ScenariosDatas;
@@ -92,16 +88,6 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
                 timeUntilDisplay = 0;
             }
         }
-
-        //if(isDivide)
-        //{
-        //    displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * (drawSentences[lineNumber].Length));
-        //}
-        //else if(!isDivide)
-        //{
-        //    displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * (drawSentences[lineNumber].Length))+ 1;
-        //}
-
 
         //クリックから経過した時間が想定表示時間の何%か確認し、表示文字数を出す
         int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * drawSentences[lineNumber].Length + 1);
@@ -155,16 +141,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     void ExcuteSentenceSystem(int elementNum_)
     {
         drawSentences[elementNum_] = scenariosData[currentLine].sentences[elementNum_];
-
-        //if (drawSentences[lineNumber].Length % 2f != 0)
-        //{
-        //    isDivide = false;
-        //}
-        //else
-        //{
-        //    isDivide = true;
-        //}
-
+        
         if (scenariosData[currentLine].charaSprite[elementNum_] != "" &&
             scenariosData[currentLine].drawCharacterPos != "")
         {
@@ -214,7 +191,6 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
 
         SetNextLine(currentLine);
     }
-
 
     public void SceneChange(string nextSceneName_)
     {

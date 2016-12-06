@@ -77,9 +77,18 @@ public class ReadScenario : MonoBehaviour
 
     //パスの名前
     //TIPS:必要なCSVファイルの名前をここに登録する
-    string[] scenarioDictionary =
+    string[,] scenarioDictionary =
     {
-        "Sample.csv"
+        //一章
+        {
+            "Sample.csv",
+            ""
+        },
+        //二章
+        {
+            "",
+            ""
+        }
     };
 
     string[] didCommaSeparationData;
@@ -95,12 +104,17 @@ public class ReadScenario : MonoBehaviour
     //ファイル読み込みをしてくれる
     //第一引数…読み込みたいシナリオの名前を入力。
     //TIPS：内部でファイルまでのパスは記述しているので、名前だけで大丈夫
-    public void ReadFile(int dictionaryNumber_)
+    public void ReadFile(int chapterNumber_,int sectionNumber_)
     {
+        Debug.Log(chapterNumber_);
+        Debug.Log(sectionNumber_);
+
         //読み込むパスを決定
         //FIXED:データマネージャーからのデータの受け取りは、
         //ReadFileを呼ぶときに引数で渡すほうがいいかも？
-        string path = Application.dataPath + "/CSVFiles/Scenario/" + scenarioDictionary[dictionaryNumber_];
+        string path = Application.dataPath + "/CSVFiles/Scenario/" + scenarioDictionary[chapterNumber_,sectionNumber_];
+
+        Debug.Log(path);
 
         //行にわけられたデータを保存
         string[] lines = ReadCsvFoundation.ReadCsvData(path);
