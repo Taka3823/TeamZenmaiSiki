@@ -44,7 +44,7 @@ public class EnemyStatusRead : MonoBehaviour
             bloodType[i].text = "血液型: " + enemyData[i].bloodType;
             mainHp[i].text = "HP: " + enemyData[i].mainHp + "/" + battleMainHp[i];
             mainPower[i].text = "POW: " + enemyData[i].mainPower;
-            mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
+            //mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
         }
     }
 
