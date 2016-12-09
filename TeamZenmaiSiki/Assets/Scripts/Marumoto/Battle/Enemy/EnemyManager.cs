@@ -71,7 +71,6 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void SetCurrentTargetPos(int _index) { currentTargetIndex = _index; }
-    public int GetCurrentTargetIndex() { return currentTargetIndex; }
     public List<GameObject> GetEnemies() { return enemies; }
     public List<Vector3> GetEnemiesPos() { return enemiesPos; }
     public int GetEnemyElems() { return enemyElems; }
