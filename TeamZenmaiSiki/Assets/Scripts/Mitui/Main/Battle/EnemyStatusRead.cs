@@ -5,23 +5,41 @@ using UnityEngine.UI;
 
 public class EnemyStatusRead : MonoBehaviour
 {
+    /// <summary>
+    /// 不動値
+    /// </summary>
     [SerializeField]
     Text[] enemyName;
+    [SerializeField]
+    Text[] mainHp;
+    [SerializeField]
+    Text[] coreHp;
+    [SerializeField]
+    Text[] mainPower;
+    [SerializeField]
+    Text[] corePower;
+    [SerializeField]
+    Text[] mainDefence;
+    [SerializeField]
+    Text[] coreDefence;
     [SerializeField]
     Text[] age;
     [SerializeField]
     Text[] bloodType;
     [SerializeField]
-    Text[] mainHp;
-    [SerializeField]
-    Text[] mainPower;
-    [SerializeField]
-    Text[] mainDefence;
-    [SerializeField]
-    GameObject[] enemyModel;
+    Text[] memos;
 
     List<EnemyData.EnemyInternalDatas> enemyData;
     List<Vector3> pos = new List<Vector3>();
+
+    [SerializeField]
+    GameObject enemyPrefab;
+
+    List<GameObject> enemyObject = new List<GameObject>();
+
+    /// <summary>
+    /// 動的値
+    /// </summary>
     List<int> battleMainHp = new List<int>();
     List<int> battleMainPower = new List<int>();
     List<int> battleMainDefence = new List<int>();
@@ -39,12 +57,16 @@ public class EnemyStatusRead : MonoBehaviour
 
         for (int i = 0; i < enemyData.Count; i++)
         {
-            enemyName[i].text = "名前: " + enemyData[i].name;
+            enemyName[i].text = "NAME: " + enemyData[i].name;
+            mainHp[i].text = "HP: " + enemyData[i].mainHp + "/" + battleMainHp[i];
+            coreHp[i].text = "CHP: " + enemyData[i].coreHp[i] + "/" + battleCoreHp[i];
+            mainPower[i].text = "ATK: " + enemyData[i].mainPower;
+            corePower[i].text = "CATK: " + enemyData[i].corePower;
+            mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
+            coreDefence[i].text = "CDEF: " + enemyData[i].coreDefense;
             age[i].text = "年齢: " + enemyData[i].age;
             bloodType[i].text = "血液型: " + enemyData[i].bloodType;
-            mainHp[i].text = "HP: " + enemyData[i].mainHp + "/" + battleMainHp[i];
-            mainPower[i].text = "POW: " + enemyData[i].mainPower;
-            mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
+            memos[i].text = enemyData[i].memos[i];
         }
     }
 
@@ -53,7 +75,7 @@ public class EnemyStatusRead : MonoBehaviour
     /// </summary>
     void EnemySetup()
     {
-        for(int i = 0; i < enemyData.Count; i++)
+        for (int i = 0; i < enemyData.Count; i++)
         {
             battleMainHp.Add(enemyData[i].mainHp);
             battleMainPower.Add(enemyData[i].mainPower);
@@ -87,27 +109,29 @@ public class EnemyStatusRead : MonoBehaviour
     {
         if (DataManager.Instance.EnemyInternalDatas.Count == 1)
         {
-            pos.Add(new Vector3(0, 0, 0));
+            pos.Add(new Vector3(0, 1.5f, 0));
         }
 
         if (DataManager.Instance.EnemyInternalDatas.Count == 2)
         {
-            pos.Add(new Vector3(-3, 0, 0));
-            pos.Add(new Vector3(3, 0, 0));
+            pos.Add(new Vector3(-3, 1.5f, 0));
+            pos.Add(new Vector3(3, 1.5f, 0));
         }
         if (DataManager.Instance.EnemyInternalDatas.Count == 3)
         {
-            pos.Add(new Vector3(-4, 0, 0));
-            pos.Add(new Vector3(0, 0, 0));
-            pos.Add(new Vector3(4, 0, 0));
+            pos.Add(new Vector3(-4, 1.5f, 0));
+            pos.Add(new Vector3(0, 1.5f, 0));
+            pos.Add(new Vector3(4, 1.5f, 0));
         }
-        for(int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; i++)
+        for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; ++i)
         {
-            GameObject refobj = (GameObject)Instantiate(enemyModel[i], pos[i], Quaternion.identity);
+            //GameObject enemyObject = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
             Sprite sprite = new Sprite();
             string pass = "Sprits/Battle/" + DataManager.Instance.EnemyInternalDatas[i].battleTexturePass;
             sprite = Resources.Load<Sprite>(pass);
-            refobj.GetComponent<SpriteRenderer>().sprite = sprite;
+            enemyPrefab.GetComponent<SpriteRenderer>().sprite = sprite;
+            enemyObject.Add(Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject);
+            //refobj.GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
 
@@ -118,4 +142,5 @@ public class EnemyStatusRead : MonoBehaviour
     public List<int> getBattleCoreHp() { return battleCoreHp; }
     public List<int> getBattleCorePower() { return battleCorePower; }
     public List<int> getBattleCoreDefence() { return battleCoreDefence; }
+    public List<GameObject> getEnemyObject() { return enemyObject; }
 }

@@ -11,6 +11,9 @@ public class BattleManager : MonoBehaviour {
 
     [SerializeField]
     EnemyStatusRead enemyStatusRead;
+
+    DataManager.PlayerDatas playerDatas;
+
     public List<Vector3> getPos() { return enemyStatusRead.getPos(); }
     public List<int> getBattleMainHp() { return enemyStatusRead.getBattleMainHp(); }
     public List<int> getBattleMainPower() { return enemyStatusRead.getBattleMainPower(); }
@@ -18,6 +21,7 @@ public class BattleManager : MonoBehaviour {
     public List<int> getBattleCoreHp() { return enemyStatusRead.getBattleCoreHp(); }
     public List<int> getBattleCorePower() { return enemyStatusRead.getBattleCorePower(); }
     public List<int> getBattleCoreDefence() { return enemyStatusRead.getBattleCoreDefence(); }
+    public List<GameObject> getEnemyObject() { return enemyStatusRead.getEnemyObject(); }
 
     void Awake()
     {
