@@ -14,10 +14,17 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     [SerializeField]
     PlayerAttackController playerAttackController;
 
-    GameObject attackCircle;      //InstantiateしたAttackCircle。
-    GameObject targetObject;      //現在のターゲットオブジェクト。
-    bool circleColliderEnable;    //CircleColliderが有効化されているか。
-    bool isHit;                   //CircleColliderに敵がヒットしたか。
+    BattleCalculation battleCalculation = new BattleCalculation();
+    GameObject attackCircle;               //InstantiateしたAttackCircle。
+    GameObject targetObject;               //現在のターゲットオブジェクト。
+    bool circleColliderEnable;             //CircleColliderが有効化されているか。
+    bool isHit;                            //CircleColliderに敵がヒットしたか。
+
+    //*******仮置き********
+    int[] enemyHP = { 100, 100, 100 };
+    int[] enemyDEF = { 1, 2, 3 };
+    int playerSTR = 5;
+    //********************
 
     void Awake()
     {
@@ -28,7 +35,6 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     {
         circleColliderEnable = false;
         isHit = false;
-
     }
 
 	void LateUpdate ()
@@ -55,18 +61,33 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 
     /// <summary>
     /// 攻撃が当たっていたときの処理。
-    /// ターゲットを破壊し、その情報を消す。
     /// </summary>
     private void HitSequence()
     {
         if (isHit)
         {
-            Destroy(targetObject);
-            EnemyManager.Instance.EnemyPosErase();
-            playerAttackController.DecreaseCurrentTargetIndex();
-            TurnManager.Instance.ButtonManagement();
+            int currentIndex = EnemyManager.Instance.GetCurrentTargetIndex();
+            int damage = battleCalculation.CalculateDamage(playerSTR, enemyDEF[currentIndex]);
+            Debug.Log("beforeEnemyHP = " + enemyHP[currentIndex].ToString());
+            enemyHP[currentIndex] -= damage;
+
+            //TODO:HPが0だったら。
+            if (enemyHP[currentIndex] <= 0)
+            {
+                EnemyDestroy();
+            }
+            Debug.Log("attackDamage" + damage.ToString());
+            Debug.Log("afterEnemyHP = " + enemyHP[currentIndex].ToString());
             isHit = false;
         }
+    }
+
+    private void EnemyDestroy()
+    {
+        Destroy(targetObject);
+        EnemyManager.Instance.EnemyPosErase();
+        playerAttackController.DecreaseCurrentTargetIndex();
+        TurnManager.Instance.ButtonManagement();
     }
 
     public void SetCircleColliderEnable(bool _cond) { circleColliderEnable = _cond; }

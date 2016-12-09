@@ -271,7 +271,6 @@ MonoBehaviour:
   libraController: {fileID: 114000010966265786}
   playerAttackController: {fileID: 114000011190699476}
   enemyAttackController: {fileID: 114000012860399674}
-  enemyLast: 0
 --- !u!114 &114000013212537034
 MonoBehaviour:
   m_ObjectHideFlags: 1

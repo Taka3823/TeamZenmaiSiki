@@ -12,7 +12,7 @@ public class BattleCalculation {
     /// <param name="_characterSTR">攻撃を仕掛ける側の攻撃力。</param>
     /// <param name="_characterDEF">攻撃を受ける側の防御力。</param>
     /// <returns>最終的なダメージ数値。</returns>
-    public int FromPlayerToEnamyDamage(int _characterSTR, int _characterDEF)  
+    public int CalculateDamage(int _characterSTR, int _characterDEF)  
     {
         int _resultDamage = _characterSTR - _characterDEF;
         DamageClamp(ref _resultDamage);
