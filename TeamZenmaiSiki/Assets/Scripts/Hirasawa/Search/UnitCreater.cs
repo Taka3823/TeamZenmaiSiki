@@ -35,7 +35,7 @@ public class UnitCreater : MonoBehaviour {
     private void ReadUnitData(int episodeNum,int stageNum)//Unitの
     {
         string pass = Application.dataPath +
-       "/CSVFiles/Search/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+       "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
 
         //そのステージのUnitがどのポジションにいるかを取得
         string[] unitPosition = ReadCsvFoundation.ReadCsvData(pass + "UnitsPos.csv");
