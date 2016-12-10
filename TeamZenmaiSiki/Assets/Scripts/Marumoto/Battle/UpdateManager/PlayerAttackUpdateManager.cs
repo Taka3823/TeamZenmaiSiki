@@ -69,7 +69,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         if (isHit)
         {
             int _enemyDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
-            EnemyManager.Instance.ToEnemyMainDamage(calculation.FromPlayerToEnamyDamage(charaSTR, _enemyDEF));
+            EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(charaSTR, _enemyDEF));
             if (EnemyDead())
             {
                 EnemyDestroy();
