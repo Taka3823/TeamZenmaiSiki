@@ -62,7 +62,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         if (isHit)
         {
             Destroy(targetObject);
-            EnemyManager.Instance.EnemyPosErase();
+            EnemyManager.Instance.EnemyErase();
             playerAttackController.DecreaseCurrentTargetIndex();
             TurnManager.Instance.ButtonManagement();
             isHit = false;

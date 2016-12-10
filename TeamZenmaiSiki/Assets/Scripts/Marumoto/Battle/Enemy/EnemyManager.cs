@@ -88,6 +88,7 @@ public class EnemyManager : MonoBehaviour {
         Pos = new List<Vector3>();
         Enemies = new List<GameObject>();
         CoreBroken = new List<bool>();
+
         Pos = BattleManager.Instance.getPos();
         Enemies = BattleManager.Instance.getEnemyObject();
         MainHP = BattleManager.Instance.getBattleMainHp();
@@ -107,11 +108,18 @@ public class EnemyManager : MonoBehaviour {
     /// <summary>
     /// エネミーの死亡と同時に、死亡したエネミーのデータのみを破棄。
     /// </summary>
-    public void EnemyPosErase()
+    public void EnemyErase()
     {
         Enemies.RemoveAt(CurrentTargetIndex);
         Pos.RemoveAt(CurrentTargetIndex);
-        EnemyElems = Pos.Count;
+        MainHP.RemoveAt(CurrentTargetIndex);
+        MainSTR.RemoveAt(CurrentTargetIndex);
+        MainDEF.RemoveAt(CurrentTargetIndex);
+        CoreHP.RemoveAt(CurrentTargetIndex);
+        CoreSTR.RemoveAt(CurrentTargetIndex);
+        CoreDEF.RemoveAt(CurrentTargetIndex);
+        CoreBroken.RemoveAt(CurrentTargetIndex);
+        EnemyElems = Enemies.Count;
     }
 
     /// <summary>
