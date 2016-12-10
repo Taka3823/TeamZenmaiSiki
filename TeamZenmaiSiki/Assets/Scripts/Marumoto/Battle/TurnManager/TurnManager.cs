@@ -47,7 +47,6 @@ public class TurnManager : MonoBehaviour {
     private List<Functions> turnFunctions;  //ターンのフェーズごとに関数に格納
     private int functionNumber;             //現在の関数のID
     private int oldID;                      //1フレーム前のFunctionID
-    private bool libraCheck;                //Libra画面を一度確認したかどうか。
 
     void Awake()
     {
@@ -83,12 +82,7 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     void Libra()
     {
-        if (libraCheck)
-        {
-            ProgressFunction();
-        }
-        //TODO:長押しで情報表示
-        //Debug.Log("Libra");
+        //特に処理はなし。
     }
 
     /// <summary>
@@ -96,7 +90,6 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     void PlayerAttack()
     {
-        if (!libraCheck) libraCheck = true;
         playerAttackController.GenerateAttackCircle();
     }
 
@@ -113,6 +106,15 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     public void ButtonManagement()
     {
+        if(functionNumber == (int)FunctionID.LIBRA)
+        {
+            buttonManager[(int)ButtonID.ATTACK].SetInteractable(true);
+        }
+        else
+        {
+            buttonManager[(int)ButtonID.ATTACK].SetInteractable(false);
+        }
+
         if (EnemyLast())
         {
             CanAvoid();
@@ -124,7 +126,6 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     private void SetupTurnFunctions()
     {
-        libraCheck = false;
         functionNumber = 0;
         turnFunctions = new List<Functions>();
         turnFunctions.Add(Libra);
