@@ -37,7 +37,7 @@ public class EnemyDataReader : MonoBehaviour
     {
         //ステージまでのパスを取得
         string pass = Application.dataPath +
-            "/CSVFiles/Search/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+            "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
 
         string[] str = ReadCsvFoundation.ReadCsvData(pass + "Unit" + unitNumber.ToString() + ".csv");
         char[] commaSpliter = { ',' };

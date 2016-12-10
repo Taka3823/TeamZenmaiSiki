@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 public class EnemyDataCanvas : MonoBehaviour {
 
     // Use this for initialization
@@ -14,24 +15,55 @@ public class EnemyDataCanvas : MonoBehaviour {
     [SerializeField]
     GameObject plate;
     List<Vector3> posList;
+    List<GameObject> plates;
+    EnemyDataPlate enemydataplate;
     void Start () {
         instance = this;
         iscreate = false;
+        iscancel = false;
         posList = new List<Vector3>();
 	}
+    bool iscancel;
     public void DestroyPlate()
     {
-        for (int i = 0; i < transform.childCount; ++i)
+        foreach (Transform child in transform)
         {
-            Destroy(transform.GetChild(i).gameObject);
+
+            if (child.GetComponent<EnemyDataPlate>().IsDelet())
+            {
+                Destroy(child.gameObject);
+                SearchManager.Instance.setEnemyDatas(new List<EnemyData.EnemyInternalDatas>());
+            }
+
+        }
+       
+    }
+    public void ResetPlate()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+
+        }
+        SearchManager.Instance.setEnemyDatas(new List<EnemyData.EnemyInternalDatas>());
+    }
+    public void CancelPlate()
+    {
+        iscancel = true;
+        foreach (Transform child in transform)
+        {
+
+            child.GetComponent<EnemyDataPlate>().SetIsEnd(true);
+
         }
     }
     // Update is called once per frame
     void Update () {
-	
+        DestroyPlate();
 	}
     public void CreatePlate()
     {
+        iscancel = false;
         if (posList.Count > 0)
         {
             posList.Clear();
@@ -47,13 +79,7 @@ public class EnemyDataCanvas : MonoBehaviour {
         }
         iscreate = true;
     }
-    //public void DestroyPlate()
-    //{
-    //    foreach (Transform n in plate.transform)
-    //    {
-    //        GameObject.Destroy(n.gameObject);
-    //    }
-    //}
+
     void SetPosition()
     {
         float trancex;
@@ -77,5 +103,10 @@ public class EnemyDataCanvas : MonoBehaviour {
                 posList.Add(new Vector3(center + trancex, posy, 0));
                 break;
         }
+    }
+    float EasingCubicOut(float t, float b, float e)
+    {
+        t -= 1.0f;
+        return (e - b) * (t * t * t + 1) + b;
     }
 }

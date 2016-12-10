@@ -111,8 +111,8 @@ public class SearchManager : MonoBehaviour , ISceneBase
             }
             else
             {
-                EnemyDataCanvas.Instance.DestroyPlate();
-                setEnemyDatas(new List<EnemyData.EnemyInternalDatas>());
+                EnemyDataCanvas.Instance.CancelPlate();
+                
                 Debug.Log("はずれ");
                 MyCanvas.SetInteractive("Button", false);
             }

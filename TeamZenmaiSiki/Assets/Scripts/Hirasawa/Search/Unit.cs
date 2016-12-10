@@ -54,7 +54,8 @@ public class Unit : MonoBehaviour {
             }
             else
             {
-                EnemyDataCanvas.Instance.DestroyPlate();
+                EnemyDataCanvas.Instance.ResetPlate();
+                SearchManager.Instance.setEnemyDatas(enemyDatas);
                 SearchManager.Instance.setEnemyNUm(number);
                 EnemyDataCanvas.Instance.CreatePlate();
             }
