@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryCircle: {fileID: 1000010092340010}
   angleSpeed: 5
-  circleScale: 0.1
+  circleScale: 0.3
   colliderIsActive: 0
 --- !u!114 &114000013727688294
 MonoBehaviour:
@@ -218,7 +218,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6823cf55cb8ff684ba89e8d2f727521e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77e733190e5eb494eb9d37122d6a2dc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -251,7 +251,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 002cebda90a3d5547b036db29482eda7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52cec75683f12624bad29ae13b61d177, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

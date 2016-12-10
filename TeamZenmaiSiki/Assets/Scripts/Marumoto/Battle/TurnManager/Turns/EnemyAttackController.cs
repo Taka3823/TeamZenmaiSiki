@@ -2,9 +2,6 @@
 using System.Collections;
 
 public class EnemyAttackController : MonoBehaviour {
-    [SerializeField]
-    PlayerStatus playerStatus;
-
     private int currentActIndex;
     private bool isAttacking;
 
@@ -36,7 +33,6 @@ public class EnemyAttackController : MonoBehaviour {
     private IEnumerator AttackAction()
     {
         isAttacking = true;
-        playerStatus.IncreaseDamage(5);
         yield return new WaitForSeconds(1.0f);
 
         isAttacking = false;
@@ -49,7 +45,7 @@ public class EnemyAttackController : MonoBehaviour {
     /// </summary>
     private void ChangePhaseSequence()
     {
-        if (currentActIndex >= EnemyManager.Instance.GetEnemyElems())
+        if (currentActIndex >= EnemyManager.Instance.EnemyElems)
         {
             currentActIndex = 0;
             TurnManager.Instance.ProgressFunction();

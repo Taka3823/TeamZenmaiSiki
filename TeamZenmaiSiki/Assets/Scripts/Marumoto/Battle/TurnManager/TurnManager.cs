@@ -139,7 +139,7 @@ public class TurnManager : MonoBehaviour {
     /// <returns>もし1体しかいないのであれば"true",それ以外は"false"</returns>
     private bool EnemyLast()
     {
-        if (EnemyManager.Instance.GetEnemyElems() == (int)EnemyElements.LAST) return true;
+        if (EnemyManager.Instance.EnemyElems == (int)EnemyElements.LAST) return true;
         return false;
     }
 
@@ -149,7 +149,7 @@ public class TurnManager : MonoBehaviour {
     /// <returns>もし0体なら"true",それ以外は"false"</returns>
     private bool EnemyNothing()
     {
-        if (EnemyManager.Instance.GetEnemyElems() == (int)EnemyElements.NOTHING) return true;
+        if (EnemyManager.Instance.EnemyElems == (int)EnemyElements.NOTHING) return true;
         return false;
     }
 

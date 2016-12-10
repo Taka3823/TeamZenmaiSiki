@@ -9,10 +9,30 @@ public class EnemyManager : MonoBehaviour {
         get { return instance; }
     }
 
+    /// <summary>
+    /// エネミーオブジェクトのリスト。
+    /// </summary>
+    public List<GameObject> Enemies { get { return enemies; } }
     private List<GameObject> enemies;
+
+    /// <summary>
+    /// エネミーの表示座標リスト。
+    /// </summary>
+    public List<Vector3> EnemiesPos { get { return enemiesPos; } }
     private List<Vector3> enemiesPos;
+
+    /// <summary>
+    /// 現在のターゲットインデックス。
+    /// </summary>
+    public int CurrentTargetIndex { set { currentTargetIndex = value; } }
     private int currentTargetIndex;
+
+    /// <summary>
+    /// エネミーの人数。
+    /// </summary>
+    public int EnemyElems { get { return enemyElems; } }
     private int enemyElems;
+
     private float angle;
     private Vector3 baseScale;
 
@@ -21,7 +41,7 @@ public class EnemyManager : MonoBehaviour {
         if (instance == null) { instance = this; }
         enemies = new List<GameObject>();
         enemiesPos = new List<Vector3>();
-        baseScale = new Vector3(2, 2, 1);
+        baseScale = new Vector3(1, 1, 1);
     }
 
     void Start()
@@ -35,14 +55,9 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     private void SetupEnemy()
     {
-        var refObj = GameObject.FindGameObjectsWithTag("Enemy");
-        enemyElems = refObj.Length;
-
-        for (int i = 0; i < refObj.Length; i++)
-        {
-            enemies.Add(refObj[i]);
-            enemiesPos.Add(refObj[i].transform.position);
-        }
+        enemiesPos = BattleManager.Instance.getPos();
+        enemies = BattleManager.Instance.getEnemyObject();
+        enemyElems = enemies.Count;
     }
 
     /// <summary>
@@ -64,14 +79,9 @@ public class EnemyManager : MonoBehaviour {
         float value = Mathf.PI / 1.0f;
         angle += value * Time.deltaTime;
         enemies[_index].transform.localScale 
-            = new Vector3(baseScale.x + 1.0f * Mathf.Sin(angle), 
-                          baseScale.y + 1.0f * Mathf.Sin(angle), 
+            = new Vector3(baseScale.x + 0.5f * Mathf.Sin(angle), 
+                          baseScale.y + 0.5f * Mathf.Sin(angle), 
                           1);
         if (angle > Mathf.PI) angle = 0;
     }
-
-    public void SetCurrentTargetPos(int _index) { currentTargetIndex = _index; }
-    public List<GameObject> GetEnemies() { return enemies; }
-    public List<Vector3> GetEnemiesPos() { return enemiesPos; }
-    public int GetEnemyElems() { return enemyElems; }
 }
