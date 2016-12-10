@@ -58,7 +58,7 @@ public class EnemyManager : MonoBehaviour {
     /// <summary>
     /// 現在のターゲットインデックス。
     /// </summary>
-    public int CurrentTargetIndex { private get; set; }
+    public int CurrentTargetIndex { get; set; }
 
     /// <summary>
     /// エネミーの人数。
@@ -146,5 +146,18 @@ public class EnemyManager : MonoBehaviour {
     {
         CoreBroken[_enemyIndex] = true;
         CoreSTR[_enemyIndex] = 0;
+    }
+
+    /// <summary>
+    /// エネミーに対するダメージ処理。
+    /// </summary>
+    /// <param name="_damageValue">エネミーに与えたいダメージ値</param>
+    public void ToEnemyMainDamage(int _damageValue)
+    {
+        MainHP[CurrentTargetIndex] -= _damageValue;
+        if (MainHP[CurrentTargetIndex] < 0)
+        {
+            MainHP[CurrentTargetIndex] = 0;
+        }
     }
 }
