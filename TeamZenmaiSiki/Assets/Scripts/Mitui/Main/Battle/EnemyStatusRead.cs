@@ -57,17 +57,24 @@ public class EnemyStatusRead : MonoBehaviour
 
         for (int i = 0; i < enemyData.Count; i++)
         {
-            enemyName[i].text = "NAME: " + enemyData[i].name;
+            enemyName[i].text = enemyData[i].name;
             mainHp[i].text = "HP: " + enemyData[i].mainHp + "/" + battleMainHp[i];
             coreHp[i].text = "CHP: " + enemyData[i].coreHp[i] + "/" + battleCoreHp[i];
             mainPower[i].text = "ATK: " + enemyData[i].mainPower;
-            corePower[i].text = "CATK: " + enemyData[i].corePower;
             mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
-            coreDefence[i].text = "CDEF: " + enemyData[i].coreDefense;
             age[i].text = "年齢: " + enemyData[i].age;
             bloodType[i].text = "血液型: " + enemyData[i].bloodType;
-            memos[i].text = enemyData[i].memos[i];
+            for (int j = 0; j < enemyData[i].coreNum; j++)
+            {
+                corePower[i].text = "CATK: " + enemyData[i].corePower[i];
+                coreDefence[i].text = "CDEF: " + enemyData[i].coreDefense[i];
+            }
+            for (int k = 0; k < 2; k++)
+            {
+                memos[i].text = enemyData[i].memos[k];
+            }
         }
+        
     }
 
     /// <summary>
@@ -86,11 +93,15 @@ public class EnemyStatusRead : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         enemyData = DataManager.Instance.EnemyInternalDatas;
         EnemySpawn();
+    }
+
+    // Use this for initialization
+    void Start()
+    {
         EnemySetup();
         EnemyTextUpdate();
     }
@@ -119,18 +130,21 @@ public class EnemyStatusRead : MonoBehaviour
         }
         if (DataManager.Instance.EnemyInternalDatas.Count == 3)
         {
-            pos.Add(new Vector3(-4, 1.5f, 0));
+            pos.Add(new Vector3(-5, 1.5f, 0));
             pos.Add(new Vector3(0, 1.5f, 0));
-            pos.Add(new Vector3(4, 1.5f, 0));
+            pos.Add(new Vector3(5, 1.5f, 0));
         }
         for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; ++i)
         {
             //GameObject enemyObject = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
             Sprite sprite = new Sprite();
-            string pass = "Sprits/Battle/" + DataManager.Instance.EnemyInternalDatas[i].battleTexturePass;
+            string pass = "Sprits/Battle/EnemyCharacters/" + DataManager.Instance.EnemyInternalDatas[i].battleTexturePass;
             sprite = Resources.Load<Sprite>(pass);
-            enemyPrefab.GetComponent<SpriteRenderer>().sprite = sprite;
-            enemyObject.Add(Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject);
+            Debug.Log(sprite.name);
+            //enemyPrefab.GetComponent<SpriteRenderer>().sprite = sprite;
+            GameObject refObj = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
+            refObj.GetComponent<SpriteRenderer>().sprite = sprite;
+            enemyObject.Add(refObj);
             //refobj.GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
