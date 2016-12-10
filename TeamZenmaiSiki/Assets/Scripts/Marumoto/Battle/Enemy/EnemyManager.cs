@@ -10,28 +10,60 @@ public class EnemyManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// エネミーオブジェクトのリスト。
+    /// エネミーオブジェクトのリスト
     /// </summary>
-    public List<GameObject> Enemies { get { return enemies; } }
-    private List<GameObject> enemies;
+    public List<GameObject> Enemies { get; private set; }
 
     /// <summary>
-    /// エネミーの表示座標リスト。
+    /// エネミーの表示座標リスト
     /// </summary>
-    public List<Vector3> EnemiesPos { get { return enemiesPos; } }
-    private List<Vector3> enemiesPos;
+    public List<Vector3> Pos { get; private set; }
+
+    /// <summary>
+    /// エネミーの素のHP
+    /// </summary>
+    public List<int> MainHP { get; private set; }
+
+    /// <summary>
+    /// エネミーの素の攻撃力
+    /// </summary>
+    public List<int> MainSTR { get; private set; }
+
+    /// <summary>
+    /// エネミーの素の防御力
+    /// </summary>
+    public List<int> MainDEF { get; private set; }
+
+    /// <summary>
+    /// エネミーのコアのHP
+    /// </summary>
+    public List<int> CoreHP { get; private set; }
+
+    /// <summary>
+    /// エネミーのコアの攻撃力
+    /// </summary>
+    public List<int> CoreSTR { get; private set; }
+
+    /// <summary>
+    /// エネミーのコアの防御力
+    /// </summary>
+    public List<int> CoreDEF { get; private set; }
+
+    /// <summary>
+    /// エネミーのコアが壊れているか。
+    /// 壊れている場合"true"
+    /// </summary>
+    public List<bool> CoreBroken { get; private set; }
 
     /// <summary>
     /// 現在のターゲットインデックス。
     /// </summary>
-    public int CurrentTargetIndex { set { currentTargetIndex = value; } }
-    private int currentTargetIndex;
+    public int CurrentTargetIndex { private get; set; }
 
     /// <summary>
     /// エネミーの人数。
     /// </summary>
-    public int EnemyElems { get { return enemyElems; } }
-    private int enemyElems;
+    public int EnemyElems { get; private set; }
 
     private float angle;
     private Vector3 baseScale;
@@ -39,15 +71,13 @@ public class EnemyManager : MonoBehaviour {
     void Awake()
     {
         if (instance == null) { instance = this; }
-        enemies = new List<GameObject>();
-        enemiesPos = new List<Vector3>();
         baseScale = new Vector3(1, 1, 1);
     }
 
     void Start()
     {
         SetupEnemy();
-        currentTargetIndex = 0;
+        CurrentTargetIndex = 0;
     }
 
     /// <summary>
@@ -55,9 +85,23 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     private void SetupEnemy()
     {
-        enemiesPos = BattleManager.Instance.getPos();
-        enemies = BattleManager.Instance.getEnemyObject();
-        enemyElems = enemies.Count;
+        Pos = new List<Vector3>();
+        Enemies = new List<GameObject>();
+        CoreBroken = new List<bool>();
+        Pos = BattleManager.Instance.getPos();
+        Enemies = BattleManager.Instance.getEnemyObject();
+        MainHP = BattleManager.Instance.getBattleMainHp();
+        MainSTR = BattleManager.Instance.getBattleMainPower();
+        MainDEF = BattleManager.Instance.getBattleMainDefence();
+        CoreHP = BattleManager.Instance.getBattleCoreHp();
+        CoreSTR = BattleManager.Instance.getBattleCorePower();
+        CoreDEF = BattleManager.Instance.getBattleMainDefence();
+        EnemyElems = Enemies.Count;
+
+        for(int i = 0; i < EnemyElems; i++)
+        {
+            CoreBroken.Add(false);
+        }
     }
 
     /// <summary>
@@ -65,9 +109,9 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     public void EnemyPosErase()
     {
-        enemies.RemoveAt(currentTargetIndex);
-        enemiesPos.RemoveAt(currentTargetIndex);
-        enemyElems = enemiesPos.Count;
+        Enemies.RemoveAt(CurrentTargetIndex);
+        Pos.RemoveAt(CurrentTargetIndex);
+        EnemyElems = Pos.Count;
     }
 
     /// <summary>
@@ -78,10 +122,21 @@ public class EnemyManager : MonoBehaviour {
     {
         float value = Mathf.PI / 1.0f;
         angle += value * Time.deltaTime;
-        enemies[_index].transform.localScale 
+        Enemies[_index].transform.localScale 
             = new Vector3(baseScale.x + 0.5f * Mathf.Sin(angle), 
                           baseScale.y + 0.5f * Mathf.Sin(angle), 
                           1);
         if (angle > Mathf.PI) angle = 0;
+    }
+
+    /// <summary>
+    /// コアが破壊された時の処理
+    /// </summary>
+    /// <param name="_enemyIndex">何番目のエネミーか(index)</param>
+    /// <param name="_coreIndex">何番目のコアか(index)</param>
+    public void CoreBreaking(int _enemyIndex, int _coreIndex)
+    {
+        CoreBroken[_enemyIndex] = true;
+        CoreSTR[_enemyIndex] = 0;
     }
 }

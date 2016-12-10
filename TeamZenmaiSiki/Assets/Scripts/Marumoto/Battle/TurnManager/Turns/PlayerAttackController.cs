@@ -15,7 +15,7 @@ public class PlayerAttackController : MonoBehaviour
     void Start()
     {
         enemiesPos = new List<Vector3>();
-        enemiesPos = EnemyManager.Instance.EnemiesPos;
+        enemiesPos = EnemyManager.Instance.Pos;
         currentTargetEnemyIndex = 0;
     }
 
@@ -24,7 +24,7 @@ public class PlayerAttackController : MonoBehaviour
     /// </summary>
     public void GenerateAttackCircle()
     {
-        enemiesPos = EnemyManager.Instance.EnemiesPos;
+        enemiesPos = EnemyManager.Instance.Pos;
         if (attackCircle == null)
         {
             //現在ターゲットの敵にサークル描画
