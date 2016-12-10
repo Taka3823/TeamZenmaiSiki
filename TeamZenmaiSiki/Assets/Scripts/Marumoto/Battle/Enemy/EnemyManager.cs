@@ -22,11 +22,11 @@ public class EnemyManager : MonoBehaviour {
         enemies = new List<GameObject>();
         enemiesPos = new List<Vector3>();
         baseScale = new Vector3(2, 2, 1);
-        SetupEnemy();
     }
 
     void Start()
     {
+        SetupEnemy();
         currentTargetIndex = 0;
     }
 

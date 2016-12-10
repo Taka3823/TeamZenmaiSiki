@@ -98,6 +98,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011006069634}
+  - 114: {fileID: 114000011405747338}
   m_Layer: 0
   m_Name: BattleResultData
   m_TagString: Untagged
@@ -270,7 +271,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5777a57e4b35587439ca23cd9f002d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 55666080, guid: 3a68e944b36f86c4faecc7245b45d07c, type: 2}
+  prefab: {fileID: 1000012920404214, guid: 3a68e944b36f86c4faecc7245b45d07c, type: 2}
+--- !u!114 &114000011405747338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013879015282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d34b9102b4d8e84cacc454d723043b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012860399674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -297,9 +309,9 @@ MonoBehaviour:
   buttonManager:
   - {fileID: 0}
   - {fileID: 0}
-  libraController: {fileID: 0}
-  playerAttackController: {fileID: 0}
-  enemyAttackController: {fileID: 0}
+  libraController: {fileID: 114000010966265786}
+  playerAttackController: {fileID: 114000011190699476}
+  enemyAttackController: {fileID: 114000012860399674}
 --- !u!114 &114000013212537034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -311,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8eee053570d2e43a26951b35e1ce4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttackController: {fileID: 0}
+  playerAttackController: {fileID: 114000011190699476}
 --- !u!114 &114000013727489960
 MonoBehaviour:
   m_ObjectHideFlags: 1
