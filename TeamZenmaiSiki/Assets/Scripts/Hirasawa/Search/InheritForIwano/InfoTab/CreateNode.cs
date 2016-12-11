@@ -23,7 +23,7 @@ public class CreateNode : MonoBehaviour
         directivedata = new DataManager.DirectiveData();
         directivedata.collectionTargetName = new List<string>();
         SetDebugDatas();
-        //directivedata = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber];
+        //directivedata = DataManager.Instance.DirectiveDatas[0][0];
 
         for(int i = 0;i < directivedata.collectionTargetName.Count; i++)
         {
@@ -35,10 +35,13 @@ public class CreateNode : MonoBehaviour
 	}
     void SetDebugDatas()
     {
-        directivedata.collectionTargetName.Add("ゴウダタケシ");
-        directivedata.collectionTargetName.Add("ジョンソン");
-        directivedata.collectionTargetName.Add("ゴウダジャイ子");
-        directivedata.collectionTargetName.Add("マルモッコリ");
-        directivedata.collectionTargetName.Add("ミッチーバスケ");
+        directivedata.collectionTargetName.Add("ジョニー・ダインリー");
+        directivedata.collectionTargetName.Add("ケイシー・リックマン");
+        directivedata.collectionTargetName.Add("マリリン・セルウェイ");
+        directivedata.collectionTargetName.Add("ポリー・ポロック");
+        directivedata.collectionTargetName.Add("シルヴェスター・ゴールディング");
+        directivedata.collectionTargetName.Add("エルシー・クローク");
+        directivedata.collectionTargetName.Add("フランクリン・パッカー");
+        directivedata.collectionTargetName.Add("セルマ・ブラウン");
     }
 }

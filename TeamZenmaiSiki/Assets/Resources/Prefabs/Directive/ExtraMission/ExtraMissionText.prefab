@@ -41,6 +41,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cOM: {fileID: 1000013291492810, guid: 6156acbdbd4016946b23bc41325fbb9d, type: 2}
+  distance:
+  - {x: 520, y: -145, z: 0}
+  - {x: 520, y: -170, z: 0}
+  - {x: 520, y: -185, z: 0}
 --- !u!114 &114000014264570580
 MonoBehaviour:
   m_ObjectHideFlags: 1
