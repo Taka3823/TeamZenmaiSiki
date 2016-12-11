@@ -24,7 +24,7 @@ public class ButtonReaction : MonoBehaviour
     public void OnClick()
     {
         DataManager.Instance.ScenarioChapterNumber = this.chapterNumber - 1;
-        DataManager.Instance.ScenarioSectionNumber = this.sectionNumber - 1;
+        DataManager.Instance.ScenarioSectionNumber = this.sectionNumber;
 
         SceneManager.LoadScene("Scenario");
     }
