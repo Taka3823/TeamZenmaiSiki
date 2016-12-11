@@ -44,9 +44,9 @@ public class CreateExtraMission : MonoBehaviour
 
         obj.transform.parent = this.transform;
 
-        obj.transform.localPosition = new Vector3(transform.position.x + distance[element_].x, 
-                                                  transform.localPosition.y - (95f * (element_ + 1)) + distance[element_].y,
-                                                  0 + distance[element_].z);
+        obj.transform.localPosition = new Vector3(this.transform.localPosition.x + distance[element_].x, 
+                                                  this.transform.localPosition.y - (95f * (element_ + 1)) + distance[element_].y,
+                                                  this.transform.localPosition.z + distance[element_].z);
 
         obj.GetComponent<Text>().text = drawMissionName[element_];
     }
