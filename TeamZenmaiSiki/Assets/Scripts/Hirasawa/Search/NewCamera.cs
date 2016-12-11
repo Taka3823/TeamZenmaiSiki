@@ -41,7 +41,7 @@ public class NewCamera : MonoBehaviour {
     void Start () {
         instance = this;
         mapstart = 0;
-        cameraposx = mapstart;
+        cameraposx = DataManager.Instance.CameraPos.x;
         waitcount = 0;
         frontPos = cameraposx;
         easingT = 0;

@@ -154,6 +154,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
     }
     public void DisEnableReturnUI()
     {
+        DataManager.Instance.CameraPos = new Vector3(NewCamera.Instance.cameraposx, 0, 0);
         ReturnButtonCanvas.Instance.setenableReturnUI(false);
     }
     public void BackScenarioSelect()
