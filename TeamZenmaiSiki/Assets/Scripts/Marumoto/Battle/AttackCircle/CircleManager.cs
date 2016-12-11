@@ -63,6 +63,7 @@ public class CircleManager : MonoBehaviour
                 //TODO:CircleCollider2Dを有効化する処理
                 circleCollider2D.enabled = true;
                 PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);
+                PlayerAttackUpdateManager.Instance.SecondaryCirclePos = secondaryCircle.transform.position;
             }
         }
     }
