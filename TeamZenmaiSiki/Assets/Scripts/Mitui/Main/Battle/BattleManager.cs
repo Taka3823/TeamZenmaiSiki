@@ -48,6 +48,20 @@ public class BattleManager : MonoBehaviour
     public List<int> getBattleCoreDefence() { return enemyStatusRead.getBattleCoreDefence(); }
     public List<GameObject> getEnemyObject() { return enemyStatusRead.getEnemyObject(); }
 
+    //FIXME:β版応急処置
+    /// <summary>
+    /// まるも加筆
+    /// </summary>
+    /// <param name="_index"></param>
+    public void removeEnemyData(int _index)
+    {
+        enemyStatusRead.removeEnemyData(_index);
+    }
+    public string getKillName(int _index)
+    {
+        return enemyStatusRead.getKillName(_index);
+    }
+
     /// <summary>
     /// プレイヤー
     /// </summary>

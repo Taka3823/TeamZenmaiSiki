@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Search.unity
   - enabled: 1
     path: Assets/Scenes/Battle.unity
+  - enabled: 0
+    path: Assets/Scenes/GameOver.unity

@@ -1,14 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class EnemyAttackController : MonoBehaviour {
     private int currentActIndex;
     private bool isAttacking;
+    public int PlayerHP { get; private set; }
+
+    [SerializeField]
+    Text playerHP;
 
     void Start()
     {
+        PlayerHP = BattleManager.Instance.GetBattlePlayerHp;
+        PlayerHP = 150;
         currentActIndex = 0;
         isAttacking = false;
+    }
+
+    void LateUpdate()
+    {
+        playerHP.text = "HP: " + PlayerHP + "/150";
     }
 
     /// <summary>
@@ -32,7 +45,9 @@ public class EnemyAttackController : MonoBehaviour {
     /// <returns></returns>
     private IEnumerator AttackAction()
     {
+        int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];        
         isAttacking = true;
+        ToPlayerDamage(_enemySTR*5);
         yield return new WaitForSeconds(1.0f);
 
         isAttacking = false;
@@ -49,6 +64,15 @@ public class EnemyAttackController : MonoBehaviour {
         {
             currentActIndex = 0;
             TurnManager.Instance.ProgressFunction();
+        }
+    }
+
+    private void ToPlayerDamage(int _damage)
+    {
+        PlayerHP -= _damage;
+        if (PlayerHP <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
@@ -20,12 +21,9 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         CORE_3,
         CORE_FRAME_1
     }
-
-    //********************************************
-    //仮置き
-    //********************************************
-    int charaSTR = 3;
-
+    //FIXME:緊急措置
+    [SerializeField]
+    Text playerSTRText;
 
     [SerializeField]
     PlayerAttackController playerAttackController;
@@ -39,6 +37,8 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     bool circleColliderEnable;    //CircleColliderが有効化されているか。
     bool isHit;                   //CircleColliderに敵がヒットしたか。
 
+    private int playerSTR;
+
     void Awake()
     {
         if (instance == null) { instance = this; }
@@ -49,10 +49,14 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         circleColliderEnable = false;
         SecondaryCirclePos = new Vector3();
         isHit = false;
+        playerSTR = BattleManager.Instance.getBattlePlayerAtk();
+        playerSTR = 10;
+        playerSTRText.text = "ATK: " + playerSTR.ToString();
     }
 
 	void LateUpdate ()
     {
+        playerSTRText.text = "ATK: " + playerSTR.ToString();
         if (circleColliderEnable)
         {
             StartCoroutine(PlayerAttacking());
@@ -69,6 +73,10 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         yield return null;
 
         HitSequence();
+        if (EnemyDead())
+        {
+            EnemyDestroy();
+        }
         playerAttackController.ProgressCurrentTargetIndex();
         Destroy(attackCircle);
     }
@@ -78,19 +86,25 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     public void HitSequence()
     {
-        int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex], SecondaryCirclePos);
-
-        int _enemyDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
-        EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(charaSTR, _enemyDEF));
+        int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex],
+                                                SecondaryCirclePos,
+                                                EnemyManager.Instance.Size[EnemyManager.Instance.CurrentTargetIndex]);
 
         if (hitIndex == (int)PartsName.EMPTY) return;
-        if (hitIndex == (int)PartsName.BODY) { }
-        if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1)) { }
-
-        if (EnemyDead())
+        else if (hitIndex == (int)PartsName.BODY)
         {
-            EnemyDestroy();
+            int _enemyMainDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
+            EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(playerSTR, _enemyMainDEF));
         }
+        else if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1))
+        {
+            int _enemyCoreDEF = EnemyManager.Instance.CoreDEF[EnemyManager.Instance.CurrentTargetIndex];
+            EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
+        }
+
+        Debug.Log("MainHP  : "+EnemyManager.Instance.MainHP[EnemyManager.Instance.CurrentTargetIndex]);
+        Debug.Log("CoreHP  : "+EnemyManager.Instance.CoreHP[EnemyManager.Instance.CurrentTargetIndex]);
+        Debug.Log("CoreSTR : "+EnemyManager.Instance.CoreSTR[EnemyManager.Instance.CurrentTargetIndex]);
     }
 
     /// <summary>
@@ -98,8 +112,9 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     private void EnemyDestroy()
     {
-        Destroy(targetObject);
+        Destroy(EnemyManager.Instance.Enemies[EnemyManager.Instance.CurrentTargetIndex]);
         EnemyManager.Instance.EnemyErase();
+        //EnemyManager.Instance.Dead[EnemyManager.Instance.CurrentTargetIndex] = true;
         playerAttackController.DecreaseCurrentTargetIndex();
         TurnManager.Instance.ButtonManagement();
     }
