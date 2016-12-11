@@ -58,12 +58,21 @@ public class EnemyManager : MonoBehaviour {
     /// <summary>
     /// 現在のターゲットインデックス。
     /// </summary>
-    public int CurrentTargetIndex { private get; set; }
+    public int CurrentTargetIndex { get; set; }
 
     /// <summary>
     /// エネミーの人数。
     /// </summary>
     public int EnemyElems { get; private set; }
+
+    /// <summary>
+    /// 当たり判定のインデックス
+    /// </summary>
+    public List<List<List<int>>> CollisionIndex { get; private set; }
+
+    CollisionData collisionData;
+
+    public List<string> CollisionPath { get; private set; }
 
     private float angle;
     private Vector3 baseScale;
@@ -88,6 +97,7 @@ public class EnemyManager : MonoBehaviour {
         Pos = new List<Vector3>();
         Enemies = new List<GameObject>();
         CoreBroken = new List<bool>();
+        CollisionPath = new List<string>();
 
         Pos = BattleManager.Instance.getPos();
         Enemies = BattleManager.Instance.getEnemyObject();
@@ -99,9 +109,26 @@ public class EnemyManager : MonoBehaviour {
         CoreDEF = BattleManager.Instance.getBattleMainDefence();
         EnemyElems = Enemies.Count;
 
-        for(int i = 0; i < EnemyElems; i++)
+        for (int i = 0; i < EnemyElems; i++)
         {
+            string _collisionPath = Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
+            //CollisionPath.Add(_collisionPath);
             CoreBroken.Add(false);
+            CollisionPath.Add(Application.dataPath + "/CSVFiles/Battle/Collision/WorkerA_def.txt");
+        }
+
+        collisionData = new CollisionData();
+        CollisionIndex = collisionData.CollisionIndex;
+
+        //配列デバッグ用
+        for (int i = 0; i < 30; i++)
+        {
+            string a = "";
+            for (int j = 0; j < 30; j++)
+            {
+                a += CollisionIndex[0][i][j].ToString();
+            }
+            Debug.Log(a);
         }
     }
 
@@ -146,5 +173,27 @@ public class EnemyManager : MonoBehaviour {
     {
         CoreBroken[_enemyIndex] = true;
         CoreSTR[_enemyIndex] = 0;
+    }
+
+    /// <summary>
+    /// エネミーの素のHPに対するダメージ処理。
+    /// </summary>
+    /// <param name="_damageValue">エネミーに与えたいダメージ値</param>
+    public void ToEnemyMainDamage(int _damageValue)
+    {
+        MainHP[CurrentTargetIndex] -= _damageValue;
+        if (MainHP[CurrentTargetIndex] < 0)
+        {
+            MainHP[CurrentTargetIndex] = 0;
+        }
+    }
+
+    /// <summary>
+    /// エネミーのコアHPに対するダメージ処理
+    /// </summary>
+    /// <param name="_damageValue">コアへのダメージ量</param>
+    public void ToEnemyCoreDamage(int _damageValue)
+    {
+        
     }
 }

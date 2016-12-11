@@ -11,8 +11,16 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         get { return instance; }
     }
 
+    //********************************************
+    //仮置き
+    //********************************************
+    int charaSTR = 3;
+
+
     [SerializeField]
     PlayerAttackController playerAttackController;
+
+    BattleCalculation calculation = new BattleCalculation();
 
     GameObject attackCircle;      //InstantiateしたAttackCircle。
     GameObject targetObject;      //現在のターゲットオブジェクト。
@@ -55,18 +63,40 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 
     /// <summary>
     /// 攻撃が当たっていたときの処理。
-    /// ターゲットを破壊し、その情報を消す。
     /// </summary>
     private void HitSequence()
     {
         if (isHit)
         {
-            Destroy(targetObject);
-            EnemyManager.Instance.EnemyErase();
-            playerAttackController.DecreaseCurrentTargetIndex();
-            TurnManager.Instance.ButtonManagement();
+            int _enemyDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
+            EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(charaSTR, _enemyDEF));
+            if (EnemyDead())
+            {
+                EnemyDestroy();
+            }
             isHit = false;
         }
+    }
+
+    /// <summary>
+    /// エネミーのデータを消去する処理
+    /// </summary>
+    private void EnemyDestroy()
+    {
+        Destroy(targetObject);
+        EnemyManager.Instance.EnemyErase();
+        playerAttackController.DecreaseCurrentTargetIndex();
+        TurnManager.Instance.ButtonManagement();
+    }
+
+    /// <summary>
+    /// エネミーの死亡判定
+    /// </summary>
+    /// <returns>死んでいればtrue</returns>
+    private bool EnemyDead()
+    {
+        if (EnemyManager.Instance.MainHP[EnemyManager.Instance.CurrentTargetIndex] <= 0) return true;
+        return false;
     }
 
     public void SetCircleColliderEnable(bool _cond) { circleColliderEnable = _cond; }
