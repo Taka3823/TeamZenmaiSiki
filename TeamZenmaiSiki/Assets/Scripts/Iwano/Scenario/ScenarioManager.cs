@@ -145,7 +145,8 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         drawSentences[elementNum_] = scenariosData[currentLine].sentences[elementNum_];
         
         if (scenariosData[currentLine].charaSprite[elementNum_] != "" &&
-            scenariosData[currentLine].drawCharacterPos != "")
+            scenariosData[currentLine].drawCharacterPos != "" &&
+            scenariosData[currentLine].charaSprite[elementNum_] != null)
         {
             DrawManager.Instance.DrawCharacter(scenariosData[currentLine].drawCharacterPos, scenariosData[currentLine].charaSprite[elementNum_]);
         }

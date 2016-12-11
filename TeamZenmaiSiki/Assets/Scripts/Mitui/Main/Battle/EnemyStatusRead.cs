@@ -122,7 +122,7 @@ public class EnemyStatusRead : MonoBehaviour
             Sprite sprite = new Sprite();
             string pass = "Sprits/Battle/EnemyCharacters/" + DataManager.Instance.EnemyInternalDatas[i].battleTexturePass;
             sprite = Resources.Load<Sprite>(pass);
-            Debug.Log(sprite.name);
+            //Debug.Log(sprite.name);
             //enemyPrefab.GetComponent<SpriteRenderer>().sprite = sprite;
             GameObject refObj = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
             refObj.GetComponent<SpriteRenderer>().sprite = sprite;
