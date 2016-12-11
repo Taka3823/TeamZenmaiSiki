@@ -30,24 +30,36 @@ public class ReadDirective : MonoBehaviour
 
     string[] pathName =
     {
-        "SampleDirective.csv",  //一節
+        "Episode_1_1_Lucas.csv",  //一節
         //"SampleDirective_2",  //二節
     };
 
-    //TIPS:引数には一1章なら「１」と入力する
-    public void ReadFile(int scenarioNumberData_)
+    private int lineLength;
+
+    public int LineLength
     {
-        string path = Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[scenarioNumberData_ - 1];
+        get { return lineLength; }
+        set { lineLength = value; }
+    }
+
+    //TIPS:引数には一1章なら「１」と入力する
+    public void ReadFile(int chapterNumber_)
+    {
+        string path = Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
+
+        Debug.Log(path);
 
         string[] lines = ReadCsvFoundation.ReadCsvData(path);
 
         didCommaSeparrationData = new string[lines.Length];
 
+        lineLength = lines.Length;
+
         char[] commmaSplitter = { ',' };
 
         DataManager.DirectiveData[] tempDirectiveData = new DataManager.DirectiveData[lines.Length];
         
-        for (int i = 0; i < lines.Length; i++)
+        for (int i = 1; i < lines.Length; i++)
         {
             didCommaSeparrationData = ReadCsvFoundation.NotOptionDataSeparation(lines[i], commmaSplitter, CSVDATA_ELEMENTS);
             
@@ -72,6 +84,10 @@ public class ReadDirective : MonoBehaviour
             }
         }
 
+        //Debug.Log(tempDirectiveData[0].scenarioTitle);
+
         DataManager.Instance.DirectiveDatas.Add(tempDirectiveData);
+
+        Debug.Log("length" + DataManager.Instance.DirectiveDatas.Count);
     }
 }
