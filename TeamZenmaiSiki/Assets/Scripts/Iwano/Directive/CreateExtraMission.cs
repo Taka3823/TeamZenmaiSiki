@@ -14,6 +14,9 @@ public class CreateExtraMission : MonoBehaviour
     [SerializeField]
     GameObject cOM;
 
+    [SerializeField]
+    Vector3[] distance = new Vector3[3];
+    
     string[] drawMissionName = new string[3];
 
     void Start()
@@ -41,7 +44,9 @@ public class CreateExtraMission : MonoBehaviour
 
         obj.transform.parent = this.transform;
 
-        obj.transform.localPosition = new Vector3(transform.position.x, transform.localPosition.y - (95f * (element_ + 1)), 0);
+        obj.transform.localPosition = new Vector3(transform.position.x + distance[element_].x, 
+                                                  transform.localPosition.y - (95f * (element_ + 1)) + distance[element_].y,
+                                                  0 + distance[element_].z);
 
         obj.GetComponent<Text>().text = drawMissionName[element_];
     }
