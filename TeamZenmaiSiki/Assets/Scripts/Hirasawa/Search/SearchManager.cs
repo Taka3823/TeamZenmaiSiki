@@ -99,7 +99,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
     }
     public void GoScenario()
     {
-        SceneChange("Scenario");
+        ReslutCanvas.Instance.SetEnable(true);
     }
     void OnTouchDown()
     {
@@ -126,7 +126,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
                 }
                 else if (hit.collider.tag == "Goal")
                 {
-                    ReturnCanvas.setenableReturnUI(true);
+                   
                 }
                 if (hit.collider.gameObject.tag != "Unit")
                 {
@@ -148,7 +148,18 @@ public class SearchManager : MonoBehaviour , ISceneBase
     {
         SceneManager.LoadScene(nextSceneName_);
     }
-
+    public void EnableReturnUI()
+    {
+        ReturnCanvas.setenableReturnUI(true);
+    }
+    public void DisEnableReturnUI()
+    {
+        ReturnButtonCanvas.Instance.setenableReturnUI(false);
+    }
+    public void BackScenarioSelect()
+    {
+        SceneChange("ScenarioChoice");
+    }
     public string[] EpisodeStageNum(string lines_, char[] spliter_, int trialNumber_)
     {
         //カンマとカンマの間に何もなかったら格納しないことにする設定
