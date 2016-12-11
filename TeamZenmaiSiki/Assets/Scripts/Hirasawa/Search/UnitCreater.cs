@@ -18,7 +18,7 @@ public class UnitCreater : MonoBehaviour {
     }
 	void Start () {
         enemyDataReader = new EnemyDataReader();
-        int episodeNum = 1;
+        int episodeNum = 2;
         int stageNum = 1;
         createNum = new int();
         UnitPos = new List<Vector3>();
