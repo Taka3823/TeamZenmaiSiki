@@ -10,13 +10,19 @@ public class CreateEpsiodeNode : MonoBehaviour
 
     [SerializeField]
     ReadDirective readDirective;
-    
+
+    [SerializeField]
+    int chapterNumber;
+
 	// Use this for initialization
 	void Start ()
     {
-        readDirective.ReadFile(1);
-
-        CreateNode(1, 1);
+        readDirective.ReadFile(chapterNumber);
+        
+        for(int i = 1;i < readDirective.LineLength;i++)
+        {
+            CreateNode(chapterNumber, i - 1);
+        }
     }
 
     void CreateNode(int chaptrerNum_,int sectionNum_)
@@ -25,7 +31,6 @@ public class CreateEpsiodeNode : MonoBehaviour
         obj.name = chaptrerNum_.ToString() + "_" + sectionNum_.ToString();
 
         obj.transform.parent = transform;
-        
 
         obj.GetComponent<ButtonReaction>().ChapterNumber = chaptrerNum_;
         obj.GetComponent<ButtonReaction>().SectionNumber = sectionNum_;
@@ -33,6 +38,9 @@ public class CreateEpsiodeNode : MonoBehaviour
         GameObject child = obj.transform.FindChild("EpisodeName").gameObject;
         GameObject grandChild = child.transform.FindChild("Text").gameObject;
 
-        grandChild.GetComponent<Text>().text = DataManager.Instance.DirectiveDatas[chaptrerNum_-1][sectionNum_-1].scenarioTitle;
+        grandChild.GetComponent<Text>().fontSize = 60;
+        grandChild.GetComponent<Text>().color = Color.white;
+        
+        grandChild.GetComponent<Text>().text = DataManager.Instance.DirectiveDatas[chaptrerNum_-1][sectionNum_].scenarioTitle;
     }
 }

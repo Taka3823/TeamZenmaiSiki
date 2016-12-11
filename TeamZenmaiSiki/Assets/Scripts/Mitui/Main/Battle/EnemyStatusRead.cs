@@ -29,7 +29,7 @@ public class EnemyStatusRead : MonoBehaviour
     [SerializeField]
     Text[] memo1;
 
-    List<EnemyData.EnemyInternalDatas> enemyData;
+    List<EnemyData.EnemyInternalDatas> enemyData = new List<EnemyData.EnemyInternalDatas>();
     List<Vector3> pos = new List<Vector3>();
 
     [SerializeField]
@@ -53,7 +53,6 @@ public class EnemyStatusRead : MonoBehaviour
     /// </summary>
     void EnemyTextUpdate()
     {
-        List<EnemyData.EnemyInternalDatas> enemyData = DataManager.Instance.EnemyInternalDatas;
 
         for (int i = 0; i < enemyData.Count; i++)
         {
@@ -151,6 +150,11 @@ public class EnemyStatusRead : MonoBehaviour
         EnemyTextUpdate();
     }
 
+    //FIXME:まるも加筆
+    public string getKillName(int _index)
+    {
+        return enemyData[_index].name;
+    }
 
     public List<Vector3> getPos() { return pos; }
     public List<int> getBattleMainHp() { return battleMainHp; }
@@ -174,4 +178,9 @@ public class EnemyStatusRead : MonoBehaviour
     }
 
     public List<GameObject> getEnemyObject() { return enemyObject; }
+
+    public void removeEnemyData(int _index)
+    {
+        enemyData.RemoveAt(_index);
+    }
 }

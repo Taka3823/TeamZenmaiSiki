@@ -264,6 +264,16 @@ Prefab:
       propertyPath: buttonManager.Array.data[1]
       value: 
       objectReference: {fileID: 163999383}
+    - target: {fileID: 114000012860399674, guid: e0fb2fbd251d4b54498fe13ad3987af6,
+        type: 2}
+      propertyPath: playerHP
+      value: 
+      objectReference: {fileID: 1444004273}
+    - target: {fileID: 114000013212537034, guid: e0fb2fbd251d4b54498fe13ad3987af6,
+        type: 2}
+      propertyPath: playerSTRText
+      value: 
+      objectReference: {fileID: 1140108738}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0fb2fbd251d4b54498fe13ad3987af6, type: 2}
   m_IsPrefabParent: 0

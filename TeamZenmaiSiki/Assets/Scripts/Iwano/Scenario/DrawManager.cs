@@ -118,17 +118,20 @@ public class DrawManager : MonoBehaviour
     //キャラクターを変更するときに使用
     public void DrawCharacter(string posName_, string imagePath_)
     {
-        if (posName_ == "right")
+        Debug.Log(posName_);
+        Debug.Log(imagePath_);
+        
+        if (posName_ == "右")
         {
             rightImage.sprite = charaImageDictionary[imagePath_];
             rightImageGameObject.SetActive(true);
         }
-        else if (posName_ == "center")
+        else if (posName_ == "中央")
         {
             centerImage.sprite = charaImageDictionary[imagePath_];
             centerImageGameObject.SetActive(true);
         }
-        else if (posName_ == "left")
+        else if (posName_ == "左")
         {
             leftImage.sprite = charaImageDictionary[imagePath_];
             leftImageGameObject.SetActive(true);
@@ -142,15 +145,15 @@ public class DrawManager : MonoBehaviour
     //指定位置のキャラクターを消すときに使用
     public void EraseTheCharacter(string posName_)
     {
-        if (posName_ == "right")
+        if (posName_ == "右")
         {
             rightImageGameObject.SetActive(false);
         }
-        else if (posName_ == "center")
+        else if (posName_ == "中央")
         {
             centerImageGameObject.SetActive(false);
         }
-        else if (posName_ == "left")
+        else if (posName_ == "左")
         {
             leftImageGameObject.SetActive(false);
         }
@@ -163,15 +166,15 @@ public class DrawManager : MonoBehaviour
     //吹き出しの表示を変える際に使用
     public void DrawBalloon(string posName_)
     {
-        if (posName_ == "right")
+        if (posName_ == "右")
         {
             baloonImage.sprite = baloonImageDictionary["comment_right.png"];
         }
-        else if (posName_ == "center")
+        else if (posName_ == "中央")
         {
             baloonImage.sprite = baloonImageDictionary["comment_center.png"];
         }
-        else if (posName_ == "left")
+        else if (posName_ == "左")
         {
             baloonImage.sprite = baloonImageDictionary["comment_left.png"];
         }

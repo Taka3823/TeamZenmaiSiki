@@ -25,7 +25,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     //文字列の表示を開始した時間
     float timeElapsed = 1;
     //現在の要素番号
-    int currentLine = 0;
+    int currentLine = 1;
     //表示中の文字数
     int lastUpdateCharacter = -1;
 
@@ -121,7 +121,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         lineNumber = 0;
 
         if (scenariosData[currentLineNum_].command == ReadScenario.COMMAND_SENTENCE ||
-           scenariosData[currentLineNum_].command == ReadScenario.COMMAND_BRANK)
+            scenariosData[currentLineNum_].command == ReadScenario.COMMAND_BRANK)
         {
             drawSentences = new string[scenariosData[currentLineNum_].sentences.Count];
 

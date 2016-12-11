@@ -81,13 +81,28 @@ public class ReadScenario : MonoBehaviour
     {
         //一章
         {
-            "Sample.csv",
-            ""
+            "ep1",
+            "ep1_2"
         },
         //二章
         {
-            "",
-            ""
+            "ep2",
+            "ep2_2"
+        },
+        //三章
+        {
+            "ep3",
+            "ep3_2"
+        },
+        //四章
+        {
+            "ep4",
+            "ep4_2"
+        },
+        //五章
+        {
+            "ep5",
+            "ep5_2"
         }
     };
 
@@ -109,10 +124,12 @@ public class ReadScenario : MonoBehaviour
         Debug.Log(chapterNumber_);
         Debug.Log(sectionNumber_);
 
+        Debug.Log(chapterNumber_ + ":" + sectionNumber_);
+
         //読み込むパスを決定
         //FIXED:データマネージャーからのデータの受け取りは、
         //ReadFileを呼ぶときに引数で渡すほうがいいかも？
-        string path = Application.dataPath + "/CSVFiles/Scenario/" + scenarioDictionary[chapterNumber_,sectionNumber_];
+        string path = Application.dataPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
 
         Debug.Log(path);
 
@@ -129,7 +146,7 @@ public class ReadScenario : MonoBehaviour
         int count = 0;
         string commandStorageTemp;
 
-        for (int i = 0; i < lines.Length; i++)
+        for (int i = 1; i < lines.Length; i++)
         {
             commandStorageTemp = didCommaSeparationData[(int)ElementNames.command];
 
@@ -138,14 +155,13 @@ public class ReadScenario : MonoBehaviour
                 count += 1;
             }
         }
+        scenariosData = new ScenariosData[count + 1];
 
-        scenariosData = new ScenariosData[count];
-
-        for (int i = 0; i < lines.Length; i++)
+        for (int i = 1; i < lines.Length; i++)
         {
             //一行をカンマわけされたデータを格納
             didCommaSeparationData = DataSeparation(lines[i], commaSplitter, CSVDATA_ELEMENTS);
-
+            
             scenariosData[i].command = didCommaSeparationData[(int)ElementNames.command];
 
             if (scenariosData[i].command != COMMAND_DRAW)

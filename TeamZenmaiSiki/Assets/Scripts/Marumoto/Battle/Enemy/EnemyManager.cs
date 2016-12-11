@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour {
     /// <summary>
     /// エネミーオブジェクトのリスト
     /// </summary>
-    public List<GameObject> Enemies { get; private set; }
+    public List<GameObject> Enemies { get; set; }
 
     /// <summary>
     /// エネミーの表示座標リスト
@@ -66,9 +66,21 @@ public class EnemyManager : MonoBehaviour {
     public int EnemyElems { get; private set; }
 
     /// <summary>
+    /// エネミーの画像サイズ
+    /// </summary>
+    public List<Vector3> Size { get; private set; }
+
+    /// <summary>
     /// 当たり判定のインデックス
     /// </summary>
     public List<List<List<int>>> CollisionIndex { get; private set; }
+
+    /// <summary>
+    /// 死んでるかどうか。
+    /// </summary>
+    public List<bool> Dead { get; set; }
+
+    public int DeadNum { get; set; }
 
     CollisionData collisionData;
 
@@ -98,6 +110,9 @@ public class EnemyManager : MonoBehaviour {
         Enemies = new List<GameObject>();
         CoreBroken = new List<bool>();
         CollisionPath = new List<string>();
+        Size = new List<Vector3>();
+        Dead = new List<bool>();
+        DeadNum = 0;
 
         Pos = BattleManager.Instance.getPos();
         Enemies = BattleManager.Instance.getEnemyObject();
@@ -106,30 +121,37 @@ public class EnemyManager : MonoBehaviour {
         MainDEF = BattleManager.Instance.getBattleMainDefence();
         CoreHP = BattleManager.Instance.getBattleCoreHp();
         CoreSTR = BattleManager.Instance.getBattleCorePower();
-        CoreDEF = BattleManager.Instance.getBattleMainDefence();
+        CoreDEF = BattleManager.Instance.getBattleCoreDefence();
         EnemyElems = Enemies.Count;
 
         for (int i = 0; i < EnemyElems; i++)
         {
             string _collisionPath = Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
-            //CollisionPath.Add(_collisionPath);
+            CollisionPath.Add(_collisionPath);
             CoreBroken.Add(false);
-            CollisionPath.Add(Application.dataPath + "/CSVFiles/Battle/Collision/WorkerA_def.txt");
+            Size.Add(new Vector3(Enemies[i].GetComponent<SpriteRenderer>().bounds.size.x, Enemies[i].GetComponent<SpriteRenderer>().bounds.size.y));
+            Dead.Add(false);
         }
 
         collisionData = new CollisionData();
         CollisionIndex = collisionData.CollisionIndex;
 
         //配列デバッグ用
-        for (int i = 0; i < 30; i++)
-        {
-            string a = "";
-            for (int j = 0; j < 30; j++)
-            {
-                a += CollisionIndex[0][i][j].ToString();
-            }
-            Debug.Log(a);
-        }
+        //for (int k = 0; k < EnemyElems; k++)
+        //{
+        //    for (int i = 0; i < 30; i++)
+        //    {
+        //        string a = "";
+        //        for (int j = 0; j < 30; j++)
+        //        {
+        //            a += CollisionIndex[k][i][j].ToString();
+        //        }
+        //        Debug.Log(a);
+        //    }
+        //    Debug.Log("===================================================");
+        //    Debug.Log("===================================================");
+        //    Debug.Log("===================================================");
+        //}
     }
 
     /// <summary>
@@ -137,6 +159,9 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     public void EnemyErase()
     {
+        DataManager.Instance.KillNum++;
+        DataManager.Instance.KillNames.Add(BattleManager.Instance.getKillName(CurrentTargetIndex));
+        BattleManager.Instance.removeEnemyData(CurrentTargetIndex);
         Enemies.RemoveAt(CurrentTargetIndex);
         Pos.RemoveAt(CurrentTargetIndex);
         MainHP.RemoveAt(CurrentTargetIndex);
@@ -146,7 +171,9 @@ public class EnemyManager : MonoBehaviour {
         CoreSTR.RemoveAt(CurrentTargetIndex);
         CoreDEF.RemoveAt(CurrentTargetIndex);
         CoreBroken.RemoveAt(CurrentTargetIndex);
-        EnemyElems = Enemies.Count;
+        Size.RemoveAt(CurrentTargetIndex);
+        CollisionIndex.RemoveAt(CurrentTargetIndex);
+        EnemyElems = Pos.Count;
     }
 
     /// <summary>
@@ -169,7 +196,7 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     /// <param name="_enemyIndex">何番目のエネミーか(index)</param>
     /// <param name="_coreIndex">何番目のコアか(index)</param>
-    public void CoreBreaking(int _enemyIndex, int _coreIndex)
+    public void CoreBreaking(int _enemyIndex)
     {
         CoreBroken[_enemyIndex] = true;
         CoreSTR[_enemyIndex] = 0;
@@ -194,6 +221,13 @@ public class EnemyManager : MonoBehaviour {
     /// <param name="_damageValue">コアへのダメージ量</param>
     public void ToEnemyCoreDamage(int _damageValue)
     {
-        
+        if (CoreBroken[CurrentTargetIndex]) return;
+
+        CoreHP[CurrentTargetIndex] -= _damageValue;
+        if (CoreHP[CurrentTargetIndex] <= 0)
+        {
+            CoreHP[CurrentTargetIndex] = 0;
+            CoreBreaking(CurrentTargetIndex);
+        }
     }
 }
