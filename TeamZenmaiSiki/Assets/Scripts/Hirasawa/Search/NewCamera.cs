@@ -20,11 +20,22 @@ public class NewCamera : MonoBehaviour {
     private float frontPos;
     private float mapstart;
     private float mapend;
+    private bool unitTouchMove;
+    private float unit_t;
+    private float unitTouchStartPos;
     [SerializeField]
     GameObject backLight;
     public static NewCamera Instance
     {
         get { return instance; }
+    }
+    public void SetUnitT(float _t)
+    {
+        unit_t = _t;
+    }
+    public void SetUnitStartPos(float pos)
+    {
+        unitTouchStartPos = pos;
     }
     // Use this for initialization
     void Start () {
@@ -36,14 +47,19 @@ public class NewCamera : MonoBehaviour {
         easingT = 0;
         pullcount = 0;
         anothertouch = false;
-
-        mapend = -backLight.GetComponent<SpriteRenderer>().bounds.size.x;
+        unitTouchMove = false;
+        mapend = -2.5f*backLight.GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
+
+        UnitTouchMove();
+        if (TabManager.Instance.Getisblood()) return;
+        if (TabManager.Instance.GetIsDisplay()) return;
+        if (unitTouchMove) return;
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
         {
             anothertouch = true;
             ismoving = false;
@@ -138,5 +154,24 @@ public class NewCamera : MonoBehaviour {
         cameraposx = value;
         easingT = 0;
         ismoving = false;
+    }
+    void UnitTouchMove()
+    {
+        if (SearchManager.Instance.GetisUnitTouch())
+        {
+            if (unit_t >= 1)
+            {
+                unit_t = 1;
+              
+            }
+            unitTouchMove = true;
+            unit_t += 1 / (60.0f * 1.0f);
+            cameraposx = EasingCubicOut(unit_t, unitTouchStartPos, -2*SearchManager.Instance.GetUnitPos());
+            if (unit_t >= 1)
+            {
+                unitTouchMove = false;
+                SearchManager.Instance.SetisUnitTouch(false);
+            }
+        }
     }
 }

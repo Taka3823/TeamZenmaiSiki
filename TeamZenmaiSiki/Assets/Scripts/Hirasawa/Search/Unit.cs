@@ -43,6 +43,7 @@ public class Unit : MonoBehaviour {
 
    public void OnTouchDown()
     {
+        if (TabManager.Instance.Getisblood()) return;
         List<EnemyData.EnemyInternalDatas> buf= new List<EnemyData.EnemyInternalDatas>();
         buf = SearchManager.Instance.getSendEnemyDatas();
         if (buf.Count > 1)//初期状態でなければ
@@ -88,5 +89,8 @@ public class Unit : MonoBehaviour {
         transform.position = pos;
 
     }
-
+    public float getPos()
+    {
+        return startpos.x;
+    }
 }
