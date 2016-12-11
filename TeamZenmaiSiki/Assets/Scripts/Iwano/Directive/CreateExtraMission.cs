@@ -33,9 +33,9 @@ public class CreateExtraMission : MonoBehaviour
             CreateSpecialMission(i);
         }
 
-        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].firstMission,  DataManager.Instance.DirectiveDatas[chap][sect].firstMissionAchievementCondition,  i);
-        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].secondMission, DataManager.Instance.DirectiveDatas[chap][sect].secondMissionAchievementCondition, i);
-        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].thirdMission,  DataManager.Instance.DirectiveDatas[chap][sect].thirdMissionAchievementCondition,  i);
+        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].firstMission,  DataManager.Instance.DirectiveDatas[chap][sect].firstMissionAchievementCondition,  0);
+        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].secondMission, DataManager.Instance.DirectiveDatas[chap][sect].secondMissionAchievementCondition, 1);
+        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].thirdMission,  DataManager.Instance.DirectiveDatas[chap][sect].thirdMissionAchievementCondition,  2);
     }
 
     void CreateSpecialMission(int element_)

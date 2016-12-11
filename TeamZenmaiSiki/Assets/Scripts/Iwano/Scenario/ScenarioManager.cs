@@ -58,6 +58,12 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
 
     void Update()
     {
+        //デバッグ用
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneChange("Search");
+        }
+
         // 文字の表示が完了してるならクリック時に次の行を表示する
         if (IsCompleteDisplayText)
         {
@@ -198,5 +204,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     public void SceneChange(string nextSceneName_)
     {
         SceneManager.LoadScene("Search");
+
+        DataManager.Instance.CameraPos = Vector3.zero;
     }
 }

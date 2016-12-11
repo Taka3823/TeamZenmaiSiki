@@ -14,7 +14,7 @@ public class CreateTargetNameNode : MonoBehaviour
         //int chapterNum = DataManager.Instance.ScenarioChapterNumber;
         //int sectionNum = DataManager.Instance.ScenarioSectionNumber;
 
-        //for(int i= 0;i < DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName.Count;i++)
+        //for (int i = 0; i < DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName.Count; i++)
         //{
         //    CreateNode(DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName[i]);
         //}

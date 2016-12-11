@@ -146,7 +146,7 @@ public class DataManager : MonoBehaviour
 
     Vector3 pos = new Vector3();
 
-    private Vector3 cameraPos = new Vector3();
+    private Vector3 cameraPos = new Vector3(0,0,0);
 
     public Vector3 CameraPos
     {
