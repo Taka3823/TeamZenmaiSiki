@@ -672,7 +672,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000010332796646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,7 +705,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000010400090686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -738,7 +738,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000010595621478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -804,7 +804,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000010665997596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -837,7 +837,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000010711640762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -870,7 +870,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000010801388506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -903,7 +903,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000011023321592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -965,7 +965,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000011290988766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1159,7 +1159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000012568893582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1192,7 +1192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000012582041388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1258,7 +1258,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000012698684794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1291,7 +1291,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000012835095628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1357,7 +1357,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000012917334284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1423,7 +1423,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000013034301438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1456,7 +1456,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000013117232798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1549,7 +1549,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000013729835168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1640,7 +1640,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000013806726608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1673,9 +1673,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'New Text
-
-'
+  m_Text: 
 --- !u!114 &114000013828584740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1708,7 +1706,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114000013998922230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1821,9 +1819,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'New Text
-
-'
+  m_Text: 
 --- !u!222 &222000010186694684
 CanvasRenderer:
   m_ObjectHideFlags: 1

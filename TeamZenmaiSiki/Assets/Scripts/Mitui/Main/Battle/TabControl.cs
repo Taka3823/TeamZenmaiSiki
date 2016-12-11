@@ -80,6 +80,7 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (isDisplay) return;
         if (!RayCast("InfoTab")) return;
 
         startPos = eventData.position.x;

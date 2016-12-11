@@ -12,20 +12,20 @@ public class BattleCalculation {
     /// <param name="_characterSTR">攻撃を仕掛ける側の攻撃力。</param>
     /// <param name="_characterDEF">攻撃を受ける側の防御力。</param>
     /// <returns>最終的なダメージ数値。</returns>
-    public int FromPlayerToEnamyDamage(int _characterSTR, int _characterDEF)  
+    public int CalcDamage(int _characterSTR, int _characterDEF)  
     {
         int _resultDamage = _characterSTR - _characterDEF;
-        DamageClamp(ref _resultDamage);
+        PointClamp(ref _resultDamage);
         return _resultDamage;
     }
 
     /// <summary>
-    /// ダメージが負の数字にならないように調整。
+    /// 負の数字にならないように調整。
     /// </summary>
-    /// <param name="_resultDamage">計算結果のダメージの値</param>
-    private void DamageClamp(ref int _resultDamage)
+    /// <param name="_result">0が返却</param>
+    private void PointClamp(ref int _result)
     {
-        if (_resultDamage >= 0) return;
-            _resultDamage = 0;
+        if (_result >= 0) return;
+            _result = 0;
     }
 }

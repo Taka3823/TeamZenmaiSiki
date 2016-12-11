@@ -27,7 +27,7 @@ public class EnemyStatusRead : MonoBehaviour
     [SerializeField]
     Text[] bloodType;
     [SerializeField]
-    Text[] memos;
+    Text[] memo1;
 
     List<EnemyData.EnemyInternalDatas> enemyData;
     List<Vector3> pos = new List<Vector3>();
@@ -57,16 +57,24 @@ public class EnemyStatusRead : MonoBehaviour
 
         for (int i = 0; i < enemyData.Count; i++)
         {
-            enemyName[i].text = "NAME: " + enemyData[i].name;
-            mainHp[i].text = "HP: " + enemyData[i].mainHp + "/" + battleMainHp[i];
-            coreHp[i].text = "CHP: " + enemyData[i].coreHp[i] + "/" + battleCoreHp[i];
+            enemyName[i].text = enemyData[i].name;
+            mainHp[i].text = "HP: " + battleMainHp[i] + "/" + enemyData[i].mainHp;
             mainPower[i].text = "ATK: " + enemyData[i].mainPower;
-            corePower[i].text = "CATK: " + enemyData[i].corePower;
             mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
-            coreDefence[i].text = "CDEF: " + enemyData[i].coreDefense;
             age[i].text = "年齢: " + enemyData[i].age;
             bloodType[i].text = "血液型: " + enemyData[i].bloodType;
-            memos[i].text = enemyData[i].memos[i];
+            // コアのステータス
+            for (int j = 0; j < enemyData[i].coreNum; j++)
+            {
+                coreHp[i].text = "CHP: " + battleCoreHp[i].ToString() + "/" + enemyData[i].coreHp[j];
+                corePower[i].text = "CATK: " + enemyData[i].corePower[j];
+                coreDefence[i].text = "CDEF: " + enemyData[i].coreDefense[j];
+            }
+            // メモのテキスト
+            for (int k = 0; k < 2; k++)
+            {
+                memo1[i].text = enemyData[i].memos[0] + "\n" + enemyData[i].memos[1];
+            }
         }
     }
 
@@ -80,17 +88,59 @@ public class EnemyStatusRead : MonoBehaviour
             battleMainHp.Add(enemyData[i].mainHp);
             battleMainPower.Add(enemyData[i].mainPower);
             battleMainDefence.Add(enemyData[i].mainDefense);
-            battleCoreHp.Add(enemyData[i].coreHp[i]);
-            battleCorePower.Add(enemyData[i].corePower[i]);
-            battleCoreDefence.Add(enemyData[i].coreDefense[i]);
+            for (int k = 0; k < enemyData[i].coreNum; k++)
+            {
+                battleCoreHp.Add(enemyData[i].coreHp[k]);
+                battleCorePower.Add(enemyData[i].corePower[k]);
+                battleCoreDefence.Add(enemyData[i].coreDefense[k]);
+            }
         }
+    }
+
+    /// <summary>
+    /// 敵数に応じて表示位置を決め敵表示
+    /// </summary>
+    void EnemySpawn()
+    {
+        if (DataManager.Instance.EnemyInternalDatas.Count == 1)
+        {
+            pos.Add(new Vector3(0, 1.5f, 0));
+        }
+        if (DataManager.Instance.EnemyInternalDatas.Count == 2)
+        {
+            pos.Add(new Vector3(-3, 1.5f, 0));
+            pos.Add(new Vector3(3, 1.5f, 0));
+        }
+        if (DataManager.Instance.EnemyInternalDatas.Count == 3)
+        {
+            pos.Add(new Vector3(-5, 1.5f, 0));
+            pos.Add(new Vector3(0, 1.5f, 0));
+            pos.Add(new Vector3(5, 1.5f, 0));
+        }
+        for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; ++i)
+        {
+            //GameObject enemyObject = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
+            Sprite sprite = new Sprite();
+            string pass = "Sprits/Battle/EnemyCharacters/" + DataManager.Instance.EnemyInternalDatas[i].battleTexturePass;
+            sprite = Resources.Load<Sprite>(pass);
+            Debug.Log(sprite.name);
+            //enemyPrefab.GetComponent<SpriteRenderer>().sprite = sprite;
+            GameObject refObj = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
+            refObj.GetComponent<SpriteRenderer>().sprite = sprite;
+            enemyObject.Add(refObj);
+            //refobj.GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+    }
+
+    void Awake()
+    {
+        enemyData = DataManager.Instance.EnemyInternalDatas;
+        EnemySpawn();
     }
 
     // Use this for initialization
     void Start()
     {
-        enemyData = DataManager.Instance.EnemyInternalDatas;
-        EnemySpawn();
         EnemySetup();
         EnemyTextUpdate();
     }
@@ -102,45 +152,26 @@ public class EnemyStatusRead : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 敵数に応じて表示位置を決め敵表示
-    /// </summary>
-    void EnemySpawn()
-    {
-        if (DataManager.Instance.EnemyInternalDatas.Count == 1)
-        {
-            pos.Add(new Vector3(0, 1.5f, 0));
-        }
-
-        if (DataManager.Instance.EnemyInternalDatas.Count == 2)
-        {
-            pos.Add(new Vector3(-3, 1.5f, 0));
-            pos.Add(new Vector3(3, 1.5f, 0));
-        }
-        if (DataManager.Instance.EnemyInternalDatas.Count == 3)
-        {
-            pos.Add(new Vector3(-4, 1.5f, 0));
-            pos.Add(new Vector3(0, 1.5f, 0));
-            pos.Add(new Vector3(4, 1.5f, 0));
-        }
-        for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; ++i)
-        {
-            //GameObject enemyObject = Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject;
-            Sprite sprite = new Sprite();
-            string pass = "Sprits/Battle/" + DataManager.Instance.EnemyInternalDatas[i].battleTexturePass;
-            sprite = Resources.Load<Sprite>(pass);
-            enemyPrefab.GetComponent<SpriteRenderer>().sprite = sprite;
-            enemyObject.Add(Instantiate(enemyPrefab, pos[i], Quaternion.identity) as GameObject);
-            //refobj.GetComponent<SpriteRenderer>().sprite = sprite;
-        }
-    }
-
     public List<Vector3> getPos() { return pos; }
     public List<int> getBattleMainHp() { return battleMainHp; }
     public List<int> getBattleMainPower() { return battleMainPower; }
-    public List<int> getBattleMainDefence() { return battleMainHp; }
+    public List<int> getBattleMainDefence() { return battleMainDefence; }
     public List<int> getBattleCoreHp() { return battleCoreHp; }
     public List<int> getBattleCorePower() { return battleCorePower; }
     public List<int> getBattleCoreDefence() { return battleCoreDefence; }
+
+    public void setBattleMainHp(int _index,int _value)
+    {
+        battleMainHp[_index] = _value;
+    }
+    public void setBattleCoreHp(int _index, int _value)
+    {
+        battleCoreHp[_index] = _value;
+    }
+    public void setBattleCorePower(int _index, int _value)
+    {
+        battleCorePower[_index] = _value;
+    }
+
     public List<GameObject> getEnemyObject() { return enemyObject; }
 }

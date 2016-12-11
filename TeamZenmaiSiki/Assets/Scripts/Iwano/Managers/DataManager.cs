@@ -25,13 +25,6 @@ public class DataManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        //デバッグ用
-        DataManager.Instance.TargetName.Add("クック");
-        DataManager.Instance.TargetName.Add("エンリケス");
-        DataManager.Instance.TargetName.Add("アリアス");
-        DataManager.Instance.TargetName.Add("サリー");
-        DataManager.Instance.TargetName.Add("ベネット");
     }
 
     //*****************************************************//
@@ -82,7 +75,6 @@ public class DataManager : MonoBehaviour
     //    get { return openScenario; }
     //    set { openScenario = value; }
     //}
-
 
     //指令書のデータ項目
 
@@ -225,11 +217,11 @@ public class DataManager : MonoBehaviour
         set { isAchieveBounties = value; }
     }
 
-
     public struct PlayerDatas
     {
-        int hp;
-        int attack;
+        public const int MAX_HP = 150;
+        public int hp;
+        public int attack;
     }
 
     private PlayerDatas playerData = new PlayerDatas();
@@ -240,15 +232,19 @@ public class DataManager : MonoBehaviour
         set { playerData = value; }
 
     }
-
-    int episodeNum;
-    int sectionNum;
-
+    
     //*****************************************************//
     //                                                     //
     //                     丸本記述欄                       //
     //                                                     //
     //*****************************************************//
+
+    //１ステージで何体倒したか
+    //倒した敵の名前（配列）
+
+    //壊したコアの数
+    //
+
 
     //*****************************************************//
     //                                                     //
