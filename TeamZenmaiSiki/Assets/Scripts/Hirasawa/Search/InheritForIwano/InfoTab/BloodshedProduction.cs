@@ -77,7 +77,7 @@ public class BloodshedProduction : MonoBehaviour
     public void OnClick()
     {
         isProductIn = true;
-
+        TabManager.Instance.Setisblood(true);
         //Easingに使う
         /**
         if (!canEasing)

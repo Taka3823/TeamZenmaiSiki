@@ -37,9 +37,11 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     float endPos = 0;
     //ドラッグがどれほどされたか
     int dragCount = 0;
-
     bool isDisplay = false;
-
+    bool GetIsDisplay()
+    {
+        return isDisplay;
+    }
     void Start()
     {
         //Easingを始めるポジションの初期化
@@ -51,27 +53,18 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     void Update()
     {
-        if (canEasing[GOING_NUM] && !isDisplay)
-        {
-            StartEasing(startTime);
-        }
-
-        if (canEasing[RETURN_NUM] && isDisplay)
-        {
-            ReverceEasing(startTime);
-        }
-
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            OnClickLightIsOut();
-        }
+        if (TabManager.Instance.Getisblood()) return;
+        StartEasingFunc();
+        ReverseEasingFunc();
+        OnClickLightIsOutFunc();
+        TabManager.Instance.SetIsDisplay(isDisplay);
     }
 
     //Tabが出ているときに、Tab以外の場所をクリックしたら
     //元の位置に戻す処理
     public void OnClickLightIsOut()
     {
-        if (isDisplay && !canEasing[RETURN_NUM] && !RayCast("InfoTab"))
+        if (isDisplay && !canEasing[RETURN_NUM] && !RayCast("InfoTab")&&!RayCast2D("Unit"))
         {
             canEasing[RETURN_NUM] = true;
             startTime = Time.timeSinceLevelLoad;
@@ -81,6 +74,8 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!RayCast("InfoTab")) return;
+        if (!RayCast2D("Unit")) return;
+        if (isDisplay) return;
 
         startPos = eventData.position.x;
     }
@@ -89,7 +84,7 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     {
         endPos = eventData.position.x;
 
-        if ((startPos - endPos) < -10)
+        if ((startPos - endPos) < -100)
         {
             if (!canEasing[GOING_NUM])
             {
@@ -121,7 +116,20 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         }
         return false;
     }
-
+    bool RayCast2D(string tagName)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+        if (hit)
+        {
+            GameObject obj = hit.collider.gameObject;
+            if (hit.collider.gameObject.tag == "Unit")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     //第一引数……動かし始める時間
     //第二引数……シーンを遷移させるまでの時間。兼、Easingで目的地に到着させる時間
     void StartEasing(float startTime_)
@@ -163,11 +171,33 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         var pos = curve.Evaluate(rate);
 
         transform.localPosition = Vector3.Lerp(endPosition, startPosition, pos);
-
         //Easing終了時の処理を記述する
         if (rate >= 1)
         {
             isDisplay = false;
+        }
+    }
+    void StartEasingFunc()
+    {
+        if (canEasing[GOING_NUM] && !isDisplay)
+        {
+            StartEasing(startTime);
+        }
+    }
+    void ReverseEasingFunc()
+    {
+
+        if (canEasing[RETURN_NUM] && isDisplay)
+        {
+            ReverceEasing(startTime);
+        }
+    }
+    void OnClickLightIsOutFunc()
+    {
+
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            OnClickLightIsOut();
         }
     }
 }

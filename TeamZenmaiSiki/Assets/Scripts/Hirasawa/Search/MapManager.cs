@@ -31,6 +31,10 @@ public class MapManager : MonoBehaviour {
 	void Start () {
         instance = this;
         mapTextureType = new string[(int)MapType.MAPTYPEMAX];
+        int episode = 1;
+        int stage=1;
+        episode = DataManager.Instance.ScenarioChapterNumber;
+        stage = DataManager.Instance.ScenarioSectionNumber;
         mapTextureType = ReadMapSetData(ReadMapIndex(1,1));//ここで変えるよ
         setSprites(mapTownLight,MapType.TOWNLIGHT);
         setSprites(mapTown, MapType.TOWN);

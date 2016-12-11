@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class CreateNameText : MonoBehaviour
 {
     GameObject textObject;
-
+    [SerializeField]
+    DataManager.DirectiveData directivedata;
     void Start()
     {
         TextConfigInit();

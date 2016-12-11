@@ -37,6 +37,24 @@ public class SearchManager : MonoBehaviour , ISceneBase
     {
         enemynumber = n;
     }
+    private float unitPos;
+    public float GetUnitPos()
+    {
+        return unitPos;
+    }
+    public void SetUnitPos(float value)
+    {
+        unitPos = value;
+    }
+    private bool isUnitTouch;
+    public bool GetisUnitTouch()
+    {
+        return isUnitTouch;
+    }
+    public void SetisUnitTouch(bool value)
+    {
+        isUnitTouch= value;
+    }
     [SerializeField]
     EnemyDataPlate plate;
     private List<EnemyData.EnemyInternalDatas> sendDatas;
@@ -68,6 +86,8 @@ public class SearchManager : MonoBehaviour , ISceneBase
         instance = this;
         batlleDataList = new List<EnemyData.EnemyInternalDatas>();
         sendDatas = new List<EnemyData.EnemyInternalDatas>();
+        unitPos = 0;
+        isUnitTouch = false;
         setEpisodeStage();
 
     }
@@ -83,7 +103,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
     }
     void OnTouchDown()
     {
-
+        if (TabManager.Instance.Getisblood()) return;
         if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -94,6 +114,10 @@ public class SearchManager : MonoBehaviour , ISceneBase
                 if (hit.collider.gameObject.tag == "Unit")
                 {
                     obj.GetComponent<Unit>().OnTouchDown();
+                    NewCamera.Instance.SetUnitT(0);
+                    unitPos = obj.GetComponent<Unit>().getPos();
+                    NewCamera.Instance.SetUnitStartPos(NewCamera.Instance.cameraposx);
+                    isUnitTouch = true;
                 }
                 else if (hit.collider.tag == "Untagged")
                 {
