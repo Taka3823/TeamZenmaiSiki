@@ -10,15 +10,18 @@ public class CreateEpsiodeNode : MonoBehaviour
 
     [SerializeField]
     ReadDirective readDirective;
-    
+
+    [SerializeField]
+    int chapterNumber;
+
 	// Use this for initialization
 	void Start ()
     {
-        readDirective.ReadFile(1);
-
+        readDirective.ReadFile(chapterNumber);
+        
         for(int i = 1;i < readDirective.LineLength;i++)
         {
-            CreateNode(1, i);
+            CreateNode(chapterNumber, i - 1);
         }
     }
 
@@ -37,7 +40,7 @@ public class CreateEpsiodeNode : MonoBehaviour
 
         grandChild.GetComponent<Text>().fontSize = 60;
         grandChild.GetComponent<Text>().color = Color.white;
-
+        
         grandChild.GetComponent<Text>().text = DataManager.Instance.DirectiveDatas[chaptrerNum_-1][sectionNum_].scenarioTitle;
     }
 }

@@ -23,14 +23,12 @@ public class CreateTargetNameNode : MonoBehaviour
         {
             CreateNode("だいちゃん" + i);
         }
-
-
     }
 
     void CreateNode(string name_)
     {
         GameObject obj = Instantiate(node) as GameObject;
-        obj.transform.parent = this.transform;//parentObj.transform;
+        obj.transform.parent = this.transform;
         obj.GetComponent<Text>().text = name_;
     }
 }

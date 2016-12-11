@@ -30,8 +30,8 @@ public class ReadDirective : MonoBehaviour
 
     string[] pathName =
     {
-        "Episode_1_1_Lucas.csv",  //一節
-        //"SampleDirective_2",  //二節
+        "Episode_1_1_Lucas.csv",  //一章
+        "Episode_2_1_Lucas.csv",  //二章
     };
 
     private int lineLength;
@@ -46,9 +46,7 @@ public class ReadDirective : MonoBehaviour
     public void ReadFile(int chapterNumber_)
     {
         string path = Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
-
-        Debug.Log(path);
-
+        
         string[] lines = ReadCsvFoundation.ReadCsvData(path);
 
         didCommaSeparrationData = new string[lines.Length];
@@ -63,31 +61,27 @@ public class ReadDirective : MonoBehaviour
         {
             didCommaSeparrationData = ReadCsvFoundation.NotOptionDataSeparation(lines[i], commmaSplitter, CSVDATA_ELEMENTS);
             
-            tempDirectiveData[i].scenarioNumberBaseData = didCommaSeparrationData[(int)ElementName.scenarioNumberBaseData];
-            tempDirectiveData[i].scenarioTitle = didCommaSeparrationData[(int)ElementName.scenarioTitle];
-            tempDirectiveData[i].missionObjective = didCommaSeparrationData[(int)ElementName.missionObjective];
-
-            tempDirectiveData[i].firstMission = didCommaSeparrationData[(int)ElementName.firstMission];
-            tempDirectiveData[i].firstMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.firstMissionAchievementCondition];
-
-            tempDirectiveData[i].secondMission = didCommaSeparrationData[(int)ElementName.secondMission];
-            tempDirectiveData[i].secondMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.secondMissionAchievementCondition];
-
-            tempDirectiveData[i].thirdMission = didCommaSeparrationData[(int)ElementName.thirdMission];
-            tempDirectiveData[i].thirdMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.thirdMissionAchievementCondition];
-
-            tempDirectiveData[i].collectionTargetName = new List<string>();
+            tempDirectiveData[i-1].scenarioNumberBaseData = didCommaSeparrationData[(int)ElementName.scenarioNumberBaseData];
+            tempDirectiveData[i-1].scenarioTitle = didCommaSeparrationData[(int)ElementName.scenarioTitle];
+            tempDirectiveData[i-1].missionObjective = didCommaSeparrationData[(int)ElementName.missionObjective];
+                               
+            tempDirectiveData[i-1].firstMission = didCommaSeparrationData[(int)ElementName.firstMission];
+            tempDirectiveData[i-1].firstMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.firstMissionAchievementCondition];
+                               
+            tempDirectiveData[i-1].secondMission = didCommaSeparrationData[(int)ElementName.secondMission];
+            tempDirectiveData[i-1].secondMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.secondMissionAchievementCondition];
+                               
+            tempDirectiveData[i-1].thirdMission = didCommaSeparrationData[(int)ElementName.thirdMission];
+            tempDirectiveData[i-1].thirdMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.thirdMissionAchievementCondition];
+                               
+            tempDirectiveData[i-1].collectionTargetName = new List<string>();
 
             for(int k = 0;k < 9;k++)
             {
-                tempDirectiveData[i].collectionTargetName.Add(didCommaSeparrationData[(int)ElementName.collectionTargetName + k]);
+                tempDirectiveData[i-1].collectionTargetName.Add(didCommaSeparrationData[(int)ElementName.collectionTargetName + k]);
             }
         }
 
-        //Debug.Log(tempDirectiveData[0].scenarioTitle);
-
         DataManager.Instance.DirectiveDatas.Add(tempDirectiveData);
-
-        Debug.Log("length" + DataManager.Instance.DirectiveDatas.Count);
     }
 }

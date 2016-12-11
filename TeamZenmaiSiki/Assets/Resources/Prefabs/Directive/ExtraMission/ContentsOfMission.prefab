@@ -21,7 +21,6 @@ GameObject:
   - 224: {fileID: 224000012198984302}
   - 222: {fileID: 222000011279328118}
   - 114: {fileID: 114000010256267208}
-  - 114: {fileID: 114000010646759978}
   m_Layer: 5
   m_Name: ContentsOfMission
   m_TagString: Untagged
@@ -50,11 +49,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 45
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 55
+    m_MaxSize: 300
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -62,24 +61,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u4EFB\u52D9\u5176\u306E\u4E00\u3002\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
---- !u!114 &114000010646759978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013291492810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1679637790, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: 65
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
 --- !u!222 &222000011279328118
 CanvasRenderer:
   m_ObjectHideFlags: 1
