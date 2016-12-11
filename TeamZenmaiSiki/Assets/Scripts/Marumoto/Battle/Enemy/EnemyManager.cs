@@ -112,10 +112,10 @@ public class EnemyManager : MonoBehaviour {
         for (int i = 0; i < EnemyElems; i++)
         {
             string _collisionPath = Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
+            //CollisionPath.Add(_collisionPath);
             CoreBroken.Add(false);
-            CollisionPath.Add(_collisionPath);
+            CollisionPath.Add(Application.dataPath + "/CSVFiles/Battle/Collision/WorkerA_def.txt");
         }
-        CollisionPath.Add(Application.dataPath + "/CSVFiles/Battle/Collision/WorkerA_def.txt");
 
         collisionData = new CollisionData();
         CollisionIndex = collisionData.CollisionIndex;
