@@ -11,6 +11,16 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         get { return instance; }
     }
 
+    enum PartsName
+    {
+        EMPTY = 0,
+        BODY,
+        CORE_1,
+        CORE_2,
+        CORE_3,
+        CORE_FRAME_1
+    }
+
     //********************************************
     //仮置き
     //********************************************
@@ -21,7 +31,9 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     PlayerAttackController playerAttackController;
 
     BattleCalculation calculation = new BattleCalculation();
+    EnemyCollision enemyCollision = new EnemyCollision();
 
+    public Vector3 SecondaryCirclePos { get; set; }
     GameObject attackCircle;      //InstantiateしたAttackCircle。
     GameObject targetObject;      //現在のターゲットオブジェクト。
     bool circleColliderEnable;    //CircleColliderが有効化されているか。
@@ -35,8 +47,8 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     void Start()
     {
         circleColliderEnable = false;
+        SecondaryCirclePos = new Vector3();
         isHit = false;
-
     }
 
 	void LateUpdate ()
@@ -64,17 +76,20 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// <summary>
     /// 攻撃が当たっていたときの処理。
     /// </summary>
-    private void HitSequence()
+    public void HitSequence()
     {
-        if (isHit)
+        int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex], SecondaryCirclePos);
+
+        int _enemyDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
+        EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(charaSTR, _enemyDEF));
+
+        if (hitIndex == (int)PartsName.EMPTY) return;
+        if (hitIndex == (int)PartsName.BODY) { }
+        if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1)) { }
+
+        if (EnemyDead())
         {
-            int _enemyDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
-            EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(charaSTR, _enemyDEF));
-            if (EnemyDead())
-            {
-                EnemyDestroy();
-            }
-            isHit = false;
+            EnemyDestroy();
         }
     }
 
