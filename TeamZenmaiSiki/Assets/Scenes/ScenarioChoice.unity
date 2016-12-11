@@ -1171,7 +1171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1506597711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1345,6 +1345,25 @@ Prefab:
     - target: {fileID: 224000010359283596, guid: 9a74b4cbcd8918645b036695286e9369,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010824347832, guid: 9a74b4cbcd8918645b036695286e9369,
+        type: 2}
+      propertyPath: distance.Array.data[0].x
+      value: 580
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010824347832, guid: 9a74b4cbcd8918645b036695286e9369,
+        type: 2}
+      propertyPath: distance.Array.data[1].x
+      value: 580
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010824347832, guid: 9a74b4cbcd8918645b036695286e9369,
+        type: 2}
+      propertyPath: distance.Array.data[2].x
+      value: 580
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013307998118, guid: 9a74b4cbcd8918645b036695286e9369, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
