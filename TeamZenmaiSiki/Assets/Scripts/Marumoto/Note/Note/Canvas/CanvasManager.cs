@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CanvasManager : MonoBehaviour {
     private static CanvasManager instance;
@@ -12,14 +13,24 @@ public class CanvasManager : MonoBehaviour {
     GameObject noteViewClose;
     [SerializeField]
     GameObject noteScrollView;
-
     [SerializeField]
     RectTransform rect;
+
+    List<string> noteDataPathes = new List<string>();
+    NoteCsvData noteCsvData;
+    public List<NoteCsvData.NoteData> noteDatas { get; private set; }
 
     void Awake()
     {
         if (instance == null) { instance = this; }
         rect.transform.SetAsFirstSibling();
+        noteDataPathes.Add(Application.dataPath + "/CSVFiles/Note/note.csv");
+
+        noteCsvData = new NoteCsvData();
+        noteDatas = new List<NoteCsvData.NoteData>();
+        noteDatas = noteCsvData.GetNoteDatas();
+
+        DebugNoteData();
     }
 
     /// <summary>
@@ -40,5 +51,24 @@ public class CanvasManager : MonoBehaviour {
         noteViewBackGround.SetActive(_cond);
         noteViewClose.SetActive(_cond);
         noteScrollView.SetActive(_cond);
+    }
+
+    public List<string> GetNoteDataPathes() { return noteDataPathes; }
+
+    void DebugNoteData()
+    {
+        for(int k = 0; k < 1; k++)
+        {
+            int elem = noteDatas[k].index.Count;
+
+            for(int i = 0; i < elem; i++)
+            {
+                Debug.Log(noteDatas[k].index[i]);
+                Debug.Log(noteDatas[k].messengerName[i]);
+                Debug.Log(noteDatas[k].title[i]);
+                Debug.Log(noteDatas[k].message[i]);
+                Debug.Log(noteDatas[k].unlockNum[i]);
+            }
+        }
     }
 }
