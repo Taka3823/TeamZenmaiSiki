@@ -22,15 +22,20 @@ public class CreateNode : MonoBehaviour
     {
         directivedata = new DataManager.DirectiveData();
         directivedata.collectionTargetName = new List<string>();
-        SetDebugDatas();
-        //directivedata = DataManager.Instance.DirectiveDatas[0][0];
-
+        //SetDebugDatas();
+        directivedata = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber];
+       
         for(int i = 0;i < directivedata.collectionTargetName.Count; i++)
         {
-            GameObject obj = Instantiate(nodePrefab);
-            obj.transform.parent = content.transform;
-            obj.GetComponent<EnemyNameNode>().setCollection(false,false);//仮
-            obj.GetComponent<EnemyNameNode>().setName(directivedata.collectionTargetName[i]);
+            Debug.Log(directivedata.collectionTargetName[i]);
+            if (directivedata.collectionTargetName[i] != "")
+            {
+                GameObject obj = Instantiate(nodePrefab);
+                obj.transform.parent = content.transform;
+                obj.GetComponent<EnemyNameNode>().setCollection(false, false);//仮
+                obj.GetComponent<EnemyNameNode>().setName(directivedata.collectionTargetName[i]);
+            }
+           
         }
 	}
     void SetDebugDatas()
