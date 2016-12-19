@@ -73,4 +73,13 @@ public class FadeOutDirective : MonoBehaviour
             startTime = Time.timeSinceLevelLoad;
         }
     }
+
+    public void OnClickReturn()
+    {
+        if (!canEasing)
+        {
+            canEasing = true;
+            startTime = Time.timeSinceLevelLoad;
+        }
+    }
 }

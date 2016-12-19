@@ -14,28 +14,29 @@ public class CreateExtraMission : MonoBehaviour
     [SerializeField]
     GameObject cOM;
 
-    [SerializeField]
-    Vector3[] distance = new Vector3[3];
-    
+    //[SerializeField]
+    Vector3 distance = new Vector3(580, 0, 0);
+
     string[] drawMissionName = new string[3];
 
     void Start()
     {
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    distance[i] = new Vector3(580,0,0);
+        //}
+
         int chap = DataManager.Instance.ScenarioChapterNumber;
         int sect = DataManager.Instance.ScenarioSectionNumber;
 
-        //DicideMissionText(RECOVER, "3", 0);
-        //DicideMissionText(PHYSICAL, "40", 1);
-        //DicideMissionText(SPECIFIC, "フランクリン・パッカー", 2);
+        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].firstMission, DataManager.Instance.DirectiveDatas[chap][sect].firstMissionAchievementCondition, 0);
+        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].secondMission, DataManager.Instance.DirectiveDatas[chap][sect].secondMissionAchievementCondition, 1);
+        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].thirdMission, DataManager.Instance.DirectiveDatas[chap][sect].thirdMissionAchievementCondition, 2);
 
         for (int i = 0; i < 3; i++)
         {
             CreateSpecialMission(i);
         }
-
-        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].firstMission, DataManager.Instance.DirectiveDatas[chap][sect].firstMissionAchievementCondition, 0);
-        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].secondMission, DataManager.Instance.DirectiveDatas[chap][sect].secondMissionAchievementCondition, 1);
-        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].thirdMission, DataManager.Instance.DirectiveDatas[chap][sect].thirdMissionAchievementCondition, 2);
     }
 
     void CreateSpecialMission(int element_)
@@ -46,18 +47,18 @@ public class CreateExtraMission : MonoBehaviour
 
         obj.transform.position = Vector3.zero;
 
-        obj.transform.localPosition = new Vector3(this.transform.localPosition.x + distance[element_].x, 
-                                                  this.transform.localPosition.y - (95f * (element_ + 1)) + distance[element_].y,
-                                                  this.transform.localPosition.z + distance[element_].z);
+        obj.transform.localPosition = new Vector3(this.transform.localPosition.x + distance.x,
+                                                  this.transform.localPosition.y - (95f * (element_ + 1)),
+                                                  this.transform.localPosition.z);
 
         obj.GetComponent<Text>().text = drawMissionName[element_];
     }
-    
-    void DicideMissionText(string missionName_,string missionAchivrmentConditionNum_,int num_)
-    {   
+
+    void DicideMissionText(string missionName_, string missionAchivrmentConditionNum_, int num_)
+    {
         if (missionName_ == PHYSICAL)
         {
-            drawMissionName[num_] = "残り体力" + missionAchivrmentConditionNum_ +"以上でクリア";
+            drawMissionName[num_] = "残り体力" + missionAchivrmentConditionNum_ + "以上でクリア";
         }
         else if (missionName_ == SPECIFIC)
         {
@@ -65,7 +66,7 @@ public class CreateExtraMission : MonoBehaviour
         }
         else if (missionName_ == RECOVER)
         {
-            drawMissionName[num_] = "回収対象者を" + missionAchivrmentConditionNum_ +"体以上回収してクリア";
+            drawMissionName[num_] = "回収対象者を" + missionAchivrmentConditionNum_ + "体以上回収してクリア";
         }
         else if (missionName_ == BRAKE_CORE)
         {
@@ -74,6 +75,10 @@ public class CreateExtraMission : MonoBehaviour
         else if (missionName_ == ALLKILL)
         {
             drawMissionName[num_] = "全員(人間含む)倒してクリア";
+        }
+        else
+        {
+            Debug.Log("データが入っていません");
         }
     }
 }
