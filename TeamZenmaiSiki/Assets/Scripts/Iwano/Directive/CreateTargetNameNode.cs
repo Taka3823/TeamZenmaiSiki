@@ -11,24 +11,26 @@ public class CreateTargetNameNode : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        //int chapterNum = DataManager.Instance.ScenarioChapterNumber;
-        //int sectionNum = DataManager.Instance.ScenarioSectionNumber;
+        int chapterNum = DataManager.Instance.ScenarioChapterNumber;
+        int sectionNum = DataManager.Instance.ScenarioSectionNumber;
 
-        //for (int i = 0; i < DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName.Count; i++)
-        //{
-        //    CreateNode(DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName[i]);
-        //}
-
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName.Count; i++)
         {
-            CreateNode("だいちゃん" + i);
+            CreateNode(DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].collectionTargetName[i]);
         }
+
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    CreateNode("だいちゃん" + i);
+        //}
     }
 
     void CreateNode(string name_)
     {
         GameObject obj = Instantiate(node) as GameObject;
         obj.transform.parent = this.transform;
+        obj.transform.position = Vector3.zero;
+
         obj.GetComponent<Text>().text = name_;
     }
 }

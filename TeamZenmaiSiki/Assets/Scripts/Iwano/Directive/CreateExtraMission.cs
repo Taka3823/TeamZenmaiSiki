@@ -24,18 +24,18 @@ public class CreateExtraMission : MonoBehaviour
         int chap = DataManager.Instance.ScenarioChapterNumber;
         int sect = DataManager.Instance.ScenarioSectionNumber;
 
-        DicideMissionText(RECOVER, "3", 0);
-        DicideMissionText(PHYSICAL, "40", 1);
-        DicideMissionText(SPECIFIC, "フランクリン・パッカー", 2);
+        //DicideMissionText(RECOVER, "3", 0);
+        //DicideMissionText(PHYSICAL, "40", 1);
+        //DicideMissionText(SPECIFIC, "フランクリン・パッカー", 2);
 
         for (int i = 0; i < 3; i++)
         {
             CreateSpecialMission(i);
         }
 
-        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].firstMission,  DataManager.Instance.DirectiveDatas[chap][sect].firstMissionAchievementCondition,  0);
-        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].secondMission, DataManager.Instance.DirectiveDatas[chap][sect].secondMissionAchievementCondition, 1);
-        //DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].thirdMission,  DataManager.Instance.DirectiveDatas[chap][sect].thirdMissionAchievementCondition,  2);
+        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].firstMission, DataManager.Instance.DirectiveDatas[chap][sect].firstMissionAchievementCondition, 0);
+        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].secondMission, DataManager.Instance.DirectiveDatas[chap][sect].secondMissionAchievementCondition, 1);
+        DicideMissionText(DataManager.Instance.DirectiveDatas[chap][sect].thirdMission, DataManager.Instance.DirectiveDatas[chap][sect].thirdMissionAchievementCondition, 2);
     }
 
     void CreateSpecialMission(int element_)
@@ -43,6 +43,8 @@ public class CreateExtraMission : MonoBehaviour
         GameObject obj = Instantiate(cOM) as GameObject;
 
         obj.transform.parent = this.transform;
+
+        obj.transform.position = Vector3.zero;
 
         obj.transform.localPosition = new Vector3(this.transform.localPosition.x + distance[element_].x, 
                                                   this.transform.localPosition.y - (95f * (element_ + 1)) + distance[element_].y,
