@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ButtonReaction : MonoBehaviour
 {
+    DataInit dataInit = new DataInit();
+
     private int chapterNumber;
 
     public int ChapterNumber
@@ -29,6 +31,8 @@ public class ButtonReaction : MonoBehaviour
         {
             return;
         }
+
+        dataInit.OnClick();
 
         canClick = true;
 
