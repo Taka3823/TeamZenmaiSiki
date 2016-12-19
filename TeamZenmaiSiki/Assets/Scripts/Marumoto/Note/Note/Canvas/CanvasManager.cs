@@ -18,57 +18,85 @@ public class CanvasManager : MonoBehaviour {
 
     List<string> noteDataPathes = new List<string>();
     NoteCsvData noteCsvData;
-    public List<NoteCsvData.NoteData> noteDatas { get; private set; }
+
+    public List<NoteCsvData.NoteData> NoteDatas { get; private set; }
+    public Dictionary<string, int> ContentsNum { get; private set; }
+    public List<int> ContentsIndex { get; private set; }
+    public Dictionary<string, int> PageForeachCharacter { get; private set; }
+    public int TotalPageNum { get; private set; }
+
+    public List<string> GetNoteDataPathes() { return noteDataPathes; }
 
     void Awake()
     {
         if (instance == null) { instance = this; }
         rect.transform.SetAsFirstSibling();
-        noteDataPathes.Add(Application.dataPath + "/CSVFiles/Note/note.csv");
-
-        noteCsvData = new NoteCsvData();
-        noteDatas = new List<NoteCsvData.NoteData>();
-        noteDatas = noteCsvData.GetNoteDatas();
-
+        Setup();
+        CalcContentsPage();
         DebugNoteData();
     }
 
+    void Setup()
+    {
+        noteDataPathes.Add(Application.dataPath + "/CSVFiles/Note/note.csv");
+        noteCsvData = new NoteCsvData();
+        NoteDatas = new List<NoteCsvData.NoteData>();
+        NoteDatas = noteCsvData.GetNoteDatas();
+        ContentsNum = noteCsvData.ContentsNum;
+
+        foreach(int value in ContentsNum.Values)
+        {
+            ContentsIndex.Add(value);
+        }
+    }
+
+    
+
+    //デバッグ用:CSVデータ読み込みの正確性確認用。
     /// <summary>
-    /// 手記閲覧を有効化する。
+    /// CSVデータが正しく読み込まれているかのデバッグ出力関数。
     /// </summary>
-    public void NoteViewDisplay()
-    {
-        Popup(true);
-    }
-
-    public void NoteViewHide()
-    {
-        Popup(false);
-    }
-
-    private void Popup(bool _cond)
-    {
-        noteViewBackGround.SetActive(_cond);
-        noteViewClose.SetActive(_cond);
-        noteScrollView.SetActive(_cond);
-    }
-
-    public List<string> GetNoteDataPathes() { return noteDataPathes; }
-
     void DebugNoteData()
     {
         for(int k = 0; k < 1; k++)
         {
-            int elem = noteDatas[k].index.Count;
+            int elem = NoteDatas[k].Index.Count;
 
             for(int i = 0; i < elem; i++)
             {
-                Debug.Log(noteDatas[k].index[i]);
-                Debug.Log(noteDatas[k].messengerName[i]);
-                Debug.Log(noteDatas[k].title[i]);
-                Debug.Log(noteDatas[k].message[i]);
-                Debug.Log(noteDatas[k].unlockNum[i]);
+                Debug.Log(NoteDatas[k].Index[i]);
+                Debug.Log(NoteDatas[k].MessengerName[i]);
+                Debug.Log(NoteDatas[k].Title[i]);
+                Debug.Log(NoteDatas[k].Message[i]);
+                Debug.Log(NoteDatas[k].UnlockNum[i]);
             }
         }
+    }
+    
+    /// <summary>
+    /// キャラクターごとに割くページ数を計算。
+    /// </summary>
+    private void CalcContentsPage()
+    {
+        Dictionary<string, int> _result = new Dictionary<string, int>();
+        int _totalPageNum = 0;
+
+        foreach (KeyValuePair<string, int> pair in ContentsNum)
+        {
+            int _pageNum = 0;
+
+            _pageNum += pair.Value / 6;
+
+            if ((pair.Value % 6) != 0)
+            {
+                _pageNum += 1;
+            }
+
+            _totalPageNum += _pageNum;
+            _result.Add(pair.Key, _pageNum);
+        }
+
+        TotalPageNum = _totalPageNum;
+        PageForeachCharacter = _result;
     }
 }

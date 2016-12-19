@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
+using System.Collections.Generic;
 
 public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -18,15 +18,19 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
     private Vector3 endPos = new Vector3();
     private float startTime;
     private bool curveIsActive = false;
-    private int currentTargetIndex = 0;
-    private int noteSelectContentsElem = 0;
+    private int currentTargetTotalIndex = 0;
+    private int currentCharaIndex = 0;
+    private int currentNotePerCharaIndex = 0;
+    private int totalElem = 0;
+    private List<int> notePerCharaIndex; 
 
     void Start()
     {
         moveDistance = new Vector3(1334.0f, 0.0f, 0.0f);
         startPos = transform.localPosition;
         endPos = transform.localPosition - moveDistance;
-        noteSelectContentsElem = GameObject.FindGameObjectsWithTag("NoteSelect").Length;
+        totalElem = CanvasManager.Instance.TotalPageNum;
+        notePerCharaIndex = CanvasManager.Instance.ContentsIndex;
     }
 
     void Update()
@@ -58,12 +62,30 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         if (_eventData.delta.x < -enableFlickValue)
         {
             if (curveIsActive) return;
-            currentTargetIndex++;
-            if (currentTargetIndex >= noteSelectContentsElem)
+            currentTargetTotalIndex++;
+            
+            if (currentTargetTotalIndex >= totalElem)
             {
-                currentTargetIndex--;
+                currentTargetTotalIndex--;
                 return;
             }
+
+            currentNotePerCharaIndex++;
+            if(currentNotePerCharaIndex >= notePerCharaIndex[currentCharaIndex])
+            {
+                if(currentCharaIndex>= (notePerCharaIndex.Count - 1))
+                {
+                    currentNotePerCharaIndex--;
+                    return;
+                }
+                else
+                {
+                    currentCharaIndex++;
+                    currentNotePerCharaIndex = 0;
+                }
+            }
+
+
             EasingSetup();
             endPos = startPos - moveDistance;
         }
@@ -72,12 +94,27 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         else if (_eventData.delta.x > enableFlickValue)
         {
             if (curveIsActive) return;
-            currentTargetIndex--;
-            if (currentTargetIndex < 0)
+            currentTargetTotalIndex--;
+            if (currentTargetTotalIndex < 0)
             {
-                currentTargetIndex++;
+                currentTargetTotalIndex++;
                 return;
             }
+            currentNotePerCharaIndex--;
+            if (currentNotePerCharaIndex < notePerCharaIndex[currentCharaIndex])
+            {
+                if (currentCharaIndex < (notePerCharaIndex.Count - 1))
+                {
+                    currentNotePerCharaIndex--;
+                    return;
+                }
+                else
+                {
+                    currentCharaIndex++;
+                    currentNotePerCharaIndex = 0;
+                }
+            }
+
             EasingSetup();
             endPos = startPos + moveDistance;
         }
@@ -101,5 +138,19 @@ public class NoteSelectContentController : MonoBehaviour, IDragHandler, IBeginDr
         curveIsActive = true;
         startTime = Time.timeSinceLevelLoad;
         startPos = transform.localPosition;
+    }
+
+    private void IncreaseIndex()
+    {
+        
+        
+
+        if ()
+        {
+            if (currentCharaIndex >= (notePerCharaIndex.Count - 1))
+            {
+
+            }
+        }
     }
 }

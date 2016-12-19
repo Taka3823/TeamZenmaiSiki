@@ -47,8 +47,8 @@ public class EnemyAttackController : MonoBehaviour {
     {
         int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];        
         isAttacking = true;
-        ToPlayerDamage(_enemySTR*5);
-        yield return new WaitForSeconds(1.0f);
+        ToPlayerDamage(_enemySTR);
+        yield return new WaitForSeconds(0.5f);
 
         isAttacking = false;
         ProgressActIndex();

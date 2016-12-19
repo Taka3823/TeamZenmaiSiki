@@ -27,7 +27,7 @@ public class CircleManager : MonoBehaviour
     {
         CircleStatusChange();
 	}
-
+#if UNITY_EDITOR || UNITY_STANDALONE
     /// <summary>
     /// 左クリックされた回数をカウント。
     /// </summary>
@@ -39,6 +39,7 @@ public class CircleManager : MonoBehaviour
         }
     }
 
+#endif
     /// <summary>
     /// サークル出現時のクリック回数によって、サークルの状態を段階的に更新。
     /// </summary>
@@ -60,7 +61,6 @@ public class CircleManager : MonoBehaviour
         {
             if (!circleCollider2D.enabled)
             {
-                //TODO:CircleCollider2Dを有効化する処理
                 circleCollider2D.enabled = true;
                 PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);
                 PlayerAttackUpdateManager.Instance.SecondaryCirclePos = secondaryCircle.transform.position;

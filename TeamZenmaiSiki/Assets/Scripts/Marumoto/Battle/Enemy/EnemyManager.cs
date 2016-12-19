@@ -136,7 +136,7 @@ public class EnemyManager : MonoBehaviour {
         collisionData = new CollisionData();
         CollisionIndex = collisionData.CollisionIndex;
 
-        //配列デバッグ用
+        //デバッグ用:配列デバッグ用
         //for (int k = 0; k < EnemyElems; k++)
         //{
         //    for (int i = 0; i < 30; i++)
@@ -182,13 +182,18 @@ public class EnemyManager : MonoBehaviour {
     /// <param name="_index">攻撃させたいエネミーのIndex</param>
     public void AttackMotion(int _index)
     {
-        float value = Mathf.PI / 1.0f;
+        float diffSize = 0.25f;
+        float fadeTime = 0.5f;
+        float value = Mathf.PI / fadeTime;
         angle += value * Time.deltaTime;
-        Enemies[_index].transform.localScale 
-            = new Vector3(baseScale.x + 0.5f * Mathf.Sin(angle), 
-                          baseScale.y + 0.5f * Mathf.Sin(angle), 
-                          1);
+
         if (angle > Mathf.PI) angle = 0;
+
+        Enemies[_index].transform.localScale 
+            = new Vector3(baseScale.x + diffSize * Mathf.Sin(angle), 
+                          baseScale.y + diffSize * Mathf.Sin(angle), 
+                          1);
+        
     }
 
     /// <summary>
