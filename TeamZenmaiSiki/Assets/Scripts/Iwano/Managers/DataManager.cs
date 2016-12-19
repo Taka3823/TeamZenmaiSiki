@@ -154,28 +154,6 @@ public class DataManager : MonoBehaviour
         set { cameraPos = value; }
     }
 
-    private int playerHp;
-
-    public int PlayerHp
-    {
-        get { return playerHp; }
-        set { playerHp = value; }
-    }
-    private int playerMaxHp;
-
-    public int PlayerMaxHp
-    {
-        get { return playerMaxHp; }
-        set { playerMaxHp = value; }
-    }
-    private List<bool> notActiveUnit = new List<bool>();
-
-    public List<bool> NotActiveUnit
-    {
-        get { return notActiveUnit; }
-        set { notActiveUnit = value; }
-    }
-
     private List<string> killNames = new List<string>();
 
     public List<string> KillNames
@@ -220,6 +198,7 @@ public class DataManager : MonoBehaviour
     public struct PlayerDatas
     {
         public const int MAX_HP = 150;
+        public const int CONSTANT_ATTACK = 7;
         public int hp;
         public int attack;
     }
@@ -230,9 +209,45 @@ public class DataManager : MonoBehaviour
     {
         get { return playerData; }
         set { playerData = value; }
+    }
 
+    //（１ステージ分の）壊したコアの数
+    private int brakedCoreCount;
+
+    public int BrakedCoreCount
+    {
+        get { return brakedCoreCount; }
+        set { brakedCoreCount = value; }
+    }
+
+    //（１ステージ分の）どのユニットを壊したか
+    private List<bool> isUnitDestroys;
+
+    public List<bool> IsUnitDestroys
+    {
+        get { return isUnitDestroys; }
+        set { isUnitDestroys = value; }
+    }
+
+    //１章毎に何体敵をを倒したか
+    private List<int> howManyKilledEnemy;
+
+    public List<int> HowManyKilledEnemy
+    {
+        get { return howManyKilledEnemy; }
+        set { howManyKilledEnemy = value; }
+    }
+
+    //ゲーム全体で何体敵を倒したか
+    private int howManyKilledEnemyInAll;
+
+    public int HowManyKilledEnemyInAll
+    {
+        get { return howManyKilledEnemyInAll; }
+        set { howManyKilledEnemyInAll = value; }
     }
     
+
     //*****************************************************//
     //                                                     //
     //                     丸本記述欄                       //

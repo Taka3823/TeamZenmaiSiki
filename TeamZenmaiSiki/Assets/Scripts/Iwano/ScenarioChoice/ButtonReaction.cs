@@ -21,8 +21,17 @@ public class ButtonReaction : MonoBehaviour
         set { sectionNumber = value; }
     }
 
+    bool canClick = false;
+
     public void OnClick()
     {
+        if (canClick)
+        {
+            return;
+        }
+
+        canClick = true;
+
         DataManager.Instance.ScenarioChapterNumber = this.chapterNumber - 1;
         DataManager.Instance.ScenarioSectionNumber = this.sectionNumber;
 

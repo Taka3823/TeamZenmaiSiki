@@ -30,7 +30,7 @@ public class ReadDirective : MonoBehaviour
 
     string[] pathName =
     {
-        "Episode_1_1_Lucas.csv",  //一章
+        "Episode_1_Lucas.csv",  //一章
         "Episode_2_1_Lucas.csv",  //二章
     };
 

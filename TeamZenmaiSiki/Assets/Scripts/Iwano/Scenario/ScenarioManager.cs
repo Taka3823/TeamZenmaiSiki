@@ -96,7 +96,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
                 timeUntilDisplay = 0;
             }
         }
-
+        
         //クリックから経過した時間が想定表示時間の何%か確認し、表示文字数を出す
         int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * drawSentences[lineNumber].Length + 1);
 
@@ -206,5 +206,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         SceneManager.LoadScene("Search");
 
         DataManager.Instance.CameraPos = Vector3.zero;
+
+        AudioManager.Instance.ToFadeOutBGM(0.7f);
     }
 }

@@ -121,11 +121,6 @@ public class ReadScenario : MonoBehaviour
     //TIPS：内部でファイルまでのパスは記述しているので、名前だけで大丈夫
     public void ReadFile(int chapterNumber_,int sectionNumber_)
     {
-        Debug.Log(chapterNumber_);
-        Debug.Log(sectionNumber_);
-
-        Debug.Log(chapterNumber_ + ":" + sectionNumber_);
-
         //読み込むパスを決定
         //FIXED:データマネージャーからのデータの受け取りは、
         //ReadFileを呼ぶときに引数で渡すほうがいいかも？
