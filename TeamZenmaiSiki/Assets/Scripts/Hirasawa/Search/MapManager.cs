@@ -49,7 +49,7 @@ public class MapManager : MonoBehaviour {
     {
         string readnum = episode.ToString() + "_" + stage.ToString();
 
-        string pass = Application.dataPath +
+        string pass = "file://" + Application.dataPath +
           "/CSVFiles/Search/Map/MapIndex.csv";
 
         string[] str = ReadCsvFoundation.ReadCsvData(pass);
@@ -69,7 +69,7 @@ public class MapManager : MonoBehaviour {
     }
     string[] ReadMapSetData(string mapType)
     {
-        string pass = Application.dataPath +
+        string pass = "file://" + Application.dataPath +
           "/CSVFiles/Search/Map/MapType.csv";
 
         string[] str = ReadCsvFoundation.ReadCsvData(pass);

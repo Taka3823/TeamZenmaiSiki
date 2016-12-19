@@ -11,9 +11,18 @@ public class ReadCsvFoundation : MonoBehaviour
     public static string[] ReadCsvData(string path_)
     {
         //ファイル読み込み
-        StreamReader sr = new StreamReader(path_);
+        //StreamReader sr = new StreamReader(path_);
+
+        WWW www = new WWW(path_);
+
+        while(!www.isDone)
+        {
+            //ファイルの読み込みが終わるまで待つ処理
+            Debug.Log("思い");
+        }
+
         //stringに変換
-        string strStream = sr.ReadToEnd();
+        string strStream = www.text;//sr.ReadToEnd();
 
         //カンマとカンマの間に何もなかったら格納しないことにする設定
         System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;

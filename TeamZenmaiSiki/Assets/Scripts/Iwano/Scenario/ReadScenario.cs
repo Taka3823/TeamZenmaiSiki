@@ -124,9 +124,14 @@ public class ReadScenario : MonoBehaviour
         //読み込むパスを決定
         //FIXED:データマネージャーからのデータの受け取りは、
         //ReadFileを呼ぶときに引数で渡すほうがいいかも？
-        string path = Application.dataPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
 
-        Debug.Log(path);
+#if UNITY_STANDALONE
+        string path = "file://" + Application.dataPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
+#elif UNITY_ANDROID
+        string path = "jar:file://" + Application.dataPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
+#endif
+
+        //Debug.Log(path);
 
         //行にわけられたデータを保存
         string[] lines = ReadCsvFoundation.ReadCsvData(path);

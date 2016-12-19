@@ -34,7 +34,7 @@ public class UnitCreater : MonoBehaviour {
 	}
     private void ReadUnitData(int episodeNum,int stageNum)//Unitの
     {
-        string pass = Application.dataPath +
+        string pass = "file://" + Application.dataPath +
        "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
 
         //そのステージのUnitがどのポジションにいるかを取得
