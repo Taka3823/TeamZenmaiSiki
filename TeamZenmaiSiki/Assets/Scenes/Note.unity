@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 509939041}
   m_Layer: 5
-  m_Name: Pages
+  m_Name: TotalPages
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,6 +480,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &890609473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 890609476}
+  - 222: {fileID: 890609475}
+  - 114: {fileID: 890609474}
+  m_Layer: 5
+  m_Name: NotePerCharaPageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &890609474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 890609473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: f7220e33a62eb1a459fd4a63fbadb2cd, type: 3}
+    m_FontSize: 70
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 80
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: No.0/0
+--- !u!222 &890609475
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 890609473}
+--- !u!224 &890609476
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 890609473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1796782437}
+  m_RootOrder: 0
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &952089571
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +633,7 @@ GameObject:
   - 222: {fileID: 961304085}
   - 114: {fileID: 961304084}
   m_Layer: 5
-  m_Name: PageText
+  m_Name: TotalPageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,7 +678,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: f7220e33a62eb1a459fd4a63fbadb2cd, type: 3}
-    m_FontSize: 80
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -721,8 +795,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  moveTime: 0.87
-  enableFlickValue: 2
+  moveTime: 0.7
+  enableFlickValue: 1
+  totalPages: {fileID: 961304084}
+  notePerCharaPages: {fileID: 890609474}
+  messengerName: {fileID: 136312322}
 --- !u!1 &1526439698
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,10 +908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a251163b493cbda46bb2a7bdc0355d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteViewBackGround: {fileID: 0}
-  noteViewClose: {fileID: 0}
-  noteScrollView: {fileID: 0}
-  rect: {fileID: 952089572}
 --- !u!114 &1526439704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +920,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteContentsVerFlick: {fileID: 1451192132}
+--- !u!1 &1796782436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1796782437}
+  m_Layer: 5
+  m_Name: NotePerCharaPages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1796782437
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1796782436}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 890609476}
+  m_Father: {fileID: 2108391270}
+  m_RootOrder: 3
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -170, y: -60}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1951930267
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +1053,7 @@ RectTransform:
   - {fileID: 1951930268}
   - {fileID: 1451192133}
   - {fileID: 509939041}
+  - {fileID: 1796782437}
   m_Father: {fileID: 1526439702}
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}

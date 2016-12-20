@@ -102,9 +102,15 @@ public class NoteCsvData
     private string[] MyCsvRead(string path_)
     {
         //ファイル読み込み
-        StreamReader sr = new StreamReader(path_);
+        //StreamReader sr = new StreamReader(path_);
+        WWW www = new WWW(path_);
+        while (!www.isDone)
+        {
+            //ファイル読み込み終わるまで空回し。
+        }
+
         //stringに変換
-        string strStream = sr.ReadToEnd();
+        string strStream = www.text;
 
         //カンマとカンマの間に何もなかったら格納しないことにする設定
         System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;

@@ -7,15 +7,6 @@ public class CanvasManager : MonoBehaviour {
     private static CanvasManager instance;
     public static CanvasManager Instance { get { return instance; } }
 
-    [SerializeField]
-    GameObject noteViewBackGround;
-    [SerializeField]
-    GameObject noteViewClose;
-    [SerializeField]
-    GameObject noteScrollView;
-    [SerializeField]
-    RectTransform rect;
-
     List<string> noteDataPathes = new List<string>();
     NoteCsvData noteCsvData;
 
@@ -30,21 +21,21 @@ public class CanvasManager : MonoBehaviour {
     void Awake()
     {
         if (instance == null) { instance = this; }
-        rect.transform.SetAsFirstSibling();
         Setup();
-        CalcContentsPage();
         DebugNoteData();
     }
 
     void Setup()
     {
-        noteDataPathes.Add(Application.dataPath + "/CSVFiles/Note/note.csv");
+        noteDataPathes.Add("file://" + Application.dataPath + "/CSVFiles/Note/note3.csv");
+        noteDataPathes.Add("file://" + Application.dataPath + "/CSVFiles/Note/notec.csv");
         noteCsvData = new NoteCsvData();
         NoteDatas = new List<NoteCsvData.NoteData>();
+        ContentsIndex = new List<int>();
         NoteDatas = noteCsvData.GetNoteDatas();
         ContentsNum = noteCsvData.ContentsNum;
-
-        foreach(int value in ContentsNum.Values)
+        CalcContentsPage();
+        foreach (int value in PageForeachCharacter.Values)
         {
             ContentsIndex.Add(value);
         }

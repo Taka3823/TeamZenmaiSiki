@@ -126,7 +126,7 @@ public class EnemyManager : MonoBehaviour {
 
         for (int i = 0; i < EnemyElems; i++)
         {
-            string _collisionPath = Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
+            string _collisionPath = "file://" + Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
             CollisionPath.Add(_collisionPath);
             CoreBroken.Add(false);
             Size.Add(new Vector3(Enemies[i].GetComponent<SpriteRenderer>().bounds.size.x, Enemies[i].GetComponent<SpriteRenderer>().bounds.size.y));
