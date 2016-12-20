@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class DataInit : MonoBehaviour
 {
-    void OnClick()
+    public void OnClick()
     {
         Init();
     }
