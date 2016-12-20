@@ -33,9 +33,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 
     public Vector3 SecondaryCirclePos { get; set; }
     GameObject attackCircle;      //InstantiateしたAttackCircle。
-    GameObject targetObject;      //現在のターゲットオブジェクト。
     bool circleColliderEnable;    //CircleColliderが有効化されているか。
-    bool isHit;                   //CircleColliderに敵がヒットしたか。
 
     private int playerSTR;
 
@@ -48,7 +46,6 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     {
         circleColliderEnable = false;
         SecondaryCirclePos = new Vector3();
-        isHit = false;
         playerSTR = BattleManager.Instance.getBattlePlayerAtk();
         playerSTR = 10;
         playerSTRText.text = "ATK: " + playerSTR.ToString();
@@ -114,7 +111,6 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     {
         Destroy(EnemyManager.Instance.Enemies[EnemyManager.Instance.CurrentTargetIndex]);
         EnemyManager.Instance.EnemyErase();
-        //EnemyManager.Instance.Dead[EnemyManager.Instance.CurrentTargetIndex] = true;
         playerAttackController.DecreaseCurrentTargetIndex();
         TurnManager.Instance.ButtonManagement();
     }
@@ -131,6 +127,4 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 
     public void SetCircleColliderEnable(bool _cond) { circleColliderEnable = _cond; }
     public void SetAttackCircleObject(GameObject _refObj) { attackCircle = _refObj; }
-    public void SetTargetObject(GameObject _refObj) { targetObject = _refObj; }
-    public void SetIsHit(bool _cond) { isHit = _cond; }
 }
