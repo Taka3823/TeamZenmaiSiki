@@ -26,12 +26,6 @@ public class SecondaryCircle : MonoBehaviour {
         colliderIsActive = false;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        PlayerAttackUpdateManager.Instance.SetIsHit(true);
-        PlayerAttackUpdateManager.Instance.SetTargetObject(other.gameObject);
-    }
-
     /// <summary>
     /// SecondaryCircleの回転。
     /// </summary>

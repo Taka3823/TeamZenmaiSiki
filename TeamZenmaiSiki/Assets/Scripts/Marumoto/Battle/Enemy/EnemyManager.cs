@@ -203,6 +203,7 @@ public class EnemyManager : MonoBehaviour {
     /// <param name="_coreIndex">何番目のコアか(index)</param>
     public void CoreBreaking(int _enemyIndex)
     {
+        DataManager.Instance.BrakedCoreCount++;
         CoreBroken[_enemyIndex] = true;
         CoreSTR[_enemyIndex] = 0;
     }
@@ -234,5 +235,15 @@ public class EnemyManager : MonoBehaviour {
             CoreHP[CurrentTargetIndex] = 0;
             CoreBreaking(CurrentTargetIndex);
         }
+    }
+
+    /// <summary>
+    /// 全ての敵が死んでいるかどうか。
+    /// </summary>
+    /// <returns>全て死んでいれば"true"、それ以外"false"</returns>
+    private bool AllDead()
+    {
+        if (EnemyElems == 0) return true;
+        else                 return false;
     }
 }

@@ -45,11 +45,18 @@ public class EnemyAttackController : MonoBehaviour {
     /// <returns></returns>
     private IEnumerator AttackAction()
     {
-        int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];        
+        Debug.Log("EnemyElems : " + EnemyManager.Instance.EnemyElems);
+        Debug.Log("CAIndex : " + currentActIndex);
+        Debug.Log("MainSTR.Num:" + EnemyManager.Instance.MainSTR.Count);
+        Debug.Log("CoreSTR.Num:" + EnemyManager.Instance.CoreSTR.Count);
+
+                
         isAttacking = true;
-        ToPlayerDamage(_enemySTR);
+        
         yield return new WaitForSeconds(0.5f);
 
+        int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];
+        ToPlayerDamage(_enemySTR);
         isAttacking = false;
         ProgressActIndex();
         ChangePhaseSequence();
