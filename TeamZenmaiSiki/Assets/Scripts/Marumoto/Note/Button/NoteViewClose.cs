@@ -5,6 +5,6 @@ public class NoteViewClose : MonoBehaviour {
 
     public void NoteViewClosing()
     {
-        CanvasManager.Instance.NoteViewHide();
+        Destroy(this.transform.parent.gameObject);
     }
 }

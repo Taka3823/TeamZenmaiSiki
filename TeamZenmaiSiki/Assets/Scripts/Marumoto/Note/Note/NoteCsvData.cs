@@ -9,22 +9,34 @@ public class NoteCsvData
 
     public class NoteData
     {
-        public List<int> index = new List<int>();
-        public List<string> messengerName = new List<string>();
-        public List<string> title = new List<string>();
-        public List<string> message = new List<string>();
-        public List<int> unlockNum = new List<int>();
+        public List<int> Index { get; private set; }
+        public List<string> MessengerName { get; private set; }
+        public List<string> Title { get; private set; }
+        public List<string> Message { get; private set; }
+        public List<int> UnlockNum { get; private set; }
+
+        public NoteData()
+        {
+            Index = new List<int>();
+            MessengerName = new List<string>();
+            Title = new List<string>();
+            Message = new List<string>();
+            UnlockNum = new List<int>();
+        }
     }
 
     List<string> noteDataPathes = new List<string>();
 
     List<NoteData> noteDatas = new List<NoteData>();
 
+    public Dictionary<string, int> ContentsNum { get; private set; }
+
     /// <summary>
     /// NoteSceneのCSVファイル読み込み。
     /// </summary>
 	public NoteCsvData()
     {
+        ContentsNum = new Dictionary<string, int>();
         noteDataPathes = CanvasManager.Instance.GetNoteDataPathes();
         for(int k = 0; k < noteDataPathes.Count; k++)
         {
@@ -32,6 +44,10 @@ public class NoteCsvData
         }
     }
 
+    /// <summary>
+    /// 手記データ読み込めるようにCSV読み込みを自作。
+    /// </summary>
+    /// <param name="_pathIndex">CSVファイルPath</param>
     private void CsvRead(int _pathIndex)
     {
         NoteData noteData = new NoteData();
@@ -50,27 +66,34 @@ public class NoteCsvData
                         break;
 
                     case 1:
-                        noteData.index.Add(Convert.ToInt32(_separatedData[j]));
+                        noteData.Index.Add(Convert.ToInt32(_separatedData[j]));
                         break;
 
                     case 2:
-                        noteData.messengerName.Add(_separatedData[j]);
+                        noteData.MessengerName.Add(_separatedData[j]);
                         break;
 
                     case 3:
-                        noteData.title.Add(_separatedData[j]);
+                        noteData.Title.Add(_separatedData[j]);
                         break;
 
                     case 4:
-                        noteData.message.Add(_separatedData[j]);
+                        noteData.Message.Add(_separatedData[j]);
                         break;
 
                     case 5:
-                        noteData.unlockNum.Add(Convert.ToInt32(_separatedData[j]));
+                        noteData.UnlockNum.Add(Convert.ToInt32(_separatedData[j]));
                         break;
                 }
             }
         }
+
+        int result;
+        if (!ContentsNum.TryGetValue(noteData.MessengerName[0], out result))
+        {
+            ContentsNum.Add(noteData.MessengerName[0], _linesNum - 2);
+        }
+
         noteDatas.Add(noteData);
     }
 
@@ -79,9 +102,15 @@ public class NoteCsvData
     private string[] MyCsvRead(string path_)
     {
         //ファイル読み込み
-        StreamReader sr = new StreamReader(path_);
+        //StreamReader sr = new StreamReader(path_);
+        WWW www = new WWW(path_);
+        while (!www.isDone)
+        {
+            //ファイル読み込み終わるまで空回し。
+        }
+
         //stringに変換
-        string strStream = sr.ReadToEnd();
+        string strStream = www.text;
 
         //カンマとカンマの間に何もなかったら格納しないことにする設定
         System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;

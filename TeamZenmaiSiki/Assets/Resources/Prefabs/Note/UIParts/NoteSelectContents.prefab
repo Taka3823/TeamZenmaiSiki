@@ -85,11 +85,11 @@ MonoBehaviour:
     m_Left: 4
     m_Right: 0
     m_Top: 103
-    m_Bottom: 90
-  m_ChildAlignment: 0
+    m_Bottom: 0
+  m_ChildAlignment: 2
   m_Spacing: 2
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
 --- !u!114 &114000012944338278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: 1334
-  m_MinHeight: -1
+  m_MinHeight: 750
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
