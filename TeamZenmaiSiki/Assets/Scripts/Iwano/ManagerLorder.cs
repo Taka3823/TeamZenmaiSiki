@@ -17,4 +17,11 @@ public class ManagerLorder : MonoBehaviour
         //オーディオマネージャーオブジェクトの生成
         GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/AudioManager"));
     }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void InputManager()
+    {
+        //インプットマネージャーオブジェクトの生成
+        GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/InputManager"));
+    }
 }
