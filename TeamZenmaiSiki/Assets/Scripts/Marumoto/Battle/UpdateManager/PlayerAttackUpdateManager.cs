@@ -99,6 +99,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
             EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
         }
 
+        //デバッグ用：ステータス表示。
         Debug.Log("MainHP  : "+EnemyManager.Instance.MainHP[EnemyManager.Instance.CurrentTargetIndex]);
         Debug.Log("CoreHP  : "+EnemyManager.Instance.CoreHP[EnemyManager.Instance.CurrentTargetIndex]);
         Debug.Log("CoreSTR : "+EnemyManager.Instance.CoreSTR[EnemyManager.Instance.CurrentTargetIndex]);

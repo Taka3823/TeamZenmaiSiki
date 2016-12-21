@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CircleManager : MonoBehaviour
 {
@@ -39,7 +38,19 @@ public class CircleManager : MonoBehaviour
         }
     }
 
+#else
+    /// <summary>
+    /// タップされた回数をカウント
+    /// </summary>
+    private void ClickIsLeft()
+    {
+        if (Input.touchCount <= 0) return;
+        Touch _touch = Input.GetTouch(0);
+        if (!(_touch.phase == TouchPhase.Ended)) return;
+        clickCount++;
+    }
 #endif
+
     /// <summary>
     /// サークル出現時のクリック回数によって、サークルの状態を段階的に更新。
     /// </summary>
