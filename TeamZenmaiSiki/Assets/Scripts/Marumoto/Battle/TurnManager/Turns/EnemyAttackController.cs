@@ -14,14 +14,13 @@ public class EnemyAttackController : MonoBehaviour {
     void Start()
     {
         PlayerHP = BattleManager.Instance.GetBattlePlayerHp;
-        PlayerHP = 150;
         currentActIndex = 0;
         isAttacking = false;
     }
 
     void LateUpdate()
     {
-        playerHP.text = "HP: " + PlayerHP + "/150";
+		playerHP.text = "HP: " + PlayerHP + "/" + DataManager.PlayerDatas.MAX_HP;
     }
 
     /// <summary>
@@ -50,7 +49,6 @@ public class EnemyAttackController : MonoBehaviour {
         Debug.Log("MainSTR.Num:" + EnemyManager.Instance.MainSTR.Count);
         Debug.Log("CoreSTR.Num:" + EnemyManager.Instance.CoreSTR.Count);
 
-                
         isAttacking = true;
         
         yield return new WaitForSeconds(0.5f);

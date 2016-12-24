@@ -65,7 +65,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// プレイヤー
     /// </summary>
-    private int getBattlePlayerHp = new PlayerStatusRead().getBattlePlayerHp();
+    private int getBattlePlayerHp;
     public int GetBattlePlayerHp
     {
         get { return getBattlePlayerHp; }
@@ -76,12 +76,12 @@ public class BattleManager : MonoBehaviour
     void Awake()
     {
         if (instance == null) { instance = this; }
+        getBattlePlayerHp = DataManager.Instance.PlayerData.hp;
     }
 
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour {
@@ -169,6 +168,9 @@ public class TurnManager : MonoBehaviour {
     /// </summary>
     public void ReturnToSearch()
     {
+        DataManager.PlayerDatas _playerData = DataManager.Instance.PlayerData;
+        _playerData.hp = enemyAttackController.PlayerHP;
+        DataManager.Instance.PlayerData = _playerData;
         SceneManager.LoadScene("Search");
     }
 }

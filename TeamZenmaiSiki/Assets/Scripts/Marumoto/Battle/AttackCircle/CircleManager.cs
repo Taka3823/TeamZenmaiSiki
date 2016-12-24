@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CircleManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class CircleManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return; 
             clickCount++;
         }
     }
@@ -45,9 +47,12 @@ public class CircleManager : MonoBehaviour
     private void ClickIsLeft()
     {
         if (Input.touchCount <= 0) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         Touch _touch = Input.GetTouch(0);
-        if (!(_touch.phase == TouchPhase.Ended)) return;
-        clickCount++;
+		if (_touch.phase == TouchPhase.Ended)
+		{
+			clickCount++;
+		}
     }
 #endif
 
