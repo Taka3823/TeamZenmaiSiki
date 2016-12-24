@@ -162,9 +162,9 @@ public class DataManager : MonoBehaviour
         set { killNames = value; }
     }
 
-    private List<bool> isTargetKilled = new List<bool>();
+    private List<string> isTargetKilled = new List<string>();
 
-    public List<bool> IsTargetKilled
+    public List<string> IsTargetKilled
     {
         get { return isTargetKilled; }
         set { isTargetKilled = value; }

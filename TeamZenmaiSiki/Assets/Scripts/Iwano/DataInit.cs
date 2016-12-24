@@ -20,7 +20,7 @@ public class DataInit : MonoBehaviour
 
         DataManager.Instance.CameraPos = Vector3.zero;
         DataManager.Instance.KillNames = new List<string>();
-        DataManager.Instance.IsTargetKilled = new List<bool>();
+        DataManager.Instance.IsTargetKilled = new List<string>();
         DataManager.Instance.KillNum = 0;
         DataManager.Instance.IsAchieveBounties = new List<bool>();
         DataManager.Instance.BrakedCoreCount = 0;
