@@ -38,10 +38,12 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     //ドラッグがどれほどされたか
     int dragCount = 0;
 
-    bool isDisplay = false;
+    public bool isDisplay { get; private set; }
 
     void Start()
     {
+        isDisplay = false;
+
         //Easingを始めるポジションの初期化
         startPosition = transform.localPosition;
 
