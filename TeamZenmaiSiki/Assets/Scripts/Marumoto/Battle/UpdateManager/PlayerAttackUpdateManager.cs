@@ -46,7 +46,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     {
         circleColliderEnable = false;
         SecondaryCirclePos = new Vector3();
-        playerSTR = BattleManager.Instance.getBattlePlayerAtk();
+        playerSTR = BattleManager.Instance.GetBattlePlayerAtk();
         playerSTR = 10;
         playerSTRText.text = "ATK: " + playerSTR.ToString();
     }
