@@ -137,6 +137,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //BGMの再生をフェードアウトさせながら止める。
+    //第一引数がBGM_FADE_TIME_FASTだと、早いフェード
     public void ToFadeOutBGM(float fadeOutSpeed_ = BGM_FADE_TIME_SLOW)
     {
         bgmFadeSpeed = fadeOutSpeed_;

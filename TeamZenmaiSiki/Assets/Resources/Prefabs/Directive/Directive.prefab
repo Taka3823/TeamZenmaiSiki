@@ -188,7 +188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000013551942488
 GameObject:
   m_ObjectHideFlags: 1
@@ -399,10 +399,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cOM: {fileID: 1000013291492810, guid: 6156acbdbd4016946b23bc41325fbb9d, type: 2}
-  distance:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
 --- !u!114 &114000010871629246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -962,7 +958,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 396, y: 12}
+  m_AnchoredPosition: {x: 400, y: 10}
   m_SizeDelta: {x: 499, y: 530}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013082297586
