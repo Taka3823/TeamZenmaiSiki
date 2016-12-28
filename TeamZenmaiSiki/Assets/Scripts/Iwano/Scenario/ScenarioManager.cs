@@ -58,12 +58,6 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
 
     void Update()
     {
-        //デバッグ用
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            SceneChange("Search");
-        }
-
         // 文字の表示が完了してるならクリック時に次の行を表示する
         if (IsCompleteDisplayText)
         {
@@ -76,16 +70,16 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
             }
             else if (maxSentenceElement <= lineNumber && Input.GetMouseButtonDown(0))
             {
-                if ((currentLine + 1) != maxScenariosDataElement)
+                currentLine += maxSentenceElement + 1;
+
+                if ((currentLine + 1) <= maxScenariosDataElement)
                 {
-                    currentLine += maxSentenceElement + 1;
+                    SetNextLine(currentLine);
                 }
                 else
                 {
                     SceneChange("Search");
                 }
-                
-                SetNextLine(currentLine);
             }
         }
         else

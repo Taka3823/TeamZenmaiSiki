@@ -45,8 +45,15 @@ public class ReadDirective : MonoBehaviour
     //TIPS:引数には一1章なら「１」と入力する
     public void ReadFile(int chapterNumber_)
     {
+
+#if UNITY_STANDALONE
         string path = "file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
-        
+#elif UNITY_ANDROID
+        string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
+#endif
+
+        //string path = "file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
+
         string[] lines = ReadCsvFoundation.ReadCsvData(path);
 
         didCommaSeparrationData = new string[lines.Length];
