@@ -27,9 +27,14 @@ public class CanvasManager : MonoBehaviour {
 
     void Setup()
     {
-        noteDataPathes.Add("file://" + Application.dataPath + "/CSVFiles/Note/note3.csv");
+#if UNITY_STANDALONE
+		noteDataPathes.Add("file://" + Application.dataPath + "/CSVFiles/Note/note3.csv");
         noteDataPathes.Add("file://" + Application.dataPath + "/CSVFiles/Note/notec.csv");
-        noteCsvData = new NoteCsvData();
+#elif UNITY_ANDROID
+		noteDataPathes.Add("jar:file://" + Application.dataPath + "/CSVFiles/Note/note3.csv");
+		noteDataPathes.Add("jar:file://" + Application.dataPath + "/CSVFiles/Note/notec.csv");
+#endif
+		noteCsvData = new NoteCsvData();
         NoteDatas = new List<NoteCsvData.NoteData>();
         ContentsIndex = new List<int>();
         NoteDatas = noteCsvData.GetNoteDatas();
