@@ -12,8 +12,6 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField]
     EnemyStatusRead enemyStatusRead;
-    [SerializeField]
-    PlayerStatusRead playerStatusRead;
 
     /// <summary>
     /// エネミー
@@ -22,26 +20,10 @@ public class BattleManager : MonoBehaviour
     public List<Vector3> getPos() { return enemyStatusRead.getPos(); }
 
     public List<int> getBattleMainHp() { return enemyStatusRead.getBattleMainHp(); }
-    //private List<int> getBattleMainHp = new EnemyStatusRead().getBattleMainHp();
-    //public List<int> GetBattleMainHp
-    //{
-    //    get { return getBattleMainHp; }
-    //    set { getBattleMainHp = value; }
-    //}
+   
     public List<int> getBattleCoreHp() { return enemyStatusRead.getBattleCoreHp(); }
-    //private List<int> getBattleCoreHp = new EnemyStatusRead().getBattleCoreHp();
-    //public List<int> GetBattleCoreHp
-    //{
-    //    get { return getBattleCoreHp; }
-    //    set { getBattleCoreHp = value; }
-    //}
+    
     public List<int> getBattleCorePower() { return enemyStatusRead.getBattleCorePower(); }
-    //private List<int> getBattleCorePower = new EnemyStatusRead().getBattleCorePower();
-    //public List<int> GetBattleCorePower
-    //{
-    //    get { return getBattleCorePower; }
-    //    set { getBattleCorePower = value; }
-    //}
 
     public List<int> getBattleMainPower() { return enemyStatusRead.getBattleMainPower(); }
     public List<int> getBattleMainDefence() { return enemyStatusRead.getBattleMainDefence(); }
@@ -71,22 +53,14 @@ public class BattleManager : MonoBehaviour
         get { return getBattlePlayerHp; }
         set { getBattlePlayerHp = value; }
     }
-    public int getBattlePlayerAtk() { return playerStatusRead.getBattlePlayerAtk(); }
+
+	private int getBattlePlayerAtk;
+    public int GetBattlePlayerAtk() { return getBattlePlayerAtk; }
 
     void Awake()
     {
         if (instance == null) { instance = this; }
-        getBattlePlayerHp = DataManager.Instance.PlayerData.hp;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+		getBattlePlayerHp = DataManager.Instance.PlayerData.hp;
+		getBattlePlayerAtk = DataManager.Instance.PlayerData.attack;
     }
 }
