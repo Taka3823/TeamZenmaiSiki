@@ -46,8 +46,6 @@ public class CanvasManager : MonoBehaviour {
         }
     }
 
-    
-
     //デバッグ用:CSVデータ読み込みの正確性確認用。
     /// <summary>
     /// CSVデータが正しく読み込まれているかのデバッグ出力関数。
