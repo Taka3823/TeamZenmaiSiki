@@ -139,23 +139,6 @@ public class EnemyManager : MonoBehaviour {
 
         collisionData = new CollisionData();
         CollisionIndex = collisionData.CollisionIndex;
-
-        //デバッグ用:配列デバッグ用
-        //for (int k = 0; k < EnemyElems; k++)
-        //{
-        //    for (int i = 0; i < 30; i++)
-        //    {
-        //        string a = "";
-        //        for (int j = 0; j < 30; j++)
-        //        {
-        //            a += CollisionIndex[k][i][j].ToString();
-        //        }
-        //        Debug.Log(a);
-        //    }
-        //    Debug.Log("===================================================");
-        //    Debug.Log("===================================================");
-        //    Debug.Log("===================================================");
-        //}
     }
 
     /// <summary>
@@ -163,8 +146,6 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     public void EnemyErase()
     {
-        DataManager.Instance.KillNum++;
-        DataManager.Instance.KillNames.Add(BattleManager.Instance.getKillName(CurrentTargetIndex));
         BattleManager.Instance.removeEnemyData(CurrentTargetIndex);
         Enemies.RemoveAt(CurrentTargetIndex);
         Pos.RemoveAt(CurrentTargetIndex);
@@ -250,4 +231,15 @@ public class EnemyManager : MonoBehaviour {
         if (EnemyElems == 0) return true;
         else                 return false;
     }
+
+	/// <summary>
+	/// Killした敵の情報をDataManagerに登録。
+	/// </summary>
+	public void RegisterKillData()
+	{
+		string _killName = BattleManager.Instance.getKillName(CurrentTargetIndex);
+		DataManager.Instance.KillNum++;
+		DataManager.Instance.KillNames.Add(_killName);
+		DataManager.Instance.IsTargetKilled.Add(_killName);
+	}
 }

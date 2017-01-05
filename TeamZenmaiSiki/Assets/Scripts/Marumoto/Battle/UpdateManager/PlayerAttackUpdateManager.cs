@@ -111,6 +111,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     private void EnemyDestroy()
     {
         Destroy(EnemyManager.Instance.Enemies[EnemyManager.Instance.CurrentTargetIndex]);
+		EnemyManager.Instance.RegisterKillData();
         EnemyManager.Instance.EnemyErase();
         playerAttackController.DecreaseCurrentTargetIndex();
         TurnManager.Instance.ButtonManagement();
