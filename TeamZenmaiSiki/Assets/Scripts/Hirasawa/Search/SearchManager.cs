@@ -104,7 +104,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
     void OnTouchDown()
     {
         if (TabManager.Instance.Getisblood()) return;
-        if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())
+        if (InputManager.Instance.IsTouchBegan() && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -126,7 +126,8 @@ public class SearchManager : MonoBehaviour , ISceneBase
                 }
                 else if (hit.collider.tag == "Goal")
                 {
-                   
+                    Debug.Log("あたり");
+                    EnableReturnUI();
                 }
                 if (hit.collider.gameObject.tag != "Unit")
                 {
@@ -154,6 +155,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
     }
     public void DisEnableReturnUI()
     {
+        DataManager.Instance.IsUnitDestroys[enemynumber] = true;
         DataManager.Instance.CameraPos = new Vector3(NewCamera.Instance.cameraposx, 0, 0);
         ReturnButtonCanvas.Instance.setenableReturnUI(false);
     }

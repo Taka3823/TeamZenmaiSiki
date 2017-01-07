@@ -387,9 +387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf99d25a6f6d034a9e60c5e25723f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePrefab: {fileID: 1000013322009764, guid: 7a1736d588a104a4ebf67e3a9ebcec42, type: 2}
-  readDirective: {fileID: 518057282}
-  chapterNumber: 2
+  nodePrefab: {fileID: 0}
+  readDirective: {fileID: 0}
+  chapterNumber: 0
 --- !u!114 &129106512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6c0aa65d6c06c46987bda00a1c476d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleLogo: {fileID: 869823079}
+  titleLogo: {fileID: 0}
 --- !u!114 &869823082
 MonoBehaviour:
   m_ObjectHideFlags: 0

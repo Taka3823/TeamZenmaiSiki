@@ -22,21 +22,57 @@ public class CreateNode : MonoBehaviour
     {
         directivedata = new DataManager.DirectiveData();
         directivedata.collectionTargetName = new List<string>();
+        int killcount = 0;
+        
         //SetDebugDatas();
         directivedata = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber];
-       
-        for(int i = 0;i < directivedata.collectionTargetName.Count; i++)
+        if (DataManager.Instance.IsTargetKilled.Count == 0)
         {
-            Debug.Log(directivedata.collectionTargetName[i]);
+            for(int i = 0; i < directivedata.collectionTargetName.Count; i++)
+            {
+                //DataManager.Instance.IsTargetKilled.Add(false);
+            }
+        }
+        for (int i = 0;i < directivedata.collectionTargetName.Count; i++)
+        {
+            //Debug.Log(directivedata.collectionTargetName[i]);
             if (directivedata.collectionTargetName[i] != "")
             {
                 GameObject obj = Instantiate(nodePrefab);
                 obj.transform.parent = content.transform;
                 obj.GetComponent<EnemyNameNode>().setCollection(false, false);//仮
                 obj.GetComponent<EnemyNameNode>().setName(directivedata.collectionTargetName[i]);
+                for(int k = 0; k < DataManager.Instance.KillNames.Count; k++)
+                {
+                    if (directivedata.collectionTargetName[i] == DataManager.Instance.KillNames[k])
+                    {
+                        bool isnone = false;
+                        for(int j = 0; j < DataManager.Instance.IsTargetKilled.Count; j++)
+                        {
+                            if (directivedata.collectionTargetName[i] == DataManager.Instance.IsTargetKilled[j])
+                            {
+                                isnone = true;
+                            }
+                            
+                        }
+                        if (!isnone)
+                        {
+                            obj.GetComponent<EnemyNameNode>().setColor();
+                        }
+                    }
+                }
+                for(int k = 0; k < DataManager.Instance.IsTargetKilled.Count; k++)
+                {
+                    if (directivedata.collectionTargetName[i] == DataManager.Instance.IsTargetKilled[k])
+                    {
+                        obj.GetComponent<EnemyNameNode>().setKillEffect((killcount)*60);
+                        killcount++;
+                    }
+                }
             }
            
         }
+        DataManager.Instance.IsTargetKilled.Clear();
 	}
     void SetDebugDatas()
     {

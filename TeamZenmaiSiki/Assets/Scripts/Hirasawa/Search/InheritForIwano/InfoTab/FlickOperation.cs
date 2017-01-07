@@ -49,6 +49,11 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
         //エンドポジションの決定
         endPosition = transform.localPosition + endPositionDistance;
+        if (DataManager.Instance.KillNames.Count >= 1)
+        {
+            isDisplay = true;
+            transform.localPosition = endPosition;
+        }
     }
 
     void Update()
@@ -195,7 +200,7 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     void OnClickLightIsOutFunc()
     {
 
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (InputManager.Instance.IsTouchBegan() && !EventSystem.current.IsPointerOverGameObject())
         {
             OnClickLightIsOut();
         }

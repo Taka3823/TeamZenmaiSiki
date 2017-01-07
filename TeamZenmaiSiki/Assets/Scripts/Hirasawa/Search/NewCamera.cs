@@ -54,27 +54,35 @@ public class NewCamera : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+       
         UnitTouchMove();
         if (TabManager.Instance.Getisblood()) return;
+        
         if (TabManager.Instance.GetIsDisplay()) return;
+        
         if (unitTouchMove) return;
-        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
+        if (InputManager.Instance.IsTouchBegan())
+        {
+            
+        }
+        if (InputManager.Instance.IsTouchBegan() && EventSystem.current.IsPointerOverGameObject())
         {
             anothertouch = true;
             ismoving = false;
+           
         }
-        if (Input.GetMouseButtonDown(0)&&(!anothertouch))
+        if (InputManager.Instance.IsTouchBegan() && (!anothertouch))
         {
             touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
             movestartpos = cameraposx;
             ismoving = false;
-          
+           
             //cameraposx = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
         }
    
-        if (Input.GetMouseButton(0)&&(!anothertouch))
+        if (InputManager.Instance.IsTouchMoved() && (!anothertouch))
         {
+         
             frontPos = cameraposx;
             movepos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - touchPos;
             cameraposx = movestartpos+ movepos;
@@ -92,7 +100,7 @@ public class NewCamera : MonoBehaviour {
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (InputManager.Instance.IsTouchEnded())
         {
             anothertouch = false;
             if (ismoving)
@@ -102,7 +110,7 @@ public class NewCamera : MonoBehaviour {
                 waitcount = 0;
             }
         }
-        if (ismoving && !Input.GetMouseButton(0)&&(!anothertouch))
+        if (ismoving && !InputManager.Instance.IsTouchMoved()&&(!anothertouch))
         {
             easingT += 1.0f / (easingtime * 60);
             if (easingendpos==mapstart||easingendpos==mapend)

@@ -14,8 +14,8 @@ public class RemoveManager : MonoBehaviour {
         instance = this;
         int a = DataManager.Instance.ScenarioChapterNumber;
         int b = DataManager.Instance.ScenarioSectionNumber;
-        Debug.Log(a);
-        Debug.Log(b);
+        //Debug.Log(a);
+        //Debug.Log(b);
         //datas = DataManager.Instance.DirectiveDatas[a][b];
 
     }

@@ -118,13 +118,11 @@ public class ReslutCanvas : MonoBehaviour {
                     }
               
                 }
-                Debug.Log("数"+value);
-
                 ischeck = killcount >= int.Parse(value);
                 break;
             case "BRAKECORE":
-                int breakcore = 1;
-                ischeck = breakcore > int.Parse(value);
+                int breakcore = DataManager.Instance.BrakedCoreCount;
+                ischeck = (breakcore >= int.Parse(value));
                 break;
             case "ALLKILL":
                 for (int i = 0; i < datas.collectionTargetName.Count; i++)
