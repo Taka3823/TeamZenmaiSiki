@@ -23,10 +23,10 @@ public class FadeOutDirective : MonoBehaviour
 
     //Easingを始めていいかどうか
     private bool canEasing = false;
-
+    private bool isstart;
     //Easingをするために必要な起動時間
     private float startTime;
-
+    private bool firsttouch;
     void Start()
     {
         //Easingを始めるポジションの初期化
@@ -34,6 +34,16 @@ public class FadeOutDirective : MonoBehaviour
 
         //エンドポジションの決定
         endPosition = transform.localPosition + endPositionDistance;
+        if (DataManager.Instance.KillNames.Count >= 1)
+        {
+            firsttouch = false;
+            transform.localPosition = endPosition;
+            ChangeText();
+        }
+        else
+        {
+            firsttouch = true;
+        }
     }
 
     void Update()
@@ -54,12 +64,24 @@ public class FadeOutDirective : MonoBehaviour
         {
             transform.position = endPosition;
             canEasing = false;
+            if (firsttouch)
+            {
+                firsttouch = false;
+                ChangeText();
+            }
         }
 
         var rate = diff / moveTime;
         var pos = curve.Evaluate(rate);
-
-        transform.localPosition = Vector3.Lerp(startPosition, endPosition, pos);
+        if (isstart)
+        {
+            transform.localPosition = Vector3.Lerp(startPosition, endPosition, pos);
+        }
+        else
+        {
+            transform.localPosition = Vector3.Lerp(endPosition, startPosition, pos);
+        }
+        
 
         //Easing終了時の処理を記述する
         //if (rate >= 1){}
@@ -71,6 +93,7 @@ public class FadeOutDirective : MonoBehaviour
         {
             canEasing = true;
             startTime = Time.timeSinceLevelLoad;
+            isstart = true;
         }
     }
 
@@ -80,6 +103,23 @@ public class FadeOutDirective : MonoBehaviour
         {
             canEasing = true;
             startTime = Time.timeSinceLevelLoad;
+            isstart = false;
+        }
+    }
+    private void ChangeText()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "Button")
+            {
+                foreach (Transform gchild in child.transform)
+                {
+                    if (gchild.name == "Text")
+                    {
+                        gchild.GetComponent<Text>().text = "戻る";
+                    }
+                }
+            }
         }
     }
 }

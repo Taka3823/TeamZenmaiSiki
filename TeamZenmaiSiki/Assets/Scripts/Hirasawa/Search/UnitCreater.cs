@@ -42,7 +42,13 @@ public class UnitCreater : MonoBehaviour {
         char[] commaSpliter = { ',' };
         
         createNum = unitPosition.Length-1;//Unitの数を取得
-
+        if (DataManager.Instance.IsUnitDestroys.Count == 0)
+        {
+            for(int i = 0; i < createNum; i++)
+            {
+                DataManager.Instance.IsUnitDestroys.Add(false);//初期化
+            }
+        }
         for (int i = 1; i < createNum+1; i++)
         {
            string[] strPos= ReadCsvFoundation.DataSeparation(unitPosition[i], commaSpliter, 4);
@@ -86,6 +92,8 @@ public class UnitCreater : MonoBehaviour {
             //Debug.Log(image.name);
             Sprite sprite = new Sprite();
             unitObj.GetComponent<SpriteRenderer>().sprite = GetSprite(pass, unittexlist[i]);
+            if(DataManager.Instance.IsUnitDestroys[i])
+            unitObj.SetActive(false);
             //dataBuf.name = "aaa";
             //unitObj.GetComponent<Unit>().setEnemyDatas(dataBuf);
         }

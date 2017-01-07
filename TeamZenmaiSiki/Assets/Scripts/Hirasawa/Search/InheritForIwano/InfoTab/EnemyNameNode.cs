@@ -32,8 +32,30 @@ public class EnemyNameNode : MonoBehaviour {
         {
             if (child.name =="EnemyName")
             {
-
                 child.GetComponent<Text>().text = enemyName;
+            }
+        }
+
+    }
+    public void setColor()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "Image")
+            {
+                child.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            }
+        }
+
+    }
+
+    public void setKillEffect(int lug)
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "Image")
+            {
+                child.GetComponent<BloodImage>().setiseffect(true,lug);
             }
         }
 
