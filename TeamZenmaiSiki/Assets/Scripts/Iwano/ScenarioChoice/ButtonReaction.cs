@@ -39,6 +39,9 @@ public class ButtonReaction : MonoBehaviour
         DataManager.Instance.ScenarioChapterNumber = this.chapterNumber - 1;
         DataManager.Instance.ScenarioSectionNumber = this.sectionNumber;
 
-        SceneManager.LoadScene("Scenario");
+        //TIPS:本番はこっち
+        //SceneManager.LoadScene("Scenario");
+        //TIPS:デバッグ用
+        SceneManager.LoadScene("Search");
     }
 }
