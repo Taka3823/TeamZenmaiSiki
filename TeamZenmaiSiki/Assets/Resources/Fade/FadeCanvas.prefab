@@ -12,6 +12,7 @@ GameObject:
   - 222: {fileID: 22291984}
   - 114: {fileID: 11486218}
   - 114: {fileID: 11491604}
+  - 114: {fileID: 114000013684026054}
   m_Layer: 5
   m_Name: FadeCanvas
   m_TagString: Untagged
@@ -33,7 +34,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: d9d88d72d65d92d409606deefe2646d6, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
-  maskTexture: {fileID: 2800000, guid: f56b3d529d22d184dbc46ac81f777207, type: 3}
+  maskTexture: {fileID: 2800000, guid: 91b295ab47972b94f806005caf1dd030, type: 3}
   cutoutRange: 0
 --- !u!114 &11491604
 MonoBehaviour:
@@ -100,3 +101,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 141186}
   m_IsPrefabParent: 1
+--- !u!114 &114000013684026054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8148d4dbb5e23d44181b1ce00c550f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fade: {fileID: 11491604}

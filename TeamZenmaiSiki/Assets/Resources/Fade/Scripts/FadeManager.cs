@@ -35,9 +35,20 @@ public class FadeManager : MonoBehaviour {
     {
         isEffectEnd = isBool;
     }
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     void Start()
     {
-        instance = this;
         isFadeEffect = false;
         isEffectEnd = false;
         isFadeIn = false;

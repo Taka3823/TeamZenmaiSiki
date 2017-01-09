@@ -37,7 +37,7 @@ public class BloodshedProduction : MonoBehaviour
     int productTime = 0;
 
     bool isProductIn = false;
-
+    bool isnextScene = false;
     void Start()
     {
         slider = GetComponent<Slider>();
@@ -64,13 +64,14 @@ public class BloodshedProduction : MonoBehaviour
             slider.value += 1;
         }
 
-        if (slider.value >= slider.maxValue)
+        if (slider.value >= slider.maxValue &&(!isnextScene))
         {
+            isnextScene = true;
             Debug.Log("SE鳴ったよ！");
             //AudioManager.Instance.PlaySe("SE_Name.wav");
             isProductIn = false;
-
-            sceneChanger.SceneChange("Battle");
+            FadeManager.Instance.FadeInSceneChange(2,1,"Battle");
+            //sceneChanger.SceneChange("Battle");
         }
     }
 
