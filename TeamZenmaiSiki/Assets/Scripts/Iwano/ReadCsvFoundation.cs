@@ -17,8 +17,7 @@ public class ReadCsvFoundation : MonoBehaviour
 
         while(!www.isDone)
         {
-            //ファイルの読み込みが終わるまで待つ処理
-            Debug.Log("思い");
+           
         }
 
         //stringに変換

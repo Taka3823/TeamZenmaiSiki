@@ -30,8 +30,16 @@ public class ReadDirective : MonoBehaviour
 
     string[] pathName =
     {
-        "Episode_1_Lucas.csv",  //一章
-        "Episode_2_1_Lucas.csv",  //二章
+        "Episode_1.csv",  //１章
+        "Episode_2.csv",  //２章
+        "Episode_3.csv",  //３章
+        "Episode_4.csv",  //４章
+        "Episode_5.csv",  //５章
+        "Episode_6.csv",  //６章
+        "Episode_7.csv",  //７章
+        "Episode_8.csv",  //８章
+        "Episode_9.csv",  //９章
+        "Episode_10.csv", //１０章
     };
 
     private int lineLength;
@@ -47,9 +55,9 @@ public class ReadDirective : MonoBehaviour
     {
 
 #if UNITY_STANDALONE
-        string path = "file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
+        string path = "file://"     + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
 #elif UNITY_ANDROID
-        string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];
+        string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
 #endif
 
         //string path = "file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/Ep" + chapterNumber_ + "/" + pathName[chapterNumber_ - 1];

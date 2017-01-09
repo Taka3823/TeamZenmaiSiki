@@ -78,7 +78,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
                 }
                 else
                 {
-                    SceneChange("Search");
+                    SceneAJudgment();
                 }
             }
         }
@@ -195,12 +195,29 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         SetNextLine(currentLine);
     }
 
+    public void SceneAJudgment()
+    {
+        int chapterNum = DataManager.Instance.ScenarioChapterNumber;
+        int sectionNum = DataManager.Instance.ScenarioSectionNumber;
+
+        if(DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
+        {
+            SceneChange("ScenarioChoice");
+        }
+        else
+        {
+            SceneChange("Search");
+        }
+    }
+
     public void SceneChange(string nextSceneName_)
     {
-        SceneManager.LoadScene("Search");
-
-        DataManager.Instance.CameraPos = Vector3.zero;
-
+        SceneManager.LoadScene(nextSceneName_);
+        
+        if(nextSceneName_ == "Search")
+        {
+            DataManager.Instance.CameraPos = Vector3.zero;
+        }
         AudioManager.Instance.ToFadeOutBGM(0.7f);
     }
 }

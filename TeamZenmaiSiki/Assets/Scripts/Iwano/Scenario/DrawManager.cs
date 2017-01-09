@@ -96,7 +96,7 @@ public class DrawManager : MonoBehaviour
 
         var charaList = Resources.LoadAll<Sprite>("Sprits/Scenario/Character");
         var backGroundList = Resources.LoadAll<Sprite>("Sprits/Scenario/BackGround");
-        var baloonList = Resources.LoadAll<Sprite>("Sprits/Scenario/UI/Hukidashi");
+        var baloonList = Resources.LoadAll<Sprite>("Sprits/Scenario/UI");
 
         foreach (Sprite chara in charaList)
         {

@@ -27,7 +27,7 @@ Material:
       second: 15
     - first:
         name: _Range
-      second: 0
+      second: 1
     - first:
         name: _Stencil
       second: 0

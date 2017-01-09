@@ -14,12 +14,26 @@ public class CreateEpsiodeNode : MonoBehaviour
     [SerializeField]
     int chapterNumber;
 
-	// Use this for initialization
-	void Start ()
+    [SerializeField]
+    GameObject nextEpisodePage;
+
+    void Start()
+    {
+        DataInit();
+
+        Destroy(GetComponent<CreateEpsiodeNode>());
+
+        if(nextEpisodePage != null)
+        {
+            nextEpisodePage.SetActive(true);
+        }
+    }
+
+    void DataInit()
     {
         readDirective.ReadFile(chapterNumber);
-        
-        for(int i = 1;i < readDirective.LineLength;i++)
+
+        for (int i = 1; i < readDirective.LineLength; i++)
         {
             CreateNode(chapterNumber, i - 1);
         }
