@@ -84,12 +84,13 @@ public class SearchManager : MonoBehaviour , ISceneBase
     void Start()
     {
         instance = this;
+        //FadeManager.Instance.FadeIn(0);
         batlleDataList = new List<EnemyData.EnemyInternalDatas>();
         sendDatas = new List<EnemyData.EnemyInternalDatas>();
         unitPos = 0;
         isUnitTouch = false;
         setEpisodeStage();
-
+        //FadeManager.Instance.FadeOut(2);
     }
 
     // Update is called once per frame
