@@ -1004,6 +1004,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1378275754}
+  leftButton: {fileID: 565217077}
+  rightButton: {fileID: 2120881088}
 --- !u!1 &303000313
 GameObject:
   m_ObjectHideFlags: 0
