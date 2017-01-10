@@ -18,8 +18,12 @@ public class UnitCreater : MonoBehaviour {
     }
 	void Start () {
         enemyDataReader = new EnemyDataReader();
-        int episodeNum = 1;
-        int stageNum = 1;
+        //Debug.Log("c"+DataManager.Instance.ScenarioChapterNumber);
+        //Debug.Log("s"+DataManager.Instance.ScenarioSectionNumber);
+        //int episodeNum = 1;
+        //int stageNum =1;
+        int episodeNum = DataManager.Instance.ScenarioChapterNumber + 1;
+        int stageNum = DataManager.Instance.ScenarioSectionNumber + 1;
         createNum = new int();
         UnitPos = new List<Vector3>();
         unittexlist = new List<string>();
