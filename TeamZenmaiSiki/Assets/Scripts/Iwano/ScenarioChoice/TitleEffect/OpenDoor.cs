@@ -30,6 +30,9 @@ public class OpenDoor : MonoBehaviour
     //Easingをするために必要な起動時間
     private float startTime;
 
+    [SerializeField]
+    GameObject startButton;
+
     void Start()
     {
         //Easingを始めるポジションの初期化
@@ -87,8 +90,7 @@ public class OpenDoor : MonoBehaviour
             canEasing = true;
             startTime = Time.timeSinceLevelLoad;
 
+            Destroy(startButton);
         }
     }
-
-   
 }
