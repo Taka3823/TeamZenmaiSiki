@@ -25,7 +25,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 [RequireComponent (typeof(RawImage))]
-[RequireComponent (typeof(Mask))]
+[RequireComponent (typeof(RectMask2D))]
 public class FadeUI : MonoBehaviour, IFade
 {
 
@@ -53,8 +53,8 @@ public class FadeUI : MonoBehaviour, IFade
 		
 		UnityEngine.Graphics.Blit (texture, rt, mat);
 		
-		var mask = GetComponent<Mask> ();
-		mask.enabled = false;
+		var mask = GetComponent<RectMask2D> ();
+        mask.enabled = false;
 		mask.enabled = true;
 	}
 }

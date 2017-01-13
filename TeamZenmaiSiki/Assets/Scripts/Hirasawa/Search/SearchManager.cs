@@ -81,6 +81,10 @@ public class SearchManager : MonoBehaviour , ISceneBase
         //batlleDataList = buf;
         DataManager.Instance.EnemyInternalDatas = buf;
     }
+    public void ClearEnemyDatas()
+    {
+        sendDatas.Clear();
+    }
     void Start()
     {
         instance = this;
@@ -100,7 +104,8 @@ public class SearchManager : MonoBehaviour , ISceneBase
     }
     public void GoScenario()
     {
-        ReslutCanvas.Instance.SetEnable(true);
+        FadeManager.Instance.FadeInActionFadeout(2,1,()=> { ReslutCanvas.Instance.SetEnable(true);});
+        
     }
     void OnTouchDown()
     {
@@ -115,6 +120,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
                 if (hit.collider.gameObject.tag == "Unit")
                 {
                     obj.GetComponent<Unit>().OnTouchDown();
+                    //Debug.Log("タッチ");
                     NewCamera.Instance.SetUnitT(0);
                     unitPos = obj.GetComponent<Unit>().getPos();
                     NewCamera.Instance.SetUnitStartPos(NewCamera.Instance.cameraposx);

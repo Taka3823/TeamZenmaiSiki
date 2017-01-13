@@ -44,6 +44,7 @@ public class Unit : MonoBehaviour {
    public void OnTouchDown()
     {
         if (TabManager.Instance.Getisblood()) return;
+        Debug.Log("こうんと"+enemyDatas.Count);
         List<EnemyData.EnemyInternalDatas> buf= new List<EnemyData.EnemyInternalDatas>();
         buf = SearchManager.Instance.getSendEnemyDatas();
         if (buf.Count > 1)//初期状態でなければ
@@ -52,17 +53,20 @@ public class Unit : MonoBehaviour {
             if (number == SearchManager.Instance.GetEnemyNum())//前と同じものを選択していれば
             {
                 //何もしない
+              
             }
             else
             {
                 EnemyDataCanvas.Instance.ResetPlate();
                 SearchManager.Instance.setEnemyDatas(enemyDatas);
                 SearchManager.Instance.setEnemyNUm(number);
+               
                 EnemyDataCanvas.Instance.CreatePlate();
             }
         }
         else
         {
+           
             SearchManager.Instance.setEnemyNUm(number);
             SearchManager.Instance.setEnemyDatas(enemyDatas);
             EnemyDataCanvas.Instance.CreatePlate();

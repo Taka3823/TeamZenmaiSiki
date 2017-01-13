@@ -43,13 +43,13 @@ public class EnemyNameNode : MonoBehaviour {
         {
             if (child.name == "Image")
             {
-                child.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+                child.GetComponent<Image>().color = new Color(1, 1, 1, 0.7f);
             }
         }
 
     }
 
-    public void setKillEffect(int lug)
+    public void setKillEffect(float lug)
     {
         foreach (Transform child in transform)
         {
