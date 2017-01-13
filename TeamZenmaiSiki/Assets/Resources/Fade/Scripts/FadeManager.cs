@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class FadeManager : MonoBehaviour {
 
     [SerializeField]
@@ -102,6 +103,7 @@ public class FadeManager : MonoBehaviour {
     {
         isFadeEffect = true;
         isFadeIn = true;
+
         fade.FadeIn(fadetime, () =>
         {
             fade.Wait(wait, () =>
@@ -110,6 +112,29 @@ public class FadeManager : MonoBehaviour {
                 isFadeEffect = false;
                 isEffectEnd = true;
                 SceneChange(nextScene);
+            });
+        });
+
+    }
+    public void FadeInActionFadeout(float fadetime, float wait,System.Action action)
+    {
+        isFadeEffect = true;
+        isFadeIn = true;
+        ChangeImage("FadeIn");
+        fade.FadeIn(fadetime, () =>
+        {
+            fade.Wait(wait, () =>
+            {
+                isFadeIn = false;
+                isFadeOut = true;
+                ChangeImage("FadeOut");
+                action();
+                fade.FadeOut(fadetime, () =>
+                {
+                    isFadeOut = false;
+                    isFadeEffect = false;
+                    isEffectEnd = true;
+                });
             });
         });
 
@@ -130,5 +155,13 @@ public class FadeManager : MonoBehaviour {
     {
         isFadeEffect = true;
         isFadeIn = true;
+    }
+    private void ChangeImage(string imagename)
+    {
+        string pass = "Fade/"+imagename;
+        GetComponent<FadeImage>().enabled = true;
+        Texture tex = new Texture();
+        tex = Resources.Load<Texture>(pass);
+        GetComponent<FadeImage>().setTexture(tex);
     }
 }

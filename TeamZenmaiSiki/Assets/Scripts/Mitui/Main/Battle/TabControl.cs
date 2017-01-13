@@ -27,7 +27,7 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     const int RETURN_NUM = 1;
 
     //Easingを始めていいかどうか
-    private bool[] canEasing = new bool[2];
+    public bool[] canEasing = new bool[2];
 
     //Easingをするために必要な起動時間
     private float startTime;
@@ -82,14 +82,17 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+		/*
         if (isDisplay) return;
         if (!RayCast("InfoTab")) return;
 
         startPos = eventData.position.x;
+		*/
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+		/*
         endPos = eventData.position.x;
 
         if ((startPos - endPos) < -10)
@@ -100,10 +103,20 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 startTime = Time.timeSinceLevelLoad;
             }
         }
+		*/
     }
 
     //エラーにならないようにオーバーライドしている
     public void OnDrag(PointerEventData eventData) { }
+
+	public void ActiveEasing()
+	{
+		if (!canEasing[GOING_NUM])
+		{
+			canEasing[GOING_NUM] = true;
+			startTime = Time.timeSinceLevelLoad;
+		}
+	}
 
     bool RayCast(string tagName_)
     {
@@ -122,6 +135,8 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 return true;
             }
         }
+
+
         return false;
     }
 

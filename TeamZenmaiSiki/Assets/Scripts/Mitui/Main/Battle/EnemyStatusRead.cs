@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class EnemyStatusRead : MonoBehaviour
 {
-    /// <summary>
-    /// 不動値
-    /// </summary>
+	/// <summary>
+	/// 不動値
+	/// </summary> 
+	[SerializeField]
+	List<Text> infoText;
+	/*
     [SerializeField]
     Text[] enemyName;
     [SerializeField]
@@ -28,7 +31,7 @@ public class EnemyStatusRead : MonoBehaviour
     Text[] bloodType;
     [SerializeField]
     Text[] memo1;
-
+	*/
     List<EnemyData.EnemyInternalDatas> enemyData = new List<EnemyData.EnemyInternalDatas>();
     List<Vector3> pos = new List<Vector3>();
 
@@ -53,9 +56,11 @@ public class EnemyStatusRead : MonoBehaviour
     /// </summary>
     void EnemyTextUpdate()
     {
+        for (int i = 0; i < infoText.Count; i++)
+		{
+			infoText[i].text = ConnectEnemyStatus(i);
 
-        for (int i = 0; i < enemyData.Count; i++)
-        {
+			/*
             enemyName[i].text = enemyData[i].name;
             mainHp[i].text = "HP: " + battleMainHp[i] + "/" + enemyData[i].mainHp;
             mainPower[i].text = "ATK: " + enemyData[i].mainPower;
@@ -74,8 +79,36 @@ public class EnemyStatusRead : MonoBehaviour
             {
                 memo1[i].text = enemyData[i].memos[0] + "\n" + enemyData[i].memos[1];
             }
+			*/
         }
     }
+
+	string ConnectEnemyStatus(int _index)
+	{
+		string _result = "";
+		if (_index >= enemyData.Count) return _result;
+
+		_result += enemyData[_index].name + "\n"
+				+ "生命力: " + battleMainHp[_index].ToString() + "/" + enemyData[_index].mainHp.ToString() + "\n"
+				+ "攻撃力: " + enemyData[_index].mainPower.ToString() + "\n"
+				+ "防御力: " + enemyData[_index].mainDefense.ToString() + "\n"
+				+ "年齢: "   + enemyData[_index].age.ToString() + "\n"
+				+ "血液型: " + enemyData[_index].bloodType + "\n" + "\n";
+
+		if (enemyData[_index].coreNum >= 0)
+		{
+			for(int i = 0; i < enemyData[_index].coreNum; i++)
+			{
+				_result += "コア耐久力: " + battleCoreHp[_index].ToString() + "/" + enemyData[_index].coreHp[i].ToString() + "\n"
+						+  "コア攻撃力: " + enemyData[_index].corePower[i].ToString() + "\n"
+						+  "コア防御力: " + enemyData[_index].coreDefense[i].ToString() + "\n" + "\n";
+			}
+		}
+
+		_result += enemyData[_index].memos[0] + "\n" + enemyData[_index].memos[1];
+
+		return _result;
+	}
 
     /// <summary>
     /// 敵の体力や攻撃など変動するもの
@@ -103,18 +136,18 @@ public class EnemyStatusRead : MonoBehaviour
     {
         if (DataManager.Instance.EnemyInternalDatas.Count == 1)
         {
-            pos.Add(new Vector3(0, 1.5f, 0));
+            pos.Add(new Vector3(0, 0.9f, 0));
         }
         if (DataManager.Instance.EnemyInternalDatas.Count == 2)
         {
-            pos.Add(new Vector3(-3, 1.5f, 0));
-            pos.Add(new Vector3(3, 1.5f, 0));
+            pos.Add(new Vector3(-3, 0.9f, 0));
+            pos.Add(new Vector3( 3, 0.9f, 0));
         }
         if (DataManager.Instance.EnemyInternalDatas.Count == 3)
         {
-            pos.Add(new Vector3(-5, 1.5f, 0));
-            pos.Add(new Vector3(0, 1.5f, 0));
-            pos.Add(new Vector3(5, 1.5f, 0));
+            pos.Add(new Vector3(-5, 0.9f, 0));
+            pos.Add(new Vector3( 0, 0.9f, 0));
+            pos.Add(new Vector3( 5, 0.9f, 0));
         }
         for (int i = 0; i < DataManager.Instance.EnemyInternalDatas.Count; ++i)
         {
