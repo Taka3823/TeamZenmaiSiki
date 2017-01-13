@@ -61,6 +61,7 @@ public class ReslutCanvas : MonoBehaviour {
                 set();
                 isset = true;
             }
+            if (FadeManager.Instance.IsFadeEffect()) return;
             if (ischeck[0])
             {
                 ChangeObject(FirstCollect);

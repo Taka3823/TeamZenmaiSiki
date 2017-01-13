@@ -8,6 +8,7 @@ public class SetLightChild : MonoBehaviour {
         foreach (Transform child in transform)
         {
             Vector3 position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            child.gameObject.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
             position.x = position.x + gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.x*gameObject.transform.localScale.x;
             child.transform.position = position;
         }

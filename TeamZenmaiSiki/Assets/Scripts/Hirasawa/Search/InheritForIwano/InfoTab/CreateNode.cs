@@ -65,7 +65,7 @@ public class CreateNode : MonoBehaviour
                 {
                     if (directivedata.collectionTargetName[i] == DataManager.Instance.IsTargetKilled[k])
                     {
-                        obj.GetComponent<EnemyNameNode>().setKillEffect((killcount)*60);
+                        obj.GetComponent<EnemyNameNode>().setKillEffect((killcount)*ContentManager.Instance.getSpeed()*60);
                         killcount++;
                     }
                 }

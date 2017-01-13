@@ -12,14 +12,24 @@ public class ContentManager : MonoBehaviour {
     {
         return transform.localPosition;
     }
+    public int GetLug()
+    {
+        return lug;
+    }
     List<float> easY;
     float startpos;
     float endpos;
     bool iseasing;
     bool startset;
+    int lug = 90;
+    int lugcount = 0;
+    float speed = 1.0f;
     int count;
     float t_;
-
+    public float getSpeed()
+    {
+        return speed;
+    }
     public void addEaz(Vector3 pos)
     {
         easY.Add(pos.y);
@@ -46,9 +56,9 @@ public class ContentManager : MonoBehaviour {
     }
     float culcY(float y)
     {
-        if (y <= 250)
-            y = 250;
-        float max = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber].collectionTargetName.Count * 100 - 350;
+        if (y <= 235)
+            y = 235;
+        float max = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber].collectionTargetName.Count * 110 - 236;
         Debug.Log(max);
         if (y >= max)
             y = max;
@@ -65,7 +75,13 @@ public class ContentManager : MonoBehaviour {
             posi.y = culcY(-easY[0]);
             transform.localPosition = posi;
         }
-        t_ += 1 / (60.0f*1.0f);
+        if (lugcount <= lug)
+        {
+            lugcount++;
+            return;
+        }
+       
+        t_ += 1 / (60.0f*speed);
         if (t_ >= 1.0f)
         {
             count++;

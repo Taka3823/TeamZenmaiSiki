@@ -70,7 +70,8 @@ public class BloodshedProduction : MonoBehaviour
             Debug.Log("SE鳴ったよ！");
             //AudioManager.Instance.PlaySe("SE_Name.wav");
             isProductIn = false;
-            FadeManager.Instance.FadeInSceneChange(2,1,"Battle");
+            sceneChanger.SceneChange("Battle");
+            //FadeManager.Instance.FadeInSceneChangeFadeout(2,0.1f,"Battle");
             //sceneChanger.SceneChange("Battle");
         }
     }

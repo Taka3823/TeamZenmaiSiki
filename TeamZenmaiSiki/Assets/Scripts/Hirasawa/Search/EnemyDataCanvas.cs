@@ -66,6 +66,7 @@ public class EnemyDataCanvas : MonoBehaviour {
     public void CreatePlate()
     {
         iscancel = false;
+        
         if (posList.Count > 0)
         {
             posList.Clear();
@@ -77,22 +78,33 @@ public class EnemyDataCanvas : MonoBehaviour {
 
         }
         SetPosition();
+        Debug.Log(posList.Count);
         //deba
         for (int i = 0; i < posList.Count; i++)
         {
             if (TabManager.Instance.GetIsDisplay())
             {
+                Debug.Log("タッチ");
                 GameObject plateObj = Instantiate(plate, endposList[i], Quaternion.Euler(0, 0, 0)) as GameObject;
                 plateObj.transform.parent = transform;
                 plateObj.GetComponent<EnemyDataPlate>().set(SearchManager.Instance.getSendEnemyDatas()[i]);
                 plateObj.GetComponent<EnemyDataPlate>().SetEndPosition(endposList[i]);
+                string pass = "Sprits/Search/personal_info_plate" + (i+1).ToString();
+                Sprite image = new Sprite();
+                image = Resources.Load<Sprite>(pass);
+                plateObj.GetComponent<Image>().sprite = image;
             }
             else
             {
+                Debug.Log("タッチ");
                 GameObject plateObj = Instantiate(plate, posList[i], Quaternion.Euler(0, 0, 0)) as GameObject;
                 plateObj.transform.parent = transform;
                 plateObj.GetComponent<EnemyDataPlate>().set(SearchManager.Instance.getSendEnemyDatas()[i]);
                 plateObj.GetComponent<EnemyDataPlate>().SetEndPosition(endposList[i]);
+                string pass = "Sprits/Search/personal_info_plate" + (i + 1).ToString();
+                Sprite image = new Sprite();
+                image = Resources.Load<Sprite>(pass);
+                plateObj.GetComponent<Image>().sprite = image;
             }
             
            
@@ -107,6 +119,7 @@ public class EnemyDataCanvas : MonoBehaviour {
         float posy = 350;
         float endposx = 200;
         float transy;
+        Debug.Log(SearchManager.Instance.getSendEnemyDatas().Count);
         switch (SearchManager.Instance.getSendEnemyDatas().Count)
         {
             case 1:

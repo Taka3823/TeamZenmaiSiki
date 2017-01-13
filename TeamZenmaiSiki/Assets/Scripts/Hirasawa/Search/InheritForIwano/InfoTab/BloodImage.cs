@@ -10,15 +10,16 @@ public class BloodImage : MonoBehaviour {
     float time = 60 * 0.5f;
     float r_time = 60 * 2;
     float r_t = 0;
-    int lug =0;
+    float lug =0;
     int lugcount = 0;
+    int roatelug = 0;
     bool iset = false;
     float r_speed = 10;
 	// Use this for initialization
 	void Start () {
 	
 	}
-	public void setiseffect(bool _iseffect,int _lug) {
+	public void setiseffect(bool _iseffect,float _lug) {
         iseffect = _iseffect;
         isrotate = iseffect;
         lug = _lug;
@@ -42,15 +43,21 @@ public class BloodImage : MonoBehaviour {
             lugcount++;
             return;
         }
-
-        Rotate();
+        if (roatelug <= ContentManager.Instance.GetLug())
+        {
+            roatelug++;
+            return;
+        }
         ColorChange();
+        Rotate();
+        
 
 
-	}
+    }
     void Rotate()
     {
         if (!isrotate) return;
+ 
         r_t += 1 / (r_time);
         GameObject parent2 = transform.parent.gameObject;
         if (r_t >= 1.0f)
@@ -71,9 +78,9 @@ public class BloodImage : MonoBehaviour {
         color = GetComponent<Image>().color;
         color = new Color(color.r, color.g, color.b, color.a + (1.0f / time));
 
-        if (color.a >= 0.5f)
+        if (color.a >= 0.7f)
         {
-            color = new Color(color.r, color.g, color.b, 0.5f);
+            color = new Color(color.r, color.g, color.b,0.7f);
             iseffect = false;
         }
         GetComponent<Image>().color = color;
