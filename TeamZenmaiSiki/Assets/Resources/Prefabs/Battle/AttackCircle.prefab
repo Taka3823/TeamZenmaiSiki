@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f64e0c38739544cb27e2bc507feb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleScalingSpeed: 0.06
+  circleScalingSpeed: 0.04
   minCircleRadius: 1
-  diffCircleRadius: 3
+  diffCircleRadius: 4
 --- !u!114 &114000013269948390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primaryCircle: {fileID: 1000010092340010}
-  angleSpeed: 3
+  angleSpeed: 2.5
   circleScale: 0.3
   colliderIsActive: 0
 --- !u!114 &114000013727688294

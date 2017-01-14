@@ -72,7 +72,8 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         HitSequence();
         if (EnemyDead())
         {
-            EnemyDestroy();
+			EnemyManager.Instance.RegisterKillData();
+			EnemyDestroy();
         }
         playerAttackController.ProgressCurrentTargetIndex();
         Destroy(attackCircle);
@@ -83,6 +84,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     public void HitSequence()
     {
+		float seDelayTime = 0.3f;
         int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex],
                                                 SecondaryCirclePos,
                                                 EnemyManager.Instance.Size[EnemyManager.Instance.CurrentTargetIndex]);
@@ -92,11 +94,23 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         {
             int _enemyMainDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
             EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(playerSTR, _enemyMainDEF));
+			Debug.Log("Hit Body!");
+			AudioManager.Instance.PlaySe("tamaniku.wav", seDelayTime);
         }
         else if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1))
         {
             int _enemyCoreDEF = EnemyManager.Instance.CoreDEF[EnemyManager.Instance.CurrentTargetIndex];
             EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
+			if (hitIndex == (int)PartsName.CORE_1)
+			{
+				Debug.Log("Hit Core!");
+				AudioManager.Instance.PlaySe("coredam.wav", seDelayTime);
+			}
+			if (hitIndex == (int)PartsName.CORE_FRAME_1)
+			{
+				Debug.Log("Hit CoreFrame");
+				AudioManager.Instance.PlaySe("cyoudan.wav", seDelayTime);
+			}
         }
 
         //デバッグ用：ステータス表示。
@@ -110,13 +124,31 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     private void EnemyDestroy()
     {
-        Destroy(EnemyManager.Instance.Enemies[EnemyManager.Instance.CurrentTargetIndex]);
-		EnemyManager.Instance.RegisterKillData();
+		StartCoroutine(EnemyDyingMotion(EnemyManager.Instance.Enemies[EnemyManager.Instance.CurrentTargetIndex]));
         EnemyManager.Instance.EnemyErase();
         playerAttackController.DecreaseCurrentTargetIndex();
         TurnManager.Instance.ButtonManagement();
     }
 
+	private IEnumerator EnemyDyingMotion(GameObject _enemyObj)
+	{
+		SpriteRenderer _sprite = _enemyObj.GetComponent<SpriteRenderer>();
+		float _angle = 0.0f;
+		float _angleSpeed = 0.005f;
+		while (true)
+		{
+			if(_angle >= 255.0f)
+			{
+				Destroy(_enemyObj);
+				yield break;
+			}
+
+			_sprite.color -= new Color(0.0f, _angle, _angle, _angle);
+
+			yield return null;
+			_angle += _angleSpeed;
+		}
+	}
     /// <summary>
     /// エネミーの死亡判定
     /// </summary>

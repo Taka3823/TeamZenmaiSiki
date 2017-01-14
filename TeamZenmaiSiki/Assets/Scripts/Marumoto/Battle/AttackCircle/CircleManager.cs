@@ -77,6 +77,7 @@ public class CircleManager : MonoBehaviour
         {
             if (!circleCollider2D.enabled)
             {
+				AudioManager.Instance.PlaySe("zyuusei.wav");
                 circleCollider2D.enabled = true;
                 PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);
                 PlayerAttackUpdateManager.Instance.SecondaryCirclePos = secondaryCircle.transform.position;

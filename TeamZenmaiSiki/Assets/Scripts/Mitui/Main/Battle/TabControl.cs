@@ -63,10 +63,21 @@ public class TabControl : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             ReverceEasing(startTime);
         }
 
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+#if UNITY_STANDALONE
+		if (Input.GetMouseButtonDown(0))
         {
             OnClickLightIsOut();
         }
+#elif UNITY_ANDROID
+		if (Input.touchCount > 0)
+		{
+			Touch _touch = Input.GetTouch(0);
+			if (_touch.phase == TouchPhase.Began)
+			{
+				OnClickLightIsOut();
+			}
+		}
+#endif
     }
 
     //Tabが出ているときに、Tab以外の場所をクリックしたら
