@@ -41,6 +41,15 @@ public class BattleTabManager : MonoBehaviour {
 		return false;
 	}
 
+	void ClosingTab(RaycastHit2D _hit2D)
+	{
+		const int _null = 3;
+		int _tabIndex = SearchTabIndex(_hit2D);
+		if (_tabIndex == _null) return;
+
+		tabControls[_tabIndex].OnClickLightIsOut();
+	}
+
 	void DisplayingTab(RaycastHit2D _hit2D)
 	{
 		const int _null = 3;
@@ -92,6 +101,10 @@ public class BattleTabManager : MonoBehaviour {
 		RaycastHit2D hit2D = Raycast();
 		if (hit2D.collider)
 		{
+			if (hit2D.transform.tag == "CloseTab")
+			{
+				ClosingTab(hit2D);
+			}
 			if (hit2D.transform.tag == "InfoTab")
 			{
 				hit2D.transform.SetAsLastSibling();
@@ -109,13 +122,13 @@ public class BattleTabManager : MonoBehaviour {
 		endMousePos = _touch.position;
 #endif
 		if (!IsDrag()) return;
-		AudioManager.Instance.PlaySe("tab_pull.wav");
 
 		RaycastHit2D hit2D = Raycast();
 		if (hit2D.collider)
 		{
 			if (hit2D.transform.tag == "InfoTab")
 			{
+				AudioManager.Instance.PlaySe("tab_pull.wav");
 				hit2D.transform.SetAsLastSibling();
 				DisplayingTab(hit2D);
 			}

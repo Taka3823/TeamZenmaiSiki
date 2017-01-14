@@ -46,6 +46,7 @@ public class TurnManager : MonoBehaviour {
     private List<Functions> turnFunctions;  //ターンのフェーズごとに関数に格納
     private int functionNumber;             //現在の関数のID
     private int oldID;                      //1フレーム前のFunctionID
+	private bool nothingCheck = false;
 
     void Awake()
     {
@@ -62,7 +63,11 @@ public class TurnManager : MonoBehaviour {
     {
         if (EnemyNothing())
         {
-            ReturnToSearch();
+			if (!nothingCheck)
+			{
+				nothingCheck = true;
+				ReturnToSearch("walk_human.wav");
+			}
         }
 
         if (functionNumber == turnFunctions.Count) functionNumber = 0;
@@ -166,11 +171,19 @@ public class TurnManager : MonoBehaviour {
     /// <summary>
     /// Searchシーンをロードする。
     /// </summary>
-    public void ReturnToSearch()
+    public void ReturnToSearch(string _seName)
     {
+		float _waitTime = 1.5f;
         DataManager.PlayerDatas _playerData = DataManager.Instance.PlayerData;
         _playerData.hp = enemyAttackController.PlayerHP;
         DataManager.Instance.PlayerData = _playerData;
-        SceneManager.LoadScene("Search");
+		AudioManager.Instance.PlaySe(_seName);
+		FadeManager.Instance.FadeInOut(_waitTime - 0.1f, 0.4f);
+		Invoke("LoadSceneSearch", _waitTime);
     }
+
+	private void LoadSceneSearch()
+	{
+		SceneManager.LoadScene("Search");
+	}
 }
