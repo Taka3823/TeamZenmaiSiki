@@ -310,7 +310,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -630,16 +630,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013212537034, guid: e0fb2fbd251d4b54498fe13ad3987af6,
-        type: 2}
-      propertyPath: playerSTRText
-      value: 
-      objectReference: {fileID: 1140108738}
     - target: {fileID: 114000012860399674, guid: e0fb2fbd251d4b54498fe13ad3987af6,
         type: 2}
       propertyPath: playerHP
       value: 
       objectReference: {fileID: 1444004273}
+    - target: {fileID: 114000013212537034, guid: e0fb2fbd251d4b54498fe13ad3987af6,
+        type: 2}
+      propertyPath: playerSTRText
+      value: 
+      objectReference: {fileID: 1140108738}
     - target: {fileID: 114000012994376238, guid: e0fb2fbd251d4b54498fe13ad3987af6,
         type: 2}
       propertyPath: buttonManager.Array.data[0]
@@ -870,8 +870,8 @@ Camera:
   m_GameObject: {fileID: 504495686}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

@@ -41,11 +41,6 @@ public class BattleTabManager : MonoBehaviour {
 		return false;
 	}
 
-	void ClosingTab()
-	{
-
-	}
-
 	void DisplayingTab(RaycastHit2D _hit2D)
 	{
 		const int _null = 3;
@@ -86,10 +81,14 @@ public class BattleTabManager : MonoBehaviour {
 
 	void DragBegin()
 	{
-		if (!Input.GetMouseButtonDown(0)) return;
-
+		if (!IsTappingDown()) return;
+#if UNITY_STANDALONE
 		beginMousePos = Input.mousePosition;
 
+#elif UNITY_ANDROID
+		Touch _touch = Input.GetTouch(0);
+		beginMousePos = _touch.position;
+#endif
 		RaycastHit2D hit2D = Raycast();
 		if (hit2D.collider)
 		{
@@ -102,9 +101,15 @@ public class BattleTabManager : MonoBehaviour {
 
 	void DragEnd()
 	{
-		if (!Input.GetMouseButtonUp(0)) return;
+		if (!IsTappingUp()) return;
+#if UNITY_STANDALONE
 		endMousePos = Input.mousePosition;
+#elif UNITY_ANDROID
+		Touch _touch = Input.GetTouch(0);
+		endMousePos = _touch.position;
+#endif
 		if (!IsDrag()) return;
+		AudioManager.Instance.PlaySe("tab_pull.wav");
 
 		RaycastHit2D hit2D = Raycast();
 		if (hit2D.collider)
@@ -115,5 +120,35 @@ public class BattleTabManager : MonoBehaviour {
 				DisplayingTab(hit2D);
 			}
 		}
+	}
+
+	bool IsTappingDown()
+	{
+#if UNITY_STANDALONE
+		if (Input.GetMouseButtonDown(0)) return true;
+
+#elif UNITY_ANDROID
+		if (Input.touchCount > 0)
+		{
+			Touch _touch = Input.GetTouch(0);
+			if (_touch.phase == TouchPhase.Began) return true;
+		}
+#endif
+		return false;
+	}
+
+	bool IsTappingUp()
+	{
+#if UNITY_STANDALONE
+		if (Input.GetMouseButtonUp(0)) return true;
+
+#elif UNITY_ANDROID
+		if (Input.touchCount > 0)
+		{
+			Touch _touch = Input.GetTouch(0);
+			if (_touch.phase == TouchPhase.Ended) return true;
+		}
+#endif
+		return false;
 	}
 }

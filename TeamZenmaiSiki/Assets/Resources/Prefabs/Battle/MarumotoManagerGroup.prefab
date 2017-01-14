@@ -67,6 +67,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014293511734}
+  - 114: {fileID: 114000013086069196}
   m_Layer: 0
   m_Name: MarumotoManagerGroup
   m_TagString: Untagged
@@ -271,6 +272,17 @@ MonoBehaviour:
   libraController: {fileID: 114000010966265786}
   playerAttackController: {fileID: 114000011190699476}
   enemyAttackController: {fileID: 114000012860399674}
+--- !u!114 &114000013086069196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010471760872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ebee9ab13fb7c4ebafd412718d472a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013212537034
 MonoBehaviour:
   m_ObjectHideFlags: 1
