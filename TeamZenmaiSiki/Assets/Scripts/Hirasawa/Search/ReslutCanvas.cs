@@ -54,6 +54,32 @@ public class ReslutCanvas : MonoBehaviour {
     {
         GetComponent<Canvas>().enabled = flag;
     }
+    public void SaveData()
+    {
+        int checknum = 0;
+        for(int i = 0; i < 3; i++)
+        {
+            if (ischeck[i])
+            {
+                checknum++;
+            }
+        }
+        int chapter = DataManager.Instance.ScenarioChapterNumber;
+        int section = DataManager.Instance.ScenarioSectionNumber;
+        int killnum;
+        if (SaveManager.Instance.GetSaveData(chapter, section).cleartype == SaveManager.ClearType.CLEAR)
+        {
+            killnum = SaveManager.Instance.GetSaveData(chapter, section).destroyNum;
+        }
+        else
+        {
+            killnum = DataManager.Instance.KillNames.Count;
+        }
+        int achieve;
+        achieve = Mathf.Max(checknum, SaveManager.Instance.GetSaveData(chapter, section).achieveSpecial);
+
+        SaveManager.Instance.ScenarioSave(killnum, achieve);
+    }
     public void SetDebug()
     {
         //ThirdCollect.GetComponent<Image>().color = Color.red;

@@ -44,7 +44,18 @@ public class SaveManager : MonoBehaviour
     void Start()
     {
         AllRead();
-        Debug.Log("clear"+GetClearChapterNum());
+    }
+    public int GetClearSection(int chapter)
+    {
+        int count = 0;
+        for(int i = 0; i < savedata[chapter - 1].Count-1; i++)
+        {
+            if (savedata[chapter - 1][i].cleartype == ClearType.CLEAR)
+            {
+                count++;
+            }
+        }
+        return count;
     }
     public int AllAchieveSpecialNum()
     {
@@ -57,6 +68,27 @@ public class SaveManager : MonoBehaviour
             }
         }
         return num;
+    }
+    public int AllSectionKillNum(int chapter)
+    {
+        int count = 0;
+        for(int i = 0; i< savedata[chapter].Count; i++)
+        {
+            count += savedata[chapter][i].destroyNum;
+        }
+        return count;
+    }
+    public int AllKillNum()
+    {
+        int count = 0;
+        for(int i = 0; i < savedata.Count; i++)
+        {
+            for(int k = 0; k < savedata[i].Count; k++)
+            {
+                count += savedata[i][k].destroyNum;
+            }
+        }
+        return count;
     }
     public void ScenarioSave(int destroynum=0, int specialnum=0)
     {
