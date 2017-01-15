@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 212000011022414650}
   _crossValue: 0.9
-  angleSpeed: 0.01
+  angleSpeed: 0.003
 --- !u!212 &212000011022414650
 SpriteRenderer:
   m_ObjectHideFlags: 1

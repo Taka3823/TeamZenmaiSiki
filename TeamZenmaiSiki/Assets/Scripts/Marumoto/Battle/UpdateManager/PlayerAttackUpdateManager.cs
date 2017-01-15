@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// PlayerAttackのフェーズにおける「順序を保証したい関数」をこのクラスのUpdateで呼ぶ。
@@ -21,12 +22,23 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         CORE_3,
         CORE_FRAME_1
     }
+
+	enum HitEffectName
+	{
+		BLOOD_MARK = 0,
+		BLOOD_SPLASH,
+		BULLET_SPARK
+	}
+
     //FIXME:緊急措置
     [SerializeField]
     Text playerSTRText;
 
     [SerializeField]
     PlayerAttackController playerAttackController;
+
+	[SerializeField, Tooltip("血痕、血しぶき、跳弾火花の順番に登録")]
+	List<GameObject> hitEffect;
 
     BattleCalculation calculation = new BattleCalculation();
     EnemyCollision enemyCollision = new EnemyCollision();
@@ -84,18 +96,15 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     public void HitSequence()
     {
-		float seDelayTime = 0.3f;
-        int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex],
+		float delayTime = 0.3f;
+		int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex],
                                                 SecondaryCirclePos,
                                                 EnemyManager.Instance.Size[EnemyManager.Instance.CurrentTargetIndex]);
 
         if (hitIndex == (int)PartsName.EMPTY) return;
         else if (hitIndex == (int)PartsName.BODY)
         {
-            int _enemyMainDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
-            EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(playerSTR, _enemyMainDEF));
-			Debug.Log("Hit Body!");
-			AudioManager.Instance.PlaySe("tamaniku.wav", seDelayTime);
+			HitBody(delayTime);
         }
         else if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1))
         {
@@ -104,12 +113,12 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 			if (hitIndex == (int)PartsName.CORE_1)
 			{
 				Debug.Log("Hit Core!");
-				AudioManager.Instance.PlaySe("coredam.wav", seDelayTime);
+				AudioManager.Instance.PlaySe("coredam.wav", delayTime);
 			}
 			if (hitIndex == (int)PartsName.CORE_FRAME_1)
 			{
 				Debug.Log("Hit CoreFrame");
-				AudioManager.Instance.PlaySe("cyoudan.wav", seDelayTime);
+				AudioManager.Instance.PlaySe("cyoudan.wav", delayTime);
 			}
         }
 
@@ -158,6 +167,23 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         if (EnemyManager.Instance.MainHP[EnemyManager.Instance.CurrentTargetIndex] <= 0) return true;
         return false;
     }
+
+	void HitBody(float _delayTime)
+	{
+		int _enemyMainDEF = EnemyManager.Instance.MainDEF[EnemyManager.Instance.CurrentTargetIndex];
+		EnemyManager.Instance.ToEnemyMainDamage(calculation.CalcDamage(playerSTR, _enemyMainDEF));
+		StartCoroutine(CreateEffect(hitEffect[(int)HitEffectName.BLOOD_MARK],
+					   SecondaryCirclePos,
+					   _delayTime));
+		AudioManager.Instance.PlaySe("tamaniku.wav", _delayTime);
+	}
+
+	IEnumerator CreateEffect(GameObject _effect, Vector3 _effectPosition, float _delayTime)
+	{
+		yield return new WaitForSeconds(_delayTime);
+		Instantiate(_effect, _effectPosition, Quaternion.identity);
+	}
+
 
     public void SetCircleColliderEnable(bool _cond) { circleColliderEnable = _cond; }
     public void SetAttackCircleObject(GameObject _refObj) { attackCircle = _refObj; }

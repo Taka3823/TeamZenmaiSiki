@@ -7,9 +7,11 @@ public class BloodMarkAnimation : MonoBehaviour {
 	[SerializeField]
 	float _crossValue;
 	[SerializeField]
-	float angleSpeed;
+	float timeRate;
+	[SerializeField]
+	float fallSpeed;
 
-	float angle = 0.0f;
+	float time = 0.0f;
 	
 
 	void Start()
@@ -18,15 +20,16 @@ public class BloodMarkAnimation : MonoBehaviour {
 		transform.Rotate(new Vector3(0, 0, randomRotationZ));
 		StartCoroutine(FadeAlpha());
 		StartCoroutine(FadeScale());
+		StartCoroutine(FadePosition());
 	}
 
 	IEnumerator FadeAlpha()
 	{
 		while (true)
 		{
-			sprite.color -= new Color(0, 0, 0, angle);
-			angle += angleSpeed;
-			if (angle >= 255.0f)
+			sprite.color -= new Color(0, 0, 0, time);
+			time += timeRate;
+			if (time >= 255.0f)
 			{
 				Destroy(this.gameObject);
 			}
@@ -41,7 +44,20 @@ public class BloodMarkAnimation : MonoBehaviour {
 			transform.localScale = new Vector3(transform.localScale.x * _crossValue, 
 				                               transform.localScale.y * _crossValue, 
 											   transform.localScale.z);
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
+
+	IEnumerator FadePosition()
+	{
+		float _fallValue = 0.0f;
+		while (true)
+		{
+			transform.position -= new Vector3(0,
+											  _fallValue,
+											  0);
+			yield return null;
+			_fallValue += fallSpeed;
 		}
 	}
 }
