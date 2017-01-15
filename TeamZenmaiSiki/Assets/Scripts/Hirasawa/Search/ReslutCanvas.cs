@@ -10,6 +10,8 @@ public class ReslutCanvas : MonoBehaviour {
         get { return instance; }
     }
     [SerializeField]
+    GameObject text;
+    [SerializeField]
     GameObject BackGround;
     [SerializeField]
     GameObject Special;
@@ -49,6 +51,7 @@ public class ReslutCanvas : MonoBehaviour {
         //SpecialObj.transform.position = new Vector3(-300, 0, 0);
         GameObject CollectObj = Instantiate(Collect, new Vector3(180, 30, 0), Quaternion.Euler(0, 0, 0)) as GameObject;
         CollectObj.transform.SetParent(BackGround.transform);
+        text.GetComponent<Text>().text = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber].scenarioTitle;
     }
 	public void SetEnable(bool flag)
     {

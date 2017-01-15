@@ -38,6 +38,7 @@ public class BloodshedProduction : MonoBehaviour
 
     bool isProductIn = false;
     bool isnextScene = false;
+    bool isse = false;
     void Start()
     {
         slider = GetComponent<Slider>();
@@ -62,12 +63,18 @@ public class BloodshedProduction : MonoBehaviour
         if (isProductIn)
         {
             slider.value += 1;
+            if (slider.value >= 100&&(!isse))
+            {
+                isse = true;
+                AudioManager.Instance.PlaySe("heartbeat.wav");
+            }
         }
 
         if (slider.value >= slider.maxValue &&(!isnextScene))
         {
             isnextScene = true;
             Debug.Log("SE鳴ったよ！");
+            
             //AudioManager.Instance.PlaySe("SE_Name.wav");
             isProductIn = false;
             //sceneChanger.SceneChange("Battle");
@@ -81,6 +88,7 @@ public class BloodshedProduction : MonoBehaviour
     {
         isProductIn = true;
         TabManager.Instance.Setisblood(true);
+        AudioManager.Instance.PlaySe("haguruma.wav");
         //Easingに使う
         /**
         if (!canEasing)

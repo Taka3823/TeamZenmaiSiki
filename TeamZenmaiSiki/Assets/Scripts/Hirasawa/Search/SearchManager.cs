@@ -123,13 +123,14 @@ public class SearchManager : MonoBehaviour , ISceneBase
                     //Debug.Log("タッチ");
                     NewCamera.Instance.SetUnitT(0);
                     unitPos = obj.GetComponent<Unit>().getPos();
+                    AudioManager.Instance.PlaySe("hitotap.wav");
                     NewCamera.Instance.SetUnitStartPos(NewCamera.Instance.cameraposx);
                     isUnitTouch = true;
                 }
                 else if (hit.collider.tag == "Untagged")
                 {
                     //Debug.Log("よくわからないもの");
-                    MyCanvas.SetInteractive("Button", false);
+                    MyCanvas.SetInteractive("Start", false);
                 }
                 else if (hit.collider.tag == "Goal")
                 {
@@ -146,7 +147,7 @@ public class SearchManager : MonoBehaviour , ISceneBase
                 EnemyDataCanvas.Instance.CancelPlate();
                 
                 Debug.Log("はずれ");
-                MyCanvas.SetInteractive("Button", false);
+                MyCanvas.SetInteractive("Start", false);
             }
         }
 
