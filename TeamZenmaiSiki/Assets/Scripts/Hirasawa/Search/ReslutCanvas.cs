@@ -16,14 +16,14 @@ public class ReslutCanvas : MonoBehaviour {
     [SerializeField]
     GameObject Collect;
     [SerializeField]
-    GameObject FirstCollect;
+    GameObject[] list;
     [SerializeField]
-    GameObject SecondCollect;
-    [SerializeField]
-    GameObject ThirdCollect;
-
+    GameObject[] lightlist;
     bool[] ischeck;
+    bool[] islightend;
+    bool[] ischangeend;
     bool isset;
+    bool[] iseffectEnd;
     DataManager.DirectiveData datas;
     // Use this for initialization
     void Start () {
@@ -33,10 +33,16 @@ public class ReslutCanvas : MonoBehaviour {
         int sectionNum = DataManager.Instance.ScenarioSectionNumber;
         datas = DataManager.Instance.DirectiveDatas[chapNum][sectionNum];
         ischeck = new bool[3];
+        islightend = new bool[3];
+        ischangeend = new bool[3];
+        iseffectEnd = new bool[3];
+        for(int i = 0; i < 3; i++)
+        {
+            ischeck[i] = false;
+            islightend[i] = false;
+            ischangeend[i] = false;
+        }
         isset = false;
-        ischeck[0] = false;
-        ischeck[1] = false;
-        ischeck[2] = false;
         GameObject SpecialObj = Instantiate(Special) as GameObject;
         SpecialObj.transform.SetParent(BackGround.transform);
         SpecialObj.transform.position = new Vector3(-426,167,0);
@@ -50,7 +56,7 @@ public class ReslutCanvas : MonoBehaviour {
     }
     public void SetDebug()
     {
-        ThirdCollect.GetComponent<Image>().color = Color.red;
+        //ThirdCollect.GetComponent<Image>().color = Color.red;
     }
 	// Update is called once per frame
 	void Update () {
@@ -62,17 +68,34 @@ public class ReslutCanvas : MonoBehaviour {
                 isset = true;
             }
             if (FadeManager.Instance.IsFadeEffect()) return;
-            if (ischeck[0])
+            for(int i = 0; i < list.Length; i++)
             {
-                ChangeObject(FirstCollect);
-            }
-            if (ischeck[1])
-            {
-                ChangeObject(SecondCollect);
-            }
-            if (ischeck[2])
-            {
-                ChangeObject(ThirdCollect);
+                if (iseffectEnd[i]) continue;
+                if (ischeck[i])
+                {
+                    if (i == 0)
+                    {
+                        ChangeObject(list[i], i);
+                        if (ischangeend[i])
+                        {
+                            LightChange(lightlist[i], i);
+                        }
+                    }
+                    else
+                    {
+                        if (iseffectEnd[i - 1])
+                        {
+                            ChangeObject(list[i], i);
+                            if (ischangeend[i])
+                            {
+                                LightChange(lightlist[i], i);
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                
             }
         }
 	}
@@ -81,6 +104,7 @@ public class ReslutCanvas : MonoBehaviour {
         for(int i = 0; i < 3; i++)
         {
             ischeck[i] = check(i);
+            iseffectEnd[i] = (!ischeck[i]);
         }
     }
     private bool check(int count)
@@ -173,11 +197,39 @@ public class ReslutCanvas : MonoBehaviour {
         }
         return "バグです";
     }
-    private void ChangeObject(GameObject obj)
+    private void ChangeObject(GameObject obj,int num)
     {
-        Color color = obj.GetComponent<Image>().color;
-        color.g -= 0.01f;
-        color.b -= 0.01f;
-        obj.GetComponent<Image>().color = color;
+
+
+        obj.GetComponent<Image>().fillAmount += 0.02f;
+        if (obj.GetComponent<Image>().fillAmount >= 1.0f)
+        {
+            ischangeend[num] = true;
+        }
+    }
+    private void LightChange(GameObject obj,int num)
+    {
+        float speed = 0.15f;
+        if (ischangeend[num])
+        {
+            if (!islightend[num])
+            {
+                obj.GetComponent<Image>().fillAmount += speed;
+                if (obj.GetComponent<Image>().fillAmount >= 1.0f)
+                {
+                    islightend[num] = true;
+                    obj.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+            }
+            else
+            {
+                obj.GetComponent<Image>().fillAmount -= speed;
+                if (obj.GetComponent<Image>().fillAmount <= 0.0f)
+                {
+                    iseffectEnd[num] = true;
+                }
+            }
+           
+        }
     }
 }

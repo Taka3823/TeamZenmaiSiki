@@ -59,11 +59,13 @@ public class FadeManager : MonoBehaviour {
     {
         isFadeEffect = true;
         isFadeIn = true;
+        ChangeImage("FadeIn");
         fade.FadeIn(fadetime, () =>
         {
             fade.Wait(waittime, () =>
             {
                 isFadeOut = true;
+                ChangeImage("FadeOut");
                 fade.FadeOut(fadetime, () =>
                 {
                     isFadeEffect = false;
@@ -79,6 +81,7 @@ public class FadeManager : MonoBehaviour {
     {
         isFadeEffect = true;
         isFadeOut = true;
+        ChangeImage("FadeOut");
         fade.FadeOut(time, () =>
         {
             isFadeEffect = false;
@@ -91,6 +94,7 @@ public class FadeManager : MonoBehaviour {
     {
         isFadeEffect = true;
         isFadeIn = true;
+        ChangeImage("FadeIn");
         fade.FadeIn(time, () =>
         {
             isFadeEffect = false;
@@ -103,7 +107,7 @@ public class FadeManager : MonoBehaviour {
     {
         isFadeEffect = true;
         isFadeIn = true;
-
+        ChangeImage("FadeIn");
         fade.FadeIn(fadetime, () =>
         {
             fade.Wait(wait, () =>
