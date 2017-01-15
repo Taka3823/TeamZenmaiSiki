@@ -96,7 +96,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     public void HitSequence()
     {
-		float delayTime = 0.3f;
+		float delayTime = 0.5f;
 		int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex],
                                                 SecondaryCirclePos,
                                                 EnemyManager.Instance.Size[EnemyManager.Instance.CurrentTargetIndex]);
@@ -121,11 +121,6 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 				AudioManager.Instance.PlaySe("cyoudan.wav", delayTime);
 			}
         }
-
-        //デバッグ用：ステータス表示。
-        Debug.Log("MainHP  : "+EnemyManager.Instance.MainHP[EnemyManager.Instance.CurrentTargetIndex]);
-        Debug.Log("CoreHP  : "+EnemyManager.Instance.CoreHP[EnemyManager.Instance.CurrentTargetIndex]);
-        Debug.Log("CoreSTR : "+EnemyManager.Instance.CoreSTR[EnemyManager.Instance.CurrentTargetIndex]);
     }
 
     /// <summary>

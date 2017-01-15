@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class NoteContentsGenerator : MonoBehaviour {
@@ -13,12 +14,14 @@ public class NoteContentsGenerator : MonoBehaviour {
     private const int MAX_CONTENT_BUTTON_NUM = 6;
     private int currentMessengerIndex = 0;
     private int totalTrailNum = 0;
+	private int achieveNum = 0;
 
     void Start()
     {
-        UIDataSetting();
-        GenerateUI();
-    }
+		achieveNum = SaveManager.Instance.AllAchieveSpecialNum();
+		UIDataSetting();
+		GenerateUI();
+	}
 
     /// <summary>
     /// Prefab読み込みと、データ格納。
@@ -81,6 +84,13 @@ public class NoteContentsGenerator : MonoBehaviour {
             Text _text = _refContentButton.GetComponentInChildren<Text>();
             _text.text = CanvasManager.Instance.NoteDatas[currentMessengerIndex].Title[totalTrailNum];
             Button _button = _refContentButton.GetComponent<Button>();
+
+			int _unlockNum = CanvasManager.Instance.NoteDatas[currentMessengerIndex].UnlockNum[totalTrailNum];
+			if (_unlockNum > achieveNum)
+			{
+				_text.color = new Color(0f, 0f, 0f, 0.1f);
+				_button.interactable = false;
+			}
 
             int _cMIndex = currentMessengerIndex;
             int _tTNum = totalTrailNum;

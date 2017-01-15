@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class NoteSelectClose : MonoBehaviour {
     public void ReturnToScenarioChoice()
     {
-        SceneManager.LoadScene("ScenarioChoice");
+		float _waitTime = 1.5f;
+		FadeManager.Instance.FadeInOut(_waitTime - 0.1f, 0.3f);
+		Invoke("LoadScenarioChoice", _waitTime);
     }
+
+	private void LoadScenarioChoice()
+	{
+		SceneManager.LoadScene("ScenarioChoice");
+	}
 }
