@@ -11,6 +11,9 @@ public class EnemyAttackController : MonoBehaviour {
     [SerializeField]
     Text playerHP;
 
+	[SerializeField]
+	EnemyAttackEffect attackEffect;
+
     void Start()
     {
         PlayerHP = BattleManager.Instance.GetBattlePlayerHp;
@@ -51,7 +54,9 @@ public class EnemyAttackController : MonoBehaviour {
 
         isAttacking = true;
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
+		StartCoroutine(attackEffect.CameraShaking(0.4f));
+		yield return new WaitForSeconds(0.4f);
 
         int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];
         ToPlayerDamage(_enemySTR);

@@ -168,7 +168,7 @@ public class EnemyManager : MonoBehaviour {
     public void AttackMotion(int _index)
     {
         float diffSize = 0.25f;
-        float fadeTime = 0.5f;
+        float fadeTime = 0.6f;
         float value = Mathf.PI / fadeTime;
         angle += value * Time.deltaTime;
 
