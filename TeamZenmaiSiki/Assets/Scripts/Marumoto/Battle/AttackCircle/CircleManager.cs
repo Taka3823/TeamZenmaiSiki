@@ -33,7 +33,7 @@ public class CircleManager : MonoBehaviour
     /// </summary>
     private void ClickIsLeft()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             if (EventSystem.current.IsPointerOverGameObject()) return; 
             clickCount++;
@@ -77,7 +77,8 @@ public class CircleManager : MonoBehaviour
         {
             if (!circleCollider2D.enabled)
             {
-				AudioManager.Instance.PlaySe("zyuusei.wav");
+				AudioManager.Instance.PlaySe("tomeru.wav", 0.03f);
+				AudioManager.Instance.PlaySe("zyuusei.wav", 0.2f);
                 circleCollider2D.enabled = true;
                 PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);
                 PlayerAttackUpdateManager.Instance.SecondaryCirclePos = secondaryCircle.transform.position;

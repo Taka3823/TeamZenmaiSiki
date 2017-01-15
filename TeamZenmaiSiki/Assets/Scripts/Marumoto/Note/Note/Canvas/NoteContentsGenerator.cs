@@ -18,12 +18,6 @@ public class NoteContentsGenerator : MonoBehaviour {
 
     void Start()
     {
-		StartCoroutine(NoteGenerate());
-    }
-
-	IEnumerator NoteGenerate()
-	{
-		yield return null;
 		achieveNum = SaveManager.Instance.AllAchieveSpecialNum();
 		UIDataSetting();
 		GenerateUI();

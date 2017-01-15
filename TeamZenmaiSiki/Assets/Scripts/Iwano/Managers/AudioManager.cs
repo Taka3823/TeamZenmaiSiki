@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
     //次流すBGM名とSE名
     private string nextBgmName;
-    private string nextSeName;
+    //private string nextSeName;
 
     //BGM用とSE用ののAudioSourceを準備
     private AudioSource bgmAudio;
@@ -95,15 +95,16 @@ public class AudioManager : MonoBehaviour
             return;
         }
         //再生するSEを指定
-        nextSeName = seName_;
-        //指定時間ディレイをかけて再生
-        Invoke("DelayPlaySe", delay);
+        //nextSeName = seName_;
+		//指定時間ディレイをかけて再生
+		StartCoroutine(DelayPlaySe(seName_ ,delay));
     }
 
     //SEを再生
-    private void DelayPlaySe()
+    private IEnumerator DelayPlaySe(string _nextSeName, float _delayTime)
     {
-        seAudio.PlayOneShot(seDictionary[nextSeName] as AudioClip);
+		yield return new WaitForSeconds(_delayTime);
+        seAudio.PlayOneShot(seDictionary[_nextSeName] as AudioClip);
     }
 
     //******************************************** 
