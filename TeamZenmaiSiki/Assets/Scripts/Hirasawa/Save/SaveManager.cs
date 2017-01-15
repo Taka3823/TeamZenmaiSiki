@@ -24,6 +24,11 @@ public class SaveManager : MonoBehaviour
         public int achieveSpecial;
     }
     List<List<SaveData>> savedata;
+    //1-1の場合は0,0を入れます3-4なら2-3を入れます
+    public SaveData GetSaveData(int chapter,int section)
+    {
+        return savedata[chapter][section];
+    }
     void Awake()
     {
         if (instance == null)
@@ -53,7 +58,7 @@ public class SaveManager : MonoBehaviour
         }
         return num;
     }
-    public void ScenarioSave(int destroynum, int specialnum)
+    public void ScenarioSave(int destroynum=0, int specialnum=0)
     {
         SaveData buf = new SaveData();
         int chapter = DataManager.Instance.ScenarioChapterNumber;

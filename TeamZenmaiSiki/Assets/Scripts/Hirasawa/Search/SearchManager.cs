@@ -151,7 +151,17 @@ public class SearchManager : MonoBehaviour , ISceneBase
         }
 
     }
+    public void BattleSceneChange()
+    {
+        float time = 1.5f;
+        FadeManager.Instance.FadeInOut(time - 0.1f, 0.4f);
+        Invoke("SceneChangeBattle", time);
 
+    }
+    private void SceneChangeBattle()
+    {
+        SceneManager.LoadScene("Battle");
+    }
     public void SceneChange(string nextSceneName_)
     {
         SceneManager.LoadScene(nextSceneName_);
