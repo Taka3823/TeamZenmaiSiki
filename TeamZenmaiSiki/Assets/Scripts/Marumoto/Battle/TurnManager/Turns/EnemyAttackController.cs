@@ -62,7 +62,7 @@ public class EnemyAttackController : MonoBehaviour {
 		if (PlayerHP <= 0) yield break;
 
         int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];
-        ToPlayerDamage(_enemySTR*100);
+        ToPlayerDamage(_enemySTR);
         isAttacking = false;
         ProgressActIndex();
         ChangePhaseSequence();
