@@ -69,27 +69,21 @@ public class CreateChapterPage : MonoBehaviour
         int chapterNum = num + 1;
         int sectionClearNum = SaveManager.Instance.GetClearSection(chapterNum) + 1;
 
-        Debug.Log("c :" + chapterNum);
-        Debug.Log("s :" + sectionClearNum);
-
         GameObject child2 = new GameObject();
         GameObject ggChild = new GameObject();
-
+    
         for(int i = 0;i < grandChild.transform.childCount;i++)
         {
            child2 = grandChild.transform.FindChild(chapterNum + "_" + i).gameObject;
 
            GameObject grandChild2 = child2.transform.FindChild("EpisodeName").gameObject;
            ggChild = grandChild2.transform.FindChild("Text").gameObject;
-        }
 
-        for(int i = 0;i <sectionClearNum;i++)
-        {
-            //child2.GetComponent<Button>().interactable = true;
-            //ggChild.GetComponent<Text>().color = new Color(255, 255, 255, 256);
-
-            child2.GetComponent<Button>().interactable = false;
-            ggChild.GetComponent<Text>().color = new Color(255, 255, 255, 128);
+            if(i < sectionClearNum)
+            {
+                child2.GetComponent<Button>().interactable = true;
+                ggChild.GetComponent<Text>().color = new Color(1,1,1,1);
+            }
         }
     }
 }

@@ -79,7 +79,7 @@ public class CreateEpsiodeNode : MonoBehaviour
         GameObject grandChild = child.transform.FindChild("Text").gameObject;
 
         grandChild.GetComponent<Text>().fontSize = 60;
-        grandChild.GetComponent<Text>().color = Color.white;
+        grandChild.GetComponent<Text>().color = new Color(1,1,1,0.5f);
         
         grandChild.GetComponent<Text>().text = DataManager.Instance.DirectiveDatas[chaptrerNum_-1][sectionNum_].scenarioTitle;
     }

@@ -51,7 +51,7 @@ Brank,,,それから壁にかけてあった鞄を,,,,
 ,,,手に取り、ウィーデンに玄関へ,,,,
 ,,,回るよう指で合図する。,,,,
 Sentence,オーブリー,左,「母さん。行ってくるよ」,,,,Aubray_smile.png
-Sentence,オーブリーの母,,「ああ。いつもありがとうね」,,,,Aubraysmom_face.png
+Sentence,オーブリーの母,右,「ああ。いつもありがとうね」,,,,Aubraysmom_face.png
 Sentence,オーブリー,左,「気にしないで。じゃあ、,,,,Aubray_smile.png
 ,,,クラーラ。兄さん行ってくるよ」,,,,
 Sentence,クラーラ,右,「いってらっしゃい！」,,,,Aubraysister_sad.png

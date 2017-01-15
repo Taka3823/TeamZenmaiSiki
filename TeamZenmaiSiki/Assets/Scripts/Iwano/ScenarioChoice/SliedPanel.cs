@@ -57,7 +57,7 @@ public class SliedPanel : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDra
     void PageFlick(PointerEventData eventData_)
     {
         if(eventData_.delta.x < -enableFlickValue &&
-           pageCount < SaveManager.Instance.GetClearChapterNum() +2)
+           pageCount < SaveManager.Instance.GetClearChapterNum())
         {
             pageCount += 1;
 
