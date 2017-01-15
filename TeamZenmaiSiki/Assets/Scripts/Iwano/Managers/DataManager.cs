@@ -50,7 +50,6 @@ public class DataManager : MonoBehaviour
         get { return scenarioSectionNumber; }
         set { scenarioSectionNumber = value; }
     }
-
     //アプリを一度起動したかどうか
     private bool isAppAwake = false;
 
@@ -75,7 +74,12 @@ public class DataManager : MonoBehaviour
     //    get { return openScenario; }
     //    set { openScenario = value; }
     //}
-
+    private string battletexturepass;
+    public string BttleTexturePath
+    {
+        get { return battletexturepass; }
+        set { battletexturepass = value; }
+    }
     //指令書のデータ項目
 
     public struct DirectiveData

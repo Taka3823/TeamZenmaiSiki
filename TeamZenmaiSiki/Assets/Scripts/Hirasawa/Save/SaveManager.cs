@@ -34,6 +34,7 @@ public class SaveManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
             savedata = new List<List<SaveData>>();
         }
         else

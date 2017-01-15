@@ -10,7 +10,7 @@ public class MapManager : MonoBehaviour {
     }
     public enum MapType
     {
-        MAPTYPE_INDEX=0,TOWNLIGHT,SMOG,TOWN,TOWER,SKY,MAPTYPEMAX
+        MAPTYPE_INDEX=0,TOWNLIGHT,SMOG,TOWN,TOWER,SKY,BATTLETEXTURE,MAPTYPEMAX
     }
     public string GetMapTextureType(MapType type)
     {
@@ -31,14 +31,15 @@ public class MapManager : MonoBehaviour {
 	void Start () {
         instance = this;
         mapTextureType = new string[(int)MapType.MAPTYPEMAX];
-        int episode = 1;
-        int stage=1;
+        int episode = DataManager.Instance.ScenarioChapterNumber + 1;
+        int stage = DataManager.Instance.ScenarioSectionNumber + 1;
         //episode = DataManager.Instance.ScenarioChapterNumber;
         //stage = DataManager.Instance.ScenarioSectionNumber;
         mapTextureType = ReadMapSetData(ReadMapIndex(episode,stage));//ここで変えるよ
         setSprites(mapTownLight,MapType.TOWNLIGHT);
         setSprites(mapTown, MapType.TOWN);
         setSprites(mapSky, MapType.SKY);
+        DataManager.Instance.BttleTexturePath = GetMapTextureType(MapType.BATTLETEXTURE);
     }
 	
 	// Update is called once per frame
