@@ -37,7 +37,7 @@ public class EnemyAttackController : MonoBehaviour {
         }
         else
         {
-            EnemyManager.Instance.AttackMotion(currentActIndex);
+			StartCoroutine(EnemyManager.Instance.AttackMotion(currentActIndex));
         }
     }
 
@@ -49,9 +49,9 @@ public class EnemyAttackController : MonoBehaviour {
     {
         isAttacking = true;
         
-        yield return new WaitForSeconds(0.2f);
-		StartCoroutine(attackEffect.CameraShaking(0.4f));
-		yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
+		StartCoroutine(attackEffect.CameraShaking(0.4f, 0.4f));
+		yield return new WaitForSeconds(0.3f);
 
 		if (EnemyManager.Instance.MainSTR.Count <= 0) yield break;
 

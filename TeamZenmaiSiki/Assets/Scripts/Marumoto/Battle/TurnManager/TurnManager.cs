@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour {
@@ -66,7 +67,7 @@ public class TurnManager : MonoBehaviour {
 			if (!nothingCheck)
 			{
 				nothingCheck = true;
-				ReturnToSearch("walk_human.wav");
+				StartCoroutine(ReturnToSearch("walk_human.wav"));
 			}
         }
 
@@ -171,9 +172,10 @@ public class TurnManager : MonoBehaviour {
     /// <summary>
     /// Searchシーンをロードする。
     /// </summary>
-    public void ReturnToSearch(string _seName)
+    public IEnumerator ReturnToSearch(string _seName)
     {
 		float _waitTime = 1.5f;
+		yield return new WaitForSeconds(1.5f);
         DataManager.PlayerDatas _playerData = DataManager.Instance.PlayerData;
         _playerData.hp = enemyAttackController.PlayerHP;
         DataManager.Instance.PlayerData = _playerData;

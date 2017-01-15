@@ -85,8 +85,6 @@ public class EnemyManager : MonoBehaviour {
     CollisionData collisionData;
 
     public List<string> CollisionPath { get; private set; }
-
-    private float angle;
     private Vector3 baseScale;
 
     void Awake()
@@ -165,20 +163,31 @@ public class EnemyManager : MonoBehaviour {
     /// まだアニメーションがない為自作した敵の攻撃を可視化するための関数。
     /// </summary>
     /// <param name="_index">攻撃させたいエネミーのIndex</param>
-    public void AttackMotion(int _index)
+    public IEnumerator AttackMotion(int _index)
     {
-		if (Enemies.Count <= 0) return;
-        float diffSize = 0.25f;
-        float fadeTime = 0.6f;
-        float value = Mathf.PI / fadeTime;
-        angle += value * Time.deltaTime;
+		if (Enemies.Count <= 0) yield break;
 
-        if (angle > Mathf.PI) angle = 0;
-        Enemies[_index].transform.localScale 
-            = new Vector3(baseScale.x + diffSize * Mathf.Sin(angle), 
-                          baseScale.y + diffSize * Mathf.Sin(angle), 
-                          1);
-        
+        float diffSize = 0.25f;
+        float fadeTime = 0.8f;
+        float value = Mathf.PI / fadeTime;
+		float angle = 0.0f;
+		while (true)
+		{
+			if (Enemies.Count <= 0) yield break;
+
+			if (angle > Mathf.PI)
+			{
+				Enemies[_index].transform.localScale = new Vector3(baseScale.x, baseScale.y, 1);
+				yield break;
+			}
+
+			Enemies[_index].transform.localScale
+				= new Vector3(baseScale.x + diffSize * Mathf.Sin(angle),
+							  baseScale.y + diffSize * Mathf.Sin(angle),
+							  1);
+			yield return null;
+			angle += value * Time.deltaTime;
+		}
     }
 
     /// <summary>
