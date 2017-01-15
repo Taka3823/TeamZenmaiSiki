@@ -1,78 +1,100 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SliedPanel : MonoBehaviour
+using UnityEngine.EventSystems;
+
+public class SliedPanel : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField]
-    GameObject panel;
+    AnimationCurve curve;
 
-    [SerializeField]
-    GameObject leftButton;
+    [SerializeField, Range(0.0f, 10.0f)]
+    float enableFlickValue;
 
-    [SerializeField]
-    GameObject rightButton;
+    //Easing中かどうか
+    bool isDuaringMove = false;
+    float startTime;
 
-    int count = 0;
+    //Vector3 moveDistance = new Vector3(Screen.width,0,0);
+    Vector3 moveDistance = new Vector3(Screen.width, 0f, 0f);
 
-    int screenWidth = Screen.width;
+    [SerializeField, Tooltip("目的地にたどり着くまでの時間"), Range(0.1f, 5.0f)]
+    float moveTime;
+
+    //Easingのエンドポジション
+    Vector3 endPos = new Vector3();
+    //Easingのスタートポジション
+    Vector3 startPos = new Vector3();
+
+    int pageCount = 0;
 
     void Start()
     {
-        if(count <= 0)
-        {
-            leftButton.SetActive(false);
-        }
+        startPos = transform.localPosition;
     }
 
     void Update()
     {
-        if(count > 0)
+        if(isDuaringMove)
         {
-            leftButton.SetActive(true);
-        }
-
-        if (count < SaveManager.Instance.GetClearChapterNum() + 1 &&
-            count >= 9)
-        {
-            rightButton.SetActive(true);
+            StartEasing(startTime);
         }
     }
 
-    public void OnClickLeft()
+    public void OnDrag(PointerEventData eventData) { }
+    public void OnBeginDrag(PointerEventData eventData) { }
+
+    public void OnEndDrag(PointerEventData eventData_)
     {
-        if (count <= 0)
+        if(isDuaringMove)
         {
             return;
         }
 
-        count -= 1;
-        panel.transform.position = new Vector3(panel.transform.position.x + screenWidth,
-                                               panel.transform.position.y,
-                                               panel.transform.position.z);
+        PageFlick(eventData_);
+    }
 
-        if(count <= 0)
+    void PageFlick(PointerEventData eventData_)
+    {
+        if(eventData_.delta.x < -enableFlickValue &&
+           pageCount < SaveManager.Instance.GetClearChapterNum() +2)
         {
-            leftButton.SetActive(false);
+            pageCount += 1;
+
+            endPos = transform.localPosition - moveDistance;
+            EasingInit();
+        }
+        else if(eventData_.delta.x > enableFlickValue &&
+                pageCount >= 1)
+        {
+            pageCount -= 1;
+
+            endPos = transform.localPosition + moveDistance;
+            EasingInit();
         }
     }
 
-    public void OnClickRight()
+    void EasingInit()
     {
-        if(count >= SaveManager.Instance.GetClearChapterNum() + 1 &&
-           count >= 9)
+        isDuaringMove = true;
+        startPos = transform.localPosition;
+        startTime = Time.timeSinceLevelLoad;
+    }
+
+    //第一引数……動かし始める時間
+    //第二引数……シーンを遷移させるまでの時間。兼、Easingで目的地に到着させる時間
+    void StartEasing(float startTime_)
+    {
+        var diff = Time.timeSinceLevelLoad - startTime_;
+
+        if (diff > moveTime)
         {
-            return;
+            isDuaringMove = false;
         }
 
-        count += 1;
-        panel.transform.position = new Vector3(panel.transform.position.x - screenWidth, 
-                                               panel.transform.position.y, 
-                                               panel.transform.position.z);
+        var rate = diff / moveTime;
+        var pos = curve.Evaluate(rate);
 
-        if(count >= SaveManager.Instance.GetClearChapterNum() + 1 &&
-           count >= 9)
-        {
-            rightButton.SetActive(false);
-        }
+        transform.localPosition = Vector3.Lerp(startPos, endPos, pos);
     }
 }

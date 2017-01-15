@@ -57,30 +57,18 @@ public class ReadDirective : MonoBehaviour
         set { lineLength = value; }
     }
 
-    string[] lines;
-
     //TIPS:引数には一1章なら「１」と入力する
     public void ReadFile(int chapterNumber_)
     {
-        //#if UNITY_STANDALONE
-        //        string path = "file://"     + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-        //#elif UNITY_ANDROID
-        //        //string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-        //        string path = "jar:file://" + Application.dataPath + "/!/assets" + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-        //#endif
+#if UNITY_STANDALONE
+        string path = "file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+#elif UNITY_ANDROID
+      //string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+        string path = "jar:file://" + Application.dataPath + "/!/assets" + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+#endif
 
-        TextAsset csv = Resources.Load("CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1])as TextAsset;
+        string[] lines = ReadCsvFoundation.ReadCsvData(path);
 
-        StringReader rd = new StringReader(csv.text);
-        
-        while (rd.Peek() > -1)
-        {
-            string line = rd.ReadLine();
-            lines = line.Split(',');
-        }
-
-        //string[] lines = ReadCsvFoundation.ReadCsvData(path);
-        
         didCommaSeparrationData = new string[lines.Length];
 
         lineLength = lines.Length;
@@ -88,29 +76,29 @@ public class ReadDirective : MonoBehaviour
         char[] commmaSplitter = { ',' };
 
         DataManager.DirectiveData[] tempDirectiveData = new DataManager.DirectiveData[lines.Length];
-        
+
         for (int i = 1; i < lines.Length; i++)
         {
             didCommaSeparrationData = ReadCsvFoundation.NotOptionDataSeparation(lines[i], commmaSplitter, CSVDATA_ELEMENTS);
-            
-            tempDirectiveData[i-1].scenarioNumberBaseData = didCommaSeparrationData[(int)ElementName.scenarioNumberBaseData];
-            tempDirectiveData[i-1].scenarioTitle = didCommaSeparrationData[(int)ElementName.scenarioTitle];
-            tempDirectiveData[i-1].missionObjective = didCommaSeparrationData[(int)ElementName.missionObjective];
-                               
-            tempDirectiveData[i-1].firstMission = didCommaSeparrationData[(int)ElementName.firstMission];
-            tempDirectiveData[i-1].firstMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.firstMissionAchievementCondition];
-                               
-            tempDirectiveData[i-1].secondMission = didCommaSeparrationData[(int)ElementName.secondMission];
-            tempDirectiveData[i-1].secondMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.secondMissionAchievementCondition];
-                               
-            tempDirectiveData[i-1].thirdMission = didCommaSeparrationData[(int)ElementName.thirdMission];
-            tempDirectiveData[i-1].thirdMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.thirdMissionAchievementCondition];
-                               
-            tempDirectiveData[i-1].collectionTargetName = new List<string>();
 
-            for(int k = 0;k < 9;k++)
+            tempDirectiveData[i - 1].scenarioNumberBaseData = didCommaSeparrationData[(int)ElementName.scenarioNumberBaseData];
+            tempDirectiveData[i - 1].scenarioTitle = didCommaSeparrationData[(int)ElementName.scenarioTitle];
+            tempDirectiveData[i - 1].missionObjective = didCommaSeparrationData[(int)ElementName.missionObjective];
+
+            tempDirectiveData[i - 1].firstMission = didCommaSeparrationData[(int)ElementName.firstMission];
+            tempDirectiveData[i - 1].firstMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.firstMissionAchievementCondition];
+
+            tempDirectiveData[i - 1].secondMission = didCommaSeparrationData[(int)ElementName.secondMission];
+            tempDirectiveData[i - 1].secondMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.secondMissionAchievementCondition];
+
+            tempDirectiveData[i - 1].thirdMission = didCommaSeparrationData[(int)ElementName.thirdMission];
+            tempDirectiveData[i - 1].thirdMissionAchievementCondition = didCommaSeparrationData[(int)ElementName.thirdMissionAchievementCondition];
+
+            tempDirectiveData[i - 1].collectionTargetName = new List<string>();
+
+            for (int k = 0; k < 9; k++)
             {
-                tempDirectiveData[i-1].collectionTargetName.Add(didCommaSeparrationData[(int)ElementName.collectionTargetName + k]);
+                tempDirectiveData[i - 1].collectionTargetName.Add(didCommaSeparrationData[(int)ElementName.collectionTargetName + k]);
             }
         }
 
