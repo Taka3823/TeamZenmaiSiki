@@ -53,12 +53,13 @@ public class ContentManager : MonoBehaviour {
         t_ = 0;
         startpos = spos;
         endpos = epos;
+        AudioManager.Instance.PlaySe("role.wav");
     }
     float culcY(float y)
     {
-        if (y <= 235)
-            y = 235;
-        float max = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber].collectionTargetName.Count * 110 - 236;
+        if (y <= 192)
+            y = 192;
+        float max = DataManager.Instance.DirectiveDatas[DataManager.Instance.ScenarioChapterNumber][DataManager.Instance.ScenarioSectionNumber].collectionTargetName.Count * 110 - 193;
         Debug.Log(max);
         if (y >= max)
             y = max;

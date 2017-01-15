@@ -77,11 +77,11 @@ public class Unit : MonoBehaviour {
         {
             if (enemyDatas[i].isbattle)
             {
-                MyCanvas.SetInteractive("Button", true);
+                MyCanvas.SetInteractive("Start", true);
                 return;
             }
         }
-        MyCanvas.SetInteractive("Button", false);
+        MyCanvas.SetInteractive("Start", false);
     }
 
     // Update is called once per frame

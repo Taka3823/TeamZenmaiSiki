@@ -94,6 +94,7 @@ public class FlickOperation : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
             if (!canEasing[GOING_NUM])
             {
                 canEasing[GOING_NUM] = true;
+                AudioManager.Instance.PlaySe("tab_pull.wav");
                 startTime = Time.timeSinceLevelLoad;
             }
         }

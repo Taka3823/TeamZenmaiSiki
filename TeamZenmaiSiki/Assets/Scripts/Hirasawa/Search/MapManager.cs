@@ -10,7 +10,7 @@ public class MapManager : MonoBehaviour {
     }
     public enum MapType
     {
-        MAPTYPE_INDEX=0,TOWNLIGHT,SMOG,TOWN,TOWER,SKY,BATTLETEXTURE,MAPTYPEMAX
+        MAPTYPE_INDEX=0,TOWNLIGHT,SMOG,TOWN,TOWER,SKY,BATTLETEXTURE,BGM,MAPTYPEMAX
     }
     public string GetMapTextureType(MapType type)
     {
@@ -40,6 +40,7 @@ public class MapManager : MonoBehaviour {
         setSprites(mapTown, MapType.TOWN);
         setSprites(mapSky, MapType.SKY);
         DataManager.Instance.BttleTexturePath = GetMapTextureType(MapType.BATTLETEXTURE);
+        AudioManager.Instance.PlayBgm(GetMapTextureType(MapType.BGM));
     }
 	
 	// Update is called once per frame
@@ -84,7 +85,7 @@ public class MapManager : MonoBehaviour {
             }
         }
         Debug.Log("エラーです:マップセット");
-        string[] debug=new string[6];
+        string[] debug=new string[7];
         return debug;
     }
     void setSprites(GameObject map,MapType type)

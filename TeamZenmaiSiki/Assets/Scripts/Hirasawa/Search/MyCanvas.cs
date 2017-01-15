@@ -10,7 +10,7 @@ public class MyCanvas : MonoBehaviour
     {
         // Canvasコンポーネントを保持
         _canvas = GetComponent<Canvas>();
-        SetInteractive("Button", false);
+        SetInteractive("Start", false);
     }
 
     /// 表示・非表示を設定する
