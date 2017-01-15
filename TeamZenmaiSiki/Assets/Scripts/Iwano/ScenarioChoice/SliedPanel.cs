@@ -31,7 +31,8 @@ public class SliedPanel : MonoBehaviour
             leftButton.SetActive(true);
         }
 
-        if(count < 9)
+        if (count < SaveManager.Instance.GetClearChapterNum() + 1 &&
+            count >= 9)
         {
             rightButton.SetActive(true);
         }
@@ -45,7 +46,9 @@ public class SliedPanel : MonoBehaviour
         }
 
         count -= 1;
-        panel.transform.position = new Vector3(panel.transform.position.x + screenWidth, panel.transform.position.y, panel.transform.position.z);
+        panel.transform.position = new Vector3(panel.transform.position.x + screenWidth,
+                                               panel.transform.position.y,
+                                               panel.transform.position.z);
 
         if(count <= 0)
         {
@@ -55,15 +58,19 @@ public class SliedPanel : MonoBehaviour
 
     public void OnClickRight()
     {
-        if(count >= 9)
+        if(count >= SaveManager.Instance.GetClearChapterNum() + 1 &&
+           count >= 9)
         {
             return;
         }
 
         count += 1;
-        panel.transform.position = new Vector3(panel.transform.position.x - screenWidth, panel.transform.position.y, panel.transform.position.z);
+        panel.transform.position = new Vector3(panel.transform.position.x - screenWidth, 
+                                               panel.transform.position.y, 
+                                               panel.transform.position.z);
 
-        if(count >= 9)
+        if(count >= SaveManager.Instance.GetClearChapterNum() + 1 &&
+           count >= 9)
         {
             rightButton.SetActive(false);
         }
