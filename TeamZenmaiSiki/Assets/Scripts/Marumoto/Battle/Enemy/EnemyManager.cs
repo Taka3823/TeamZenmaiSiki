@@ -55,6 +55,11 @@ public class EnemyManager : MonoBehaviour {
     /// </summary>
     public List<bool> CoreBroken { get; private set; }
 
+	/// <summary>
+	/// コアの数
+	/// </summary>
+	public List<int> CoreNum { get; private set; }
+
     /// <summary>
     /// 現在のターゲットインデックス。
     /// </summary>
@@ -82,7 +87,9 @@ public class EnemyManager : MonoBehaviour {
 
     public int DeadNum { get; set; }
 
-    CollisionData collisionData;
+	List<EnemyData.EnemyInternalDatas> enemyData = new List<EnemyData.EnemyInternalDatas>();
+
+	CollisionData collisionData;
 
     public List<string> CollisionPath { get; private set; }
     private Vector3 baseScale;
@@ -91,6 +98,7 @@ public class EnemyManager : MonoBehaviour {
     {
         if (instance == null) { instance = this; }
         baseScale = new Vector3(1, 1, 1);
+		enemyData = DataManager.Instance.EnemyInternalDatas;
     }
 
     void Start()
@@ -120,6 +128,11 @@ public class EnemyManager : MonoBehaviour {
         CoreHP = BattleManager.Instance.getBattleCoreHp();
         CoreSTR = BattleManager.Instance.getBattleCorePower();
         CoreDEF = BattleManager.Instance.getBattleCoreDefence();
+
+		for(int i = 0; i < enemyData.Count; i++)
+		{
+			CoreNum.Add(enemyData[i].coreNum);
+		}
         EnemyElems = Enemies.Count;
 
         for (int i = 0; i < EnemyElems; i++)

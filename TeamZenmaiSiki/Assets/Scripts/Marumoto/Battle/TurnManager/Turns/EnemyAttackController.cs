@@ -86,8 +86,8 @@ public class EnemyAttackController : MonoBehaviour {
         if (PlayerHP <= 0)
         {
 			PlayerHP = 0;
-			var _refObj = Instantiate(gameoverDiedPlayer);
 			AudioManager.Instance.PlaySe("lucas_die.wav", 2.0f);
+			var _refObj = Instantiate(gameoverDiedPlayer);
 			_refObj.transform.SetParent(gameoverCanvas, false);
 		}
     }

@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1000010126171158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,9 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 212000011022414650}
-  _crossValue: 0.95
-  timeRate: 0.003
-  fallSpeed: 0.003
+  _crossValue: 0.995
+  timeRate: 0.0005
+  fallSpeed: 0
 --- !u!212 &212000011022414650
 SpriteRenderer:
   m_ObjectHideFlags: 1
