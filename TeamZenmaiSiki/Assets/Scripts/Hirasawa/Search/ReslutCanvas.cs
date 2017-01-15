@@ -83,6 +83,10 @@ public class ReslutCanvas : MonoBehaviour {
 
         SaveManager.Instance.ScenarioSave(killnum, achieve);
     }
+    public void BGMSTOP()
+    {
+        AudioManager.Instance.ToFadeOutBGM();
+    }
     public void SetDebug()
     {
         //ThirdCollect.GetComponent<Image>().color = Color.red;
