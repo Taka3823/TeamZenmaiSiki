@@ -167,13 +167,13 @@ public class EnemyManager : MonoBehaviour {
     /// <param name="_index">攻撃させたいエネミーのIndex</param>
     public void AttackMotion(int _index)
     {
+		if (Enemies.Count <= 0) return;
         float diffSize = 0.25f;
         float fadeTime = 0.6f;
         float value = Mathf.PI / fadeTime;
         angle += value * Time.deltaTime;
 
         if (angle > Mathf.PI) angle = 0;
-
         Enemies[_index].transform.localScale 
             = new Vector3(baseScale.x + diffSize * Mathf.Sin(angle), 
                           baseScale.y + diffSize * Mathf.Sin(angle), 
