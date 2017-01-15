@@ -60,7 +60,6 @@ public class BattleManager : MonoBehaviour
     void Awake()
     {
         if (instance == null) { instance = this; }
-		FadeManager.Instance.FadeOut(0.8f);
 		getBattlePlayerHp = DataManager.Instance.PlayerData.hp;
 		getBattlePlayerAtk = DataManager.Instance.PlayerData.attack;
     }
