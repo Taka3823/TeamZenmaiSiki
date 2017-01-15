@@ -7,7 +7,7 @@ public class TapController : MonoBehaviour {
 #if UNITY_STANDALONE
 		if (Input.GetMouseButtonUp(0))
 		{
-			//タップ音再生
+			AudioManager.Instance.PlaySe("tap.wav");
 		}
 #elif UNITY_ANDROID
 		if (Input.touchCount > 0)
@@ -15,7 +15,7 @@ public class TapController : MonoBehaviour {
 			Touch _touch = Input.GetTouch(0);
 			if (_touch.phase == TouchPhase.Ended)
 			{
-				//タップ音再生
+				AudioManager.Instance.PlaySe("tap.wav");
 			}
 		}
 #endif
