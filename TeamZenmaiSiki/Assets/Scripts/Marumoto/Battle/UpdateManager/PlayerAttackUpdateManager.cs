@@ -88,6 +88,8 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 			EnemyDestroy();
         }
         playerAttackController.ProgressCurrentTargetIndex();
+
+		yield return new WaitForSeconds(0.5f);
         Destroy(attackCircle);
     }
 
@@ -96,20 +98,24 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     /// </summary>
     public void HitSequence()
     {
-		float delayTime = 0.5f;
+		float delayTime = 0.4f;
 		int hitIndex = enemyCollision.Collision(EnemyManager.Instance.Pos[EnemyManager.Instance.CurrentTargetIndex],
                                                 SecondaryCirclePos,
                                                 EnemyManager.Instance.Size[EnemyManager.Instance.CurrentTargetIndex]);
 
-        if (hitIndex == (int)PartsName.EMPTY) return;
-        else if (hitIndex == (int)PartsName.BODY)
-        {
+		if (hitIndex == (int)PartsName.EMPTY)
+		{
+			AudioManager.Instance.PlaySe("kazewokiru.wav", delayTime);
+			return;
+		}
+		else if (hitIndex == (int)PartsName.BODY)
+		{
 			HitBody(delayTime);
-        }
-        else if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1))
-        {
-            int _enemyCoreDEF = EnemyManager.Instance.CoreDEF[EnemyManager.Instance.CurrentTargetIndex];
-            EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
+		}
+		else if ((hitIndex == (int)PartsName.CORE_1) || (hitIndex == (int)PartsName.CORE_FRAME_1))
+		{
+			int _enemyCoreDEF = EnemyManager.Instance.CoreDEF[EnemyManager.Instance.CurrentTargetIndex];
+			EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
 			if (hitIndex == (int)PartsName.CORE_1)
 			{
 				Debug.Log("Hit Core!");
@@ -120,7 +126,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 				Debug.Log("Hit CoreFrame");
 				AudioManager.Instance.PlaySe("cyoudan.wav", delayTime);
 			}
-        }
+		}
     }
 
     /// <summary>
@@ -136,6 +142,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 
 	private IEnumerator EnemyDyingMotion(GameObject _enemyObj)
 	{
+		yield return new WaitForSeconds(1.0f);
 		SpriteRenderer _sprite = _enemyObj.GetComponent<SpriteRenderer>();
 		float _angle = 0.0f;
 		float _angleSpeed = 0.005f;
@@ -148,7 +155,6 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 			}
 
 			_sprite.color -= new Color(0.0f, _angle, _angle, _angle);
-
 			yield return null;
 			_angle += _angleSpeed;
 		}

@@ -12,8 +12,9 @@ public class EnemyAttackEffect : MonoBehaviour {
 		cameraBasePosition = transform.position;
 	}
 
-	public IEnumerator CameraShaking(float _shakeTime)
+	public IEnumerator CameraShaking(float _shakeTime, float _waitTime)
 	{
+		yield return new WaitForSeconds(_waitTime);
 		Vector2 _shakeValue;
 		float _startTime = Time.timeSinceLevelLoad;
 		float _shakeRateSeconds = 0.05f;

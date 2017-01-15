@@ -77,7 +77,7 @@ public class CircleManager : MonoBehaviour
         {
             if (!circleCollider2D.enabled)
             {
-				AudioManager.Instance.PlaySe("tomeru.wav", 0.03f);
+				AudioManager.Instance.PlaySe("tomeru.wav");
 				AudioManager.Instance.PlaySe("zyuusei.wav", 0.2f);
                 circleCollider2D.enabled = true;
                 PlayerAttackUpdateManager.Instance.SetCircleColliderEnable(true);

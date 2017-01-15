@@ -7,6 +7,7 @@ public class BattleButton : MonoBehaviour {
 
     public void BattleStart()
     {
+		AudioManager.Instance.PlaySe("attack_button.wav");
         TurnManager.Instance.ProgressFunction();
     }
 
