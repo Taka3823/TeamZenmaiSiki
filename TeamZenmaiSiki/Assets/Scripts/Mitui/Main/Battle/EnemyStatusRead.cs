@@ -10,28 +10,7 @@ public class EnemyStatusRead : MonoBehaviour
 	/// </summary> 
 	[SerializeField]
 	List<Text> infoText;
-	/*
-    [SerializeField]
-    Text[] enemyName;
-    [SerializeField]
-    Text[] mainHp;
-    [SerializeField]
-    Text[] coreHp;
-    [SerializeField]
-    Text[] mainPower;
-    [SerializeField]
-    Text[] corePower;
-    [SerializeField]
-    Text[] mainDefence;
-    [SerializeField]
-    Text[] coreDefence;
-    [SerializeField]
-    Text[] age;
-    [SerializeField]
-    Text[] bloodType;
-    [SerializeField]
-    Text[] memo1;
-	*/
+
     List<EnemyData.EnemyInternalDatas> enemyData = new List<EnemyData.EnemyInternalDatas>();
     List<Vector3> pos = new List<Vector3>();
 
@@ -59,27 +38,6 @@ public class EnemyStatusRead : MonoBehaviour
         for (int i = 0; i < infoText.Count; i++)
 		{
 			infoText[i].text = ConnectEnemyStatus(i);
-
-			/*
-            enemyName[i].text = enemyData[i].name;
-            mainHp[i].text = "HP: " + battleMainHp[i] + "/" + enemyData[i].mainHp;
-            mainPower[i].text = "ATK: " + enemyData[i].mainPower;
-            mainDefence[i].text = "DEF: " + enemyData[i].mainDefense;
-            age[i].text = "年齢: " + enemyData[i].age;
-            bloodType[i].text = "血液型: " + enemyData[i].bloodType;
-            // コアのステータス
-            for (int j = 0; j < enemyData[i].coreNum; j++)
-            {
-                coreHp[i].text = "CHP: " + battleCoreHp[i].ToString() + "/" + enemyData[i].coreHp[j];
-                corePower[i].text = "CATK: " + enemyData[i].corePower[j];
-                coreDefence[i].text = "CDEF: " + enemyData[i].coreDefense[j];
-            }
-            // メモのテキスト
-            for (int k = 0; k < 2; k++)
-            {
-                memo1[i].text = enemyData[i].memos[0] + "\n" + enemyData[i].memos[1];
-            }
-			*/
         }
     }
 

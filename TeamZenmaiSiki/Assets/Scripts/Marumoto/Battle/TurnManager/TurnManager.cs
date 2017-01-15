@@ -178,6 +178,7 @@ public class TurnManager : MonoBehaviour {
         _playerData.hp = enemyAttackController.PlayerHP;
         DataManager.Instance.PlayerData = _playerData;
 		AudioManager.Instance.PlaySe(_seName);
+
 		FadeManager.Instance.FadeInOut(_waitTime - 0.1f, 0.4f);
 		Invoke("LoadSceneSearch", _waitTime);
     }
