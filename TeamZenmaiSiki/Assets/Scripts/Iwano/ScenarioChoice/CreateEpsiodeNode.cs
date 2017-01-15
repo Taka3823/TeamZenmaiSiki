@@ -4,38 +4,64 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class CreateEpsiodeNode : MonoBehaviour
-{
-    [SerializeField]
-    GameObject nodePrefab;
+{   
+    private GameObject nodePrefab;
 
-    [SerializeField]
-    ReadDirective readDirective;
-
-    [SerializeField]
-    int chapterNumber;
-
-    [SerializeField]
-    GameObject nextEpisodePage;
-
-    void Start()
+    public GameObject NodePrefab
     {
-        DataInit();
+        set { nodePrefab = value; }
+    }
+    
+    private ReadDirective readDirective;
 
-        Destroy(GetComponent<CreateEpsiodeNode>());
-
-        if(nextEpisodePage != null)
-        {
-            nextEpisodePage.SetActive(true);
-        }
+    public ReadDirective ReadDirectiveData
+    {
+        set { readDirective = value; }
     }
 
-    void DataInit()
-    {
-        readDirective.ReadFile(chapterNumber);
+    //CreateChapterPageから受け取る引数の仮置き
+    private int designationChapterNum;
 
-        for (int i = 1; i < readDirective.LineLength; i++)
+    public int DesignationChapterNum
+    {
+        get { return designationChapterNum; }
+        set { designationChapterNum = value; }
+    }
+    
+    //大ちゃんからもらう数値の仮置き
+    int GetClearSectionNum = 0;
+
+    //void Start()
+    //{
+    //    DataInit();
+
+    //    Destroy(GetComponent<CreateEpsiodeNode>());
+    //}
+
+    public void DataInit()
+    {
+        //readDirective.ReadFile(chapterNumber);
+
+        //for (int i = 1; i < readDirective.LineLength; i++)
+        //{
+        //    CreateNode(chapterNumber, i - 1);
+        //}
+
+        if(designationChapterNum <= 0)
         {
-            CreateNode(chapterNumber, i - 1);
+            designationChapterNum = 1;
+        }
+        
+        readDirective.ReadFile(designationChapterNum);
+
+        for (int i = 0; i < readDirective.LineLength;i++)
+        {
+            if(i == 0)
+            {
+                i = 1;
+            }
+
+            CreateNode(designationChapterNum, i - 1);
         }
     }
 

@@ -31,4 +31,11 @@ public class ManagerLorder : MonoBehaviour
         //インプットマネージャーオブジェクトの生成
         GameObject.Instantiate(Resources.Load<GameObject>("Fade/FadeCanvas"));
     }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void SaveManagerAutoLoader()
+    {
+        //インプットマネージャーオブジェクトの生成
+        GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SaveManager"));
+    }
 }

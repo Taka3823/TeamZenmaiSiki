@@ -33,8 +33,18 @@ public class OpenDoor : MonoBehaviour
     [SerializeField]
     GameObject startButton;
 
+    [SerializeField]
+    GameObject titleLogo;
+
     void Start()
     {
+        if (DataManager.Instance.IsAppAwake)
+        {
+            Destroy(rightEye);
+            Destroy(leftEye);
+            Destroy(titleLogo);
+        }
+
         //Easingを始めるポジションの初期化
         startPosition[0] = rightEye.transform.localPosition;
         startPosition[1] = leftEye.transform.localPosition;
@@ -50,10 +60,12 @@ public class OpenDoor : MonoBehaviour
         {
             StartEasing(startTime);
         }
+
         if (DataManager.Instance.IsAppAwake)
         {
             Destroy(rightEye);
             Destroy(leftEye);
+            Destroy(titleLogo);
         }
     }
 
@@ -61,7 +73,6 @@ public class OpenDoor : MonoBehaviour
     //第二引数……シーンを遷移させるまでの時間。兼、Easingで目的地に到着させる時間
     void StartEasing(float startTime_)
     {
-        
         var diff = Time.timeSinceLevelLoad - startTime_;
 
         if (diff > moveTime)

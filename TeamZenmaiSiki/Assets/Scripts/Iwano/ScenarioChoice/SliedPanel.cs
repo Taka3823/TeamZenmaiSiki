@@ -14,6 +14,8 @@ public class SliedPanel : MonoBehaviour
 
     int count = 0;
 
+    int screenWidth = Screen.width;
+
     void Start()
     {
         if(count <= 0)
@@ -43,7 +45,7 @@ public class SliedPanel : MonoBehaviour
         }
 
         count -= 1;
-        panel.transform.position = new Vector3(panel.transform.position.x + 1334, panel.transform.position.y, panel.transform.position.z);
+        panel.transform.position = new Vector3(panel.transform.position.x + screenWidth, panel.transform.position.y, panel.transform.position.z);
 
         if(count <= 0)
         {
@@ -59,7 +61,7 @@ public class SliedPanel : MonoBehaviour
         }
 
         count += 1;
-        panel.transform.position = new Vector3(panel.transform.position.x - 1334, panel.transform.position.y, panel.transform.position.z);
+        panel.transform.position = new Vector3(panel.transform.position.x - screenWidth, panel.transform.position.y, panel.transform.position.z);
 
         if(count >= 9)
         {
