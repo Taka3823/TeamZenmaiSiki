@@ -40,6 +40,12 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 	[SerializeField, Tooltip("血痕、血しぶき、跳弾火花の順番に登録")]
 	List<GameObject> hitEffect;
 
+	[SerializeField]
+	GameObject gameoverKilledHuman;
+
+	[SerializeField]
+	Transform gameoverCanvas;
+
     BattleCalculation calculation = new BattleCalculation();
     EnemyCollision enemyCollision = new EnemyCollision();
 
@@ -84,6 +90,10 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
         HitSequence();
         if (EnemyDead())
         {
+			if (EnemyManager.Instance.CoreNum[EnemyManager.Instance.CurrentTargetIndex] == 0)
+			{
+				Gameover();
+			}
 			EnemyManager.Instance.RegisterKillData();
 			EnemyDestroy();
         }
@@ -118,12 +128,10 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 			EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
 			if (hitIndex == (int)PartsName.CORE_1)
 			{
-				Debug.Log("Hit Core!");
 				AudioManager.Instance.PlaySe("coredam.wav", delayTime);
 			}
 			if (hitIndex == (int)PartsName.CORE_FRAME_1)
 			{
-				Debug.Log("Hit CoreFrame");
 				AudioManager.Instance.PlaySe("cyoudan.wav", delayTime);
 			}
 		}
@@ -183,6 +191,12 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(_delayTime);
 		Instantiate(_effect, _effectPosition, Quaternion.identity);
+	}
+
+	public void Gameover()
+	{
+		var _refObj = Instantiate(gameoverKilledHuman);
+		_refObj.transform.SetParent(gameoverCanvas, false);
 	}
 
 
