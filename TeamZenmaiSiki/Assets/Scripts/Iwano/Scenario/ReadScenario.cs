@@ -84,8 +84,8 @@ public class ReadScenario : MonoBehaviour
             "ep1",
             "ep1_2",
             "ep1_3",
-            "ep1_4",//以下数合わせ
-            "ep1_5",//
+            "ep1_4",
+            "ep1_5",//以下数合わせ
         },
         //二章
         {

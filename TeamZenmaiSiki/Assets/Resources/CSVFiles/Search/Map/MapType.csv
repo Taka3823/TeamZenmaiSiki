@@ -1,0 +1,4 @@
+﻿タイプ,街灯（一番前）,霧など（町と街灯の間）,町並み,塔など（町と空の間）,空（一番後ろ）,バトルテクスチャー,BGM
+A,view_c_night,,view_b_night_01,,view_a_night,battle_night_01,night.ogg
+B,view_c_XX,,view_c_XX,,view_b_XX,battle_morning_02,moning.ogg
+C,view_c_XX,,view_c_XX,,view_c_XX,battle_evening_02,moning.ogg

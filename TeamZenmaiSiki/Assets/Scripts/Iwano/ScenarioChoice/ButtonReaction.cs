@@ -40,8 +40,8 @@ public class ButtonReaction : MonoBehaviour
         DataManager.Instance.ScenarioSectionNumber = this.sectionNumber;
 
         //TIPS:本番はこっち
-        //SceneManager.LoadScene("Scenario");
+        SceneManager.LoadScene("Scenario");
         //TIPS:デバッグ用
-        SceneManager.LoadScene("Search");
+        //SceneManager.LoadScene("Search");
     }
 }

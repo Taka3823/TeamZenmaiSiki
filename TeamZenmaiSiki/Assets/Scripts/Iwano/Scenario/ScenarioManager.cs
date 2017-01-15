@@ -190,6 +190,12 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
             DrawManager.Instance.DrawBackGround(scenariosData[currentLine].backGround[elementNum_]);
         }
 
+        if(scenariosData[currentLine].drawCharacterPos != "" &&
+           scenariosData[currentLine].charaSprite[elementNum_] == "")
+        {
+            DrawManager.Instance.EraseTheCharacter(scenariosData[currentLine].drawCharacterPos);
+        }
+
         currentLine += 1;
 
         SetNextLine(currentLine);
@@ -202,14 +208,29 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
 
         if(DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
         {
-            SceneChange("ScenarioChoice");
+            float waittime = 0.4f;
+            FadeManager.Instance.FadeInOut(waittime-0.1f, 2);
+            Invoke("ScenarioChoiceLoad",waittime);
         }
         else
         {
-            SceneChange("Search");
+            float waittime = 0.4f;
+            FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
+            Invoke("ScenarioSearchLoad", waittime);
         }
     }
 
+    private void ScenarioChoiceLoad()
+    {
+        SaveManager.Instance.ScenarioSave();
+        SceneChange("ScenarioChoice");
+    }
+
+    private void ScenarioSearchLoad()
+    {
+        SceneChange("Search");
+    }
+    
     public void SceneChange(string nextSceneName_)
     {
         SceneManager.LoadScene(nextSceneName_);
@@ -218,6 +239,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         {
             DataManager.Instance.CameraPos = Vector3.zero;
         }
+
         AudioManager.Instance.ToFadeOutBGM(0.7f);
     }
 }

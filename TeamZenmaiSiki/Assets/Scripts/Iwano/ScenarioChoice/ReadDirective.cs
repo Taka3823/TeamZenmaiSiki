@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 using UnityEngine.UI;
 
+using System.IO;
+
 public class ReadDirective : MonoBehaviour
 {
     [SerializeField]
@@ -55,21 +57,30 @@ public class ReadDirective : MonoBehaviour
         set { lineLength = value; }
     }
 
+    string[] lines;
+
     //TIPS:引数には一1章なら「１」と入力する
     public void ReadFile(int chapterNumber_)
     {
-#if UNITY_STANDALONE
-        string path = "file://"     + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-#elif UNITY_ANDROID
-        //string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-        string path = "jar:file://" + Application.dataPath + "/!/assets" + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-#endif
+        //#if UNITY_STANDALONE
+        //        string path = "file://"     + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+        //#elif UNITY_ANDROID
+        //        //string path = "jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+        //        string path = "jar:file://" + Application.dataPath + "/!/assets" + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+        //#endif
 
-        text.text = path;//"jar:file://" + Application.dataPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
+        TextAsset csv = Resources.Load("CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1])as TextAsset;
 
+        StringReader rd = new StringReader(csv.text);
+        
+        while (rd.Peek() > -1)
+        {
+            string line = rd.ReadLine();
+            lines = line.Split(',');
+        }
 
-        string[] lines = ReadCsvFoundation.ReadCsvData(path);
-
+        //string[] lines = ReadCsvFoundation.ReadCsvData(path);
+        
         didCommaSeparrationData = new string[lines.Length];
 
         lineLength = lines.Length;
