@@ -179,6 +179,13 @@ public class SearchManager : MonoBehaviour , ISceneBase
     }
     public void BackScenarioSelect()
     {
+        float waittime = 2.0f;
+        FadeManager.Instance.FadeInOut(waittime-0.1f, 0.5f);
+        Invoke("ChangeSceneScenarioChoice", waittime);
+        
+    }
+    private void ChangeSceneScenarioChoice()
+    {
         SceneChange("ScenarioChoice");
     }
     public string[] EpisodeStageNum(string lines_, char[] spliter_, int trialNumber_)
