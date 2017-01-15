@@ -255,6 +255,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: {fileID: 0}
   attackEffect: {fileID: 0}
+  gameoverDiedPlayer: {fileID: 1000012698093198, guid: 7d6c9fa75ded2694c9f04c84267b560e,
+    type: 2}
+  gameoverCanvas: {fileID: 0}
 --- !u!114 &114000012994376238
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -14,6 +14,11 @@ public class EnemyAttackController : MonoBehaviour {
 	[SerializeField]
 	EnemyAttackEffect attackEffect;
 
+	[SerializeField]
+	GameObject gameoverDiedPlayer;
+	[SerializeField]
+	Transform gameoverCanvas;
+
     void Start()
     {
         PlayerHP = BattleManager.Instance.GetBattlePlayerHp;
@@ -54,9 +59,10 @@ public class EnemyAttackController : MonoBehaviour {
 		yield return new WaitForSeconds(0.3f);
 
 		if (EnemyManager.Instance.MainSTR.Count <= 0) yield break;
+		if (PlayerHP <= 0) yield break;
 
         int _enemySTR = EnemyManager.Instance.MainSTR[currentActIndex] + EnemyManager.Instance.CoreSTR[currentActIndex];
-        ToPlayerDamage(_enemySTR);
+        ToPlayerDamage(_enemySTR*100);
         isAttacking = false;
         ProgressActIndex();
         ChangePhaseSequence();
@@ -79,8 +85,11 @@ public class EnemyAttackController : MonoBehaviour {
         PlayerHP -= _damage;
         if (PlayerHP <= 0)
         {
-            SceneManager.LoadScene("GameOver");
-        }
+			PlayerHP = 0;
+			var _refObj = Instantiate(gameoverDiedPlayer);
+			AudioManager.Instance.PlaySe("lucas_die.wav", 2.0f);
+			_refObj.transform.SetParent(gameoverCanvas, false);
+		}
     }
 
     private void ProgressActIndex() { currentActIndex ++; }
