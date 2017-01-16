@@ -112,13 +112,16 @@ public class FadeOutDirective : MonoBehaviour
         {
             if (child.name == "Button")
             {
-                foreach (Transform gchild in child.transform)
-                {
-                    if (gchild.name == "Text")
-                    {
-                        gchild.GetComponent<Text>().text = "戻る";
-                    }
-                }
+                Sprite sprite = new Sprite();
+                sprite = Resources.Load<Sprite>("Sprits/Search/back_to_HQ_button");
+                child.gameObject.GetComponent<Image>().sprite = sprite;
+                //foreach (Transform gchild in child.transform)
+                //{
+                //    if (gchild.name == "Text")
+                //    {
+                //        gchild.GetComponent<Text>().text = "戻る";
+                //    }
+                //}
             }
         }
     }
