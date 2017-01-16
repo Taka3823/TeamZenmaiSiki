@@ -290,6 +290,7 @@ MonoBehaviour:
   playerAttackController: {fileID: 114000011190699476}
   hitEffect:
   - {fileID: 1000010126171158, guid: 02b4fa1370043a044b90dc41e2e83fa3, type: 2}
+  - {fileID: 1000011403607330, guid: 67d4327a9472c664eb7ee4649eb9d08c, type: 2}
   gameoverKilledHuman: {fileID: 1000010659695836, guid: e1b7489ae0954ed44a270c78a0d0b8af,
     type: 2}
   gameoverCanvas: {fileID: 0}

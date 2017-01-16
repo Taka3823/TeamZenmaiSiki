@@ -3407,6 +3407,11 @@ Prefab:
       propertyPath: playerSTRText
       value: 
       objectReference: {fileID: 1140108738}
+    - target: {fileID: 114000013212537034, guid: e0fb2fbd251d4b54498fe13ad3987af6,
+        type: 2}
+      propertyPath: gameoverCanvas
+      value: 
+      objectReference: {fileID: 1540507476}
     - target: {fileID: 114000012860399674, guid: e0fb2fbd251d4b54498fe13ad3987af6,
         type: 2}
       propertyPath: playerHP

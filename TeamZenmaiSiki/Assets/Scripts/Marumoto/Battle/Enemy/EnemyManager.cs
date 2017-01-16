@@ -118,6 +118,7 @@ public class EnemyManager : MonoBehaviour {
         CollisionPath = new List<string>();
         Size = new List<Vector3>();
         Dead = new List<bool>();
+		CoreNum = new List<int>();
         DeadNum = 0;
 
         Pos = BattleManager.Instance.getPos();
