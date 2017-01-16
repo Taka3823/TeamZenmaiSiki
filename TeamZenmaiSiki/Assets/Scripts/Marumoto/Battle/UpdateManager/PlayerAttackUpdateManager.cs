@@ -26,8 +26,8 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 	enum HitEffectName
 	{
 		BLOOD_MARK = 0,
-		BLOOD_SPLASH,
-		BULLET_SPARK
+		BULLET_SPARK,
+		BLOOD_SPLASH
 	}
 
     //FIXME:緊急措置
@@ -37,7 +37,7 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
     [SerializeField]
     PlayerAttackController playerAttackController;
 
-	[SerializeField, Tooltip("血痕、血しぶき、跳弾火花の順番に登録")]
+	[SerializeField, Tooltip("血痕、跳弾火花、血しぶき、の順番に登録")]
 	List<GameObject> hitEffect;
 
 	[SerializeField]
@@ -126,6 +126,9 @@ public class PlayerAttackUpdateManager : MonoBehaviour {
 		{
 			int _enemyCoreDEF = EnemyManager.Instance.CoreDEF[EnemyManager.Instance.CurrentTargetIndex];
 			EnemyManager.Instance.ToEnemyCoreDamage(calculation.CalcDamage(playerSTR, _enemyCoreDEF));
+			StartCoroutine(CreateEffect(hitEffect[(int)HitEffectName.BULLET_SPARK],
+										SecondaryCirclePos,
+										0.0f));
 			if (hitIndex == (int)PartsName.CORE_1)
 			{
 				AudioManager.Instance.PlaySe("coredam.wav", delayTime);
