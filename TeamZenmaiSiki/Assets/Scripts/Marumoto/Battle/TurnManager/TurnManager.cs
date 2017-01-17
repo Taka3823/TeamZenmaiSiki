@@ -185,6 +185,18 @@ public class TurnManager : MonoBehaviour {
 		Invoke("LoadSceneSearch", _waitTime);
     }
 
+	public void ReturnSearch(string _seName)
+	{
+		float _waitTime = 1.5f;
+		DataManager.PlayerDatas _playerData = DataManager.Instance.PlayerData;
+		_playerData.hp = enemyAttackController.PlayerHP;
+		DataManager.Instance.PlayerData = _playerData;
+		AudioManager.Instance.PlaySe(_seName);
+
+		FadeManager.Instance.FadeInOut(_waitTime - 0.1f, 0.4f);
+		Invoke("LoadSceneSearch", _waitTime);
+	}
+
 	private void LoadSceneSearch()
 	{
 		SceneManager.LoadScene("Search");

@@ -339,15 +339,15 @@ RectTransform:
   m_GameObject: {fileID: 163999378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1927049488}
   m_RootOrder: 0
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -120, y: 25}
-  m_SizeDelta: {x: 200, y: 80}
+  m_AnchoredPosition: {x: -125, y: 27}
+  m_SizeDelta: {x: 166, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &163999380
 MonoBehaviour:
@@ -389,7 +389,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1242918446}
-        m_MethodName: ReturnToSearch
+        m_MethodName: ReturnSearch
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -420,7 +420,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 946c86b0720926549a0a2a0a3ee7fcce, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -456,8 +456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d7291d10e9c4147b3def7ec1df35e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteByOn: {fileID: 21300000, guid: e4d97c911466f37458722a9b29947ff5, type: 3}
-  spriteByOff: {fileID: 21300000, guid: 946c86b0720926549a0a2a0a3ee7fcce, type: 3}
+  spriteByOn: {fileID: 21300000, guid: 02e2e41ad31a9d147b219959698cf662, type: 3}
+  spriteByOff: {fileID: 21300000, guid: 02de52197c3cb2f46a032181f65c0bd2, type: 3}
   image: {fileID: 163999381}
   button: {fileID: 163999380}
 --- !u!1 &192518285
@@ -625,15 +625,15 @@ RectTransform:
   m_GameObject: {fileID: 300956832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1927049488}
   m_RootOrder: 1
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -310, y: 25}
-  m_SizeDelta: {x: 200, y: 80}
+  m_AnchoredPosition: {x: -309, y: 27}
+  m_SizeDelta: {x: 166, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300956834
 MonoBehaviour:
@@ -710,14 +710,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.984}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8ff3aa01df72fc7438181e4cdb1535f3, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -768,8 +768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d7291d10e9c4147b3def7ec1df35e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteByOn: {fileID: 21300000, guid: 8ff3aa01df72fc7438181e4cdb1535f3, type: 3}
-  spriteByOff: {fileID: 21300000, guid: 7029419b421c1dd40b47ca112dbccdfc, type: 3}
+  spriteByOn: {fileID: 21300000, guid: 226596dc28e01c344947a73ea45b3eb0, type: 3}
+  spriteByOff: {fileID: 21300000, guid: d755cd96892581e4fa8e8d066d5f5f87, type: 3}
   image: {fileID: 300956835}
   button: {fileID: 300956834}
 --- !u!1 &337891304
@@ -1809,7 +1809,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000012332999272, guid: cfd224bb46dab9948b0e3cd8f013bfdb, type: 2}
       propertyPath: m_Name
-      value: PlayerStatus
+      value: PlayerStatusWindow
       objectReference: {fileID: 0}
     - target: {fileID: 224000012230625862, guid: cfd224bb46dab9948b0e3cd8f013bfdb,
         type: 2}
@@ -1825,7 +1825,7 @@ Prefab:
         type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a5256616f034f5b49934d303de07f798,
+      objectReference: {fileID: 21300000, guid: 997c2f73ce1cb0947a4f302b77b5bffd,
         type: 3}
     - target: {fileID: 114000010559462556, guid: cfd224bb46dab9948b0e3cd8f013bfdb,
         type: 2}
