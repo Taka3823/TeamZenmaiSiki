@@ -39,9 +39,19 @@ public class ButtonReaction : MonoBehaviour
         DataManager.Instance.ScenarioChapterNumber = this.chapterNumber - 1;
         DataManager.Instance.ScenarioSectionNumber = this.sectionNumber;
 
+        float waittime = 1.0f;
+        FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
+        Invoke("SceneChange", waittime);
+
         //TIPS:本番はこっち
-        SceneManager.LoadScene("Scenario");
+        
         //TIPS:デバッグ用
         //SceneManager.LoadScene("Search");
     }
+
+    void SceneChange()
+    {
+        SceneManager.LoadScene("Scenario");
+    }
+
 }

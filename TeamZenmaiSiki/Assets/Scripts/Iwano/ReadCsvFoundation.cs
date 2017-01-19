@@ -8,7 +8,7 @@ using System.IO;
 public class ReadCsvFoundation : MonoBehaviour
 {
     //第一引数…読み込むCSVデータファイルのパス　
-    public static string[] ReadCsvData(string path_)
+    public static string[] ReadCsvData(string path_, UnityEngine.UI.Text text = null)
     {
         //ファイル読み込み
         //StreamReader sr = new StreamReader(path_);
@@ -17,11 +17,20 @@ public class ReadCsvFoundation : MonoBehaviour
 
         while(!www.isDone)
         {
-           
+           if(text != null)
+            {
+                text.text = "通信中";
+            }
         }
 
         //stringに変換
         string strStream = www.text;//sr.ReadToEnd();
+
+        if (text != null)
+        {
+            text.text = strStream;
+        }
+
 
         //カンマとカンマの間に何もなかったら格納しないことにする設定
         System.StringSplitOptions option = StringSplitOptions.RemoveEmptyEntries;
