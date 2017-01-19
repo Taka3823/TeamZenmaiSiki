@@ -23,10 +23,11 @@ public class CircleManager : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void LateUpdate ()
+	void Update ()
     {
         CircleStatusChange();
 	}
+
 #if UNITY_EDITOR || UNITY_STANDALONE
     /// <summary>
     /// 左クリックされた回数をカウント。
@@ -35,7 +36,9 @@ public class CircleManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return; 
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+			if (BattleTabManager.Instance.IsAnyDisplaying()) return;
+			if (BattleTabManager.Instance.isPullingTab) return;
             clickCount++;
         }
     }

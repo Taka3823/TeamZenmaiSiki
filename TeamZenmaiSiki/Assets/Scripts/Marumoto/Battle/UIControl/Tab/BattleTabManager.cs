@@ -21,12 +21,14 @@ public class BattleTabManager : MonoBehaviour {
 	const int GOING_NUM = 0;
 	const int RETURN_NUM = 1;
 
+	public bool isPullingTab = false;
+
 	void Awake()
 	{
 		if (instance == null) { instance = this; }
 	}
 
-	void Update()
+	void LateUpdate()
 	{
 		DragBegin();
 		DragEnd();
@@ -91,13 +93,8 @@ public class BattleTabManager : MonoBehaviour {
 	void DragBegin()
 	{
 		if (!IsTappingDown()) return;
-#if UNITY_STANDALONE
-		beginMousePos = Input.mousePosition;
+		SetupBeginPos();
 
-#elif UNITY_ANDROID
-		Touch _touch = Input.GetTouch(0);
-		beginMousePos = _touch.position;
-#endif
 		RaycastHit2D hit2D = Raycast();
 		if (hit2D.collider)
 		{
@@ -108,6 +105,7 @@ public class BattleTabManager : MonoBehaviour {
 			if (hit2D.transform.tag == "InfoTab")
 			{
 				hit2D.transform.SetAsLastSibling();
+				isPullingTab = true;
 			}
 		}
 	}
@@ -115,12 +113,9 @@ public class BattleTabManager : MonoBehaviour {
 	void DragEnd()
 	{
 		if (!IsTappingUp()) return;
-#if UNITY_STANDALONE
-		endMousePos = Input.mousePosition;
-#elif UNITY_ANDROID
-		Touch _touch = Input.GetTouch(0);
-		endMousePos = _touch.position;
-#endif
+		isPullingTab = false;
+		SetupEndPos();
+
 		if (!IsDrag()) return;
 
 		RaycastHit2D hit2D = Raycast();
@@ -163,5 +158,26 @@ public class BattleTabManager : MonoBehaviour {
 		}
 #endif
 		return false;
+	}
+
+	void SetupBeginPos()
+	{
+#if UNITY_STANDALONE
+		beginMousePos = Input.mousePosition;
+
+#elif UNITY_ANDROID
+		Touch _touch = Input.GetTouch(0);
+		beginMousePos = _touch.position;
+#endif
+	}
+
+	void SetupEndPos()
+	{
+#if UNITY_STANDALONE
+		endMousePos = Input.mousePosition;
+#elif UNITY_ANDROID
+		Touch _touch = Input.GetTouch(0);
+		endMousePos = _touch.position;
+#endif
 	}
 }
