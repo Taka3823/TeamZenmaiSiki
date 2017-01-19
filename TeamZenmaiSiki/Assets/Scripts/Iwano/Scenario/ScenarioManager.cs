@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using UnityEngine.SceneManagement;
 
-public class ScenarioManager : MonoBehaviour,ISceneBase
+public class ScenarioManager : MonoBehaviour, ISceneBase
 {
     [SerializeField]
     Text[] uiText;
@@ -43,21 +43,22 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     {
         get { return Time.time > timeElapsed + timeUntilDisplay; }
     }
-    
+
     void Start()
-    { 
-        ReadScenario.Instance.ReadFile(DataManager.Instance.ScenarioChapterNumber,DataManager.Instance.ScenarioSectionNumber);
+    {
+        ReadScenario.Instance.ReadFile(DataManager.Instance.ScenarioChapterNumber, DataManager.Instance.ScenarioSectionNumber);
 
         scenariosData = new ReadScenario.ScenariosData[ReadScenario.Instance.ScenariosDatas.Length];
         scenariosData = ReadScenario.Instance.ScenariosDatas;
 
         maxScenariosDataElement = scenariosData.Length;
-   
+
         SetNextLine(currentLine);
     }
 
     void Update()
     {
+
         // 文字の表示が完了してるならクリック時に次の行を表示する
         if (IsCompleteDisplayText)
         {
@@ -90,7 +91,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
                 timeUntilDisplay = 0;
             }
         }
-        
+
         //クリックから経過した時間が想定表示時間の何%か確認し、表示文字数を出す
         int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * drawSentences[lineNumber].Length + 1);
 
@@ -98,12 +99,26 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         // 表示文字数が前回の表示文字数と異なるならテキストを更新する
         if (displayCharacterCount != lastUpdateCharacter)
         {
-            if(drawSentences[lineNumber].Length < displayCharacterCount)
+            if (drawSentences[lineNumber].Length < displayCharacterCount)
             {
                 displayCharacterCount = drawSentences[lineNumber].Length;
             }
 
             uiText[lineNumber].text = drawSentences[lineNumber].Substring(0, displayCharacterCount);
+
+            float a;
+
+            if (FadeManager.Instance.IsFadeEffect())
+            {
+                a = 0;
+            }
+            else
+            {
+                a = 1;
+            }
+
+            uiText[lineNumber].color = new Color(0, 0, 0, a);
+
             lastUpdateCharacter = displayCharacterCount;
         }
     }
@@ -143,7 +158,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     void ExcuteSentenceSystem(int elementNum_)
     {
         drawSentences[elementNum_] = scenariosData[currentLine].sentences[elementNum_];
-        
+
         if (scenariosData[currentLine].charaSprite[elementNum_] != "" &&
             scenariosData[currentLine].drawCharacterPos != "" &&
             scenariosData[currentLine].charaSprite[elementNum_] != null)
@@ -151,7 +166,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
             DrawManager.Instance.DrawCharacter(scenariosData[currentLine].drawCharacterPos, scenariosData[currentLine].charaSprite[elementNum_]);
         }
 
-        if(scenariosData[currentLine].drawCharacterPos != null)
+        if (scenariosData[currentLine].drawCharacterPos != null)
         {
             DrawManager.Instance.DrawBalloon(scenariosData[currentLine].drawCharacterPos);
         }
@@ -190,7 +205,7 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
             DrawManager.Instance.DrawBackGround(scenariosData[currentLine].backGround[elementNum_]);
         }
 
-        if(scenariosData[currentLine].drawCharacterPos != "" &&
+        if (scenariosData[currentLine].drawCharacterPos != "" &&
            scenariosData[currentLine].charaSprite[elementNum_] == "")
         {
             DrawManager.Instance.EraseTheCharacter(scenariosData[currentLine].drawCharacterPos);
@@ -206,15 +221,15 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
         int chapterNum = DataManager.Instance.ScenarioChapterNumber;
         int sectionNum = DataManager.Instance.ScenarioSectionNumber;
 
-        if(DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
+        if (DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
         {
-            float waittime = 0.4f;
-            FadeManager.Instance.FadeInOut(waittime-0.1f, 2);
-            Invoke("ScenarioChoiceLoad",waittime);
+            float waittime = 1.4f;
+            FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
+            Invoke("ScenarioChoiceLoad", waittime);
         }
         else
         {
-            float waittime = 0.4f;
+            float waittime = 1.4f;
             FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
             Invoke("ScenarioSearchLoad", waittime);
         }
@@ -230,12 +245,12 @@ public class ScenarioManager : MonoBehaviour,ISceneBase
     {
         SceneChange("Search");
     }
-    
+
     public void SceneChange(string nextSceneName_)
     {
         SceneManager.LoadScene(nextSceneName_);
-        
-        if(nextSceneName_ == "Search")
+
+        if (nextSceneName_ == "Search")
         {
             DataManager.Instance.CameraPos = Vector3.zero;
         }

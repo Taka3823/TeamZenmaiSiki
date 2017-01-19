@@ -63,6 +63,8 @@ public class DrawManager : MonoBehaviour
 
     Image baloonImage;
 
+    bool isFirst = false;
+
     void Awake()
     {
         if (this != Instance)
@@ -120,7 +122,7 @@ public class DrawManager : MonoBehaviour
     {
         Debug.Log(posName_);
         Debug.Log(imagePath_);
-        
+
         if (posName_ == "右")
         {
             rightImage.sprite = charaImageDictionary[imagePath_];
@@ -194,6 +196,25 @@ public class DrawManager : MonoBehaviour
 
     //背景の画像を変えるときに使用
     public void DrawBackGround(string pathName_)
+    {
+        if (isFirst)
+        {
+            // FadeManager.Instance.FadeInOut(1.5f, 0.5f);
+
+            FadeManager.Instance.FadeInActionFadeout(1.5f, 0.5f, () => { BackChange(pathName_); });
+
+            return;
+        }
+
+        if (!isFirst)
+        {
+            isFirst = true;
+        }
+
+        backGroundImage.sprite = backGroundImageDictionary[pathName_];
+    }
+
+    void BackChange(string pathName_)
     {
         backGroundImage.sprite = backGroundImageDictionary[pathName_];
     }
