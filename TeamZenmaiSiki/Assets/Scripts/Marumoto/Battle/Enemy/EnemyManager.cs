@@ -139,7 +139,7 @@ public class EnemyManager : MonoBehaviour {
         for (int i = 0; i < EnemyElems; i++)
         {
 #if UNITY_STANDALONE
-			string _collisionPath = "file://" + Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
+			string _collisionPath = "file://" + Application.streamingAssetsPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
 #elif UNITY_ANDROID
 			string _collisionPath = "jar:file://" + Application.dataPath + "/CSVFiles/Battle/Collision/" + DataManager.Instance.EnemyInternalDatas[i].collisionPass;
 #endif
