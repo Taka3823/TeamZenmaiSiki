@@ -181,9 +181,9 @@ public class ReadScenario : MonoBehaviour
         //ReadFileを呼ぶときに引数で渡すほうがいいかも？
 
 #if UNITY_STANDALONE
-        string path = "file://" + Application.dataPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
+        string path = "file://" + Application.streamingAssetsPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
 #elif UNITY_ANDROID
-        string path = "jar:file://" + Application.dataPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
+        string path = "jar:file://" + Application.dataPath + "!/assets" + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
 #endif
 
         //Debug.Log(path);
