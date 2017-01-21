@@ -9,9 +9,6 @@ using System.IO;
 
 public class ReadDirective : MonoBehaviour
 {
-    [SerializeField]
-    Text text;
-
     //DirectiveDataのデータの順番と一致させる
     enum ElementName
     {
@@ -66,12 +63,7 @@ public class ReadDirective : MonoBehaviour
         string path = "jar:file://" + Application.dataPath + "!/assets" + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
 #endif
 
-        //string path = "file://" + Application.streamingAssetsPath + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
-
-        //デバッグ用
-        text.text = path;
-
-        string[] lines = ReadCsvFoundation.ReadCsvData(path, text);
+        string[] lines = ReadCsvFoundation.ReadCsvData(path);
 
         didCommaSeparrationData = new string[lines.Length];
 
