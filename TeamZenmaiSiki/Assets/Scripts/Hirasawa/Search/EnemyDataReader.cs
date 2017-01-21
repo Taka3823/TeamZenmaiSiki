@@ -36,7 +36,7 @@ public class EnemyDataReader : MonoBehaviour
     public void ReadData(int episodeNum, int stageNum, int unitNumber)
     {
         //ステージまでのパスを取得
-        string pass = "file://" + Application.dataPath +
+        string pass = "file://" + Application.streamingAssetsPath +
             "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
 
         string[] str = ReadCsvFoundation.ReadCsvData(pass + "Unit" + unitNumber.ToString() + ".csv");
