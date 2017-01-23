@@ -62,7 +62,6 @@ public class ReadDirective : MonoBehaviour
 #elif UNITY_ANDROID
         string path = "jar:file://" + Application.dataPath + "!/assets" + "/CSVFiles/ScenarioChoice/" + pathName[chapterNumber_ - 1];
 #endif
-
         string[] lines = ReadCsvFoundation.ReadCsvData(path);
 
         didCommaSeparrationData = new string[lines.Length];

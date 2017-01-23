@@ -38,9 +38,13 @@ public class UnitCreater : MonoBehaviour {
 	}
     private void ReadUnitData(int episodeNum,int stageNum)//Unitの
     {
+#if UNITY_STANDALONE
         string pass = "file://" + Application.streamingAssetsPath +
-       "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
-
+                   "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+#elif UNITY_ANDROID
+        string pass = "jar:file://" + Application.dataPath + "!/assets" +  "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+#endif
+      
         //そのステージのUnitがどのポジションにいるかを取得
         string[] unitPosition = ReadCsvFoundation.ReadCsvData(pass + "UnitsPos.csv");
         char[] commaSpliter = { ',' };

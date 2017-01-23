@@ -21,6 +21,9 @@ public class PrimaryCircle : MonoBehaviour
         primaryAngle = Mathf.PI / 2;
     }
 
+	/// <summary>
+	/// 最初のサークルのスケールを大小させる。
+	/// </summary>
     public void PrimaryScaling()
     {
         transform.localScale = primaryCircleScale + new Vector3((diffCircleRadius / 2) + (diffCircleRadius / 2) * Mathf.Sin(primaryAngle),

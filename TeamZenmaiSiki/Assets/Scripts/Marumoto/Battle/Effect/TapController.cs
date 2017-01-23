@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 画面タップ音の管理。
+/// </summary>
 public class TapController : MonoBehaviour {
 
 	void Update()

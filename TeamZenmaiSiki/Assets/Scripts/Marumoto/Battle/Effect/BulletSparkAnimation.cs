@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// 銃弾のヒット判定がコアフレームだった時の跳弾のスプライトアニメーション。
+/// </summary>
 public class BulletSparkAnimation : MonoBehaviour {
-	int count = 0;
 	float time = 0.0f;
 
 	void Update ()

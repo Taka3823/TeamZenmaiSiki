@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// エネミーの当たり判定。
+/// 細かい部位ごとに判定を取るために、30*30のマップチップ方式で当たり判定を取っている。
+/// </summary>
 public class EnemyCollision {
 
+	/// <summary>
+	/// 当たり判定。
+	/// </summary>
+	/// <param name="_enemyPos">エネミーの位置。</param>
+	/// <param name="_circlePos">止まったSecondaryCircleの位置。</param>
+	/// <param name="_enemySize">エネミーのScale</param>
+	/// <returns>当たった部位がどこなのか示すint値を返す。はずれ0:, 胴体:1…など。</returns>
     public int Collision(Vector3 _enemyPos, Vector3 _circlePos, Vector3 _enemySize)
     {
         float _division = 30;
@@ -26,6 +36,13 @@ public class EnemyCollision {
         return 0;
     }
 
+	/// <summary>
+	/// ただ単にヒットしているかどうか。
+	/// </summary>
+	/// <param name="_min">画像の最小位置。</param>
+	/// <param name="_max">画像の最大位置。</param>
+	/// <param name="_hitPos">当たったとされる位置。</param>
+	/// <returns></returns>
     private bool IsHit(Vector2 _min, Vector2 _max, Vector3 _hitPos)
     {
         if (!((_min.x <= _hitPos.x) && (_max.x >= _hitPos.x))) return false;

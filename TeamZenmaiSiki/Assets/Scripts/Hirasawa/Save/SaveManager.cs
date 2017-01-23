@@ -177,8 +177,12 @@ public class SaveManager : MonoBehaviour
     }
     void AllRead()
     {
+#if UNITY_STANDALONE
         string path = "file://" + Application.streamingAssetsPath +
                    "/CSVFiles/Save/SaveChapter";
+#elif UNITY_ANDROID
+        string path = "jar:file://" + Application.dataPath + "!/assets" +  "/CSVFiles/Save/SaveChapter";
+#endif
 
         char[] commaSpliter = { ',' };
 

@@ -106,18 +106,18 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
             uiText[lineNumber].text = drawSentences[lineNumber].Substring(0, displayCharacterCount);
 
-            float a;
+            float alfa;
 
             if (FadeManager.Instance.IsFadeEffect())
             {
-                a = 0;
+                alfa = 0;
             }
             else
             {
-                a = 1;
+                alfa = 1;
             }
 
-            uiText[lineNumber].color = new Color(0, 0, 0, a);
+            uiText[lineNumber].color = new Color(0, 0, 0, alfa);
 
             lastUpdateCharacter = displayCharacterCount;
         }
@@ -223,15 +223,15 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
         if (DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
         {
-            float waittime = 1.4f;
-            FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
-            Invoke("ScenarioChoiceLoad", waittime);
+            float waitTime = 1.4f;
+            FadeManager.Instance.FadeInOut(waitTime - 0.1f, 2);
+            Invoke("ScenarioChoiceLoad", waitTime);
         }
         else
         {
-            float waittime = 1.4f;
-            FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
-            Invoke("ScenarioSearchLoad", waittime);
+            float waitTime = 1.4f;
+            FadeManager.Instance.FadeInOut(waitTime - 0.1f, 2);
+            Invoke("ScenarioSearchLoad", waitTime);
         }
     }
 

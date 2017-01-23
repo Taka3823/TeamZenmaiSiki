@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 戦闘シーンのエネミーのデータを管理。
+/// DataManagerからの引用は別の担当者が作ったので、私はさらにその値を引っ張りました。
+/// </summary>
 public class EnemyManager : MonoBehaviour {
     private static EnemyManager instance;
     public static EnemyManager Instance
@@ -87,10 +91,19 @@ public class EnemyManager : MonoBehaviour {
 
     public int DeadNum { get; set; }
 
+	/// <summary>
+	/// DataManagerのエネミーデータの構造体を取得。
+	/// </summary>
 	List<EnemyData.EnemyInternalDatas> enemyData = new List<EnemyData.EnemyInternalDatas>();
 
+	/// <summary>
+	/// 当たり判定のデータ
+	/// </summary>
 	CollisionData collisionData;
 
+	/// <summary>
+	/// 当たり判定のCSVのPath
+	/// </summary>
     public List<string> CollisionPath { get; private set; }
     private Vector3 baseScale;
 
@@ -174,7 +187,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// まだアニメーションがない為自作した敵の攻撃を可視化するための関数。
+    /// まだ敵からの攻撃アニメーションがない為自作した。敵の攻撃を可視化するための関数。
     /// </summary>
     /// <param name="_index">攻撃させたいエネミーのIndex</param>
     public IEnumerator AttackMotion(int _index)

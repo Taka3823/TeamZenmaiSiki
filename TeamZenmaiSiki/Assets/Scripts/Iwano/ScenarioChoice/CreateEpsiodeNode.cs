@@ -78,6 +78,7 @@ public class CreateEpsiodeNode : MonoBehaviour
         GameObject child = obj.transform.FindChild("EpisodeName").gameObject;
         GameObject grandChild = child.transform.FindChild("Text").gameObject;
 
+        //grandChild.GetComponent<Text>().font
         grandChild.GetComponent<Text>().fontSize = 60;
         grandChild.GetComponent<Text>().color = new Color(1,1,1,0.5f);
         

@@ -50,9 +50,12 @@ public class MapManager : MonoBehaviour {
     string ReadMapIndex(int episode,int stage)
     {
         string readnum = episode.ToString() + "_" + stage.ToString();
-
+#if UNITY_STANDALONE
         string pass = "file://" + Application.streamingAssetsPath +
-          "/CSVFiles/Search/Map/MapIndex.csv";
+                    "/CSVFiles/Search/Map/MapIndex.csv";
+#elif UNITY_ANDROID
+        string pass = "jar:file://" + Application.dataPath + "!/assets" +   "/CSVFiles/Search/Map/MapIndex.csv";
+#endif
 
         string[] str = ReadCsvFoundation.ReadCsvData(pass);
         char[] commaSpliter = { ',' };
@@ -71,9 +74,14 @@ public class MapManager : MonoBehaviour {
     }
     string[] ReadMapSetData(string mapType)
     {
+        //string pass = "file://" + Application.streamingAssetsPath +
+        //  "/CSVFiles/Search/Map/MapType.csv";
+#if UNITY_STANDALONE
         string pass = "file://" + Application.streamingAssetsPath +
-          "/CSVFiles/Search/Map/MapType.csv";
-
+                     "/CSVFiles/Search/Map/MapType.csv";
+#elif UNITY_ANDROID
+        string pass = "jar:file://" + Application.dataPath + "!/assets" +    "/CSVFiles/Search/Map/MapType.csv";
+#endif
         string[] str = ReadCsvFoundation.ReadCsvData(pass);
         char[] commaSpliter = { ',' };
         for (int i = 1; i < str.Length; i++)
