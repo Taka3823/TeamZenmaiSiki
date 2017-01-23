@@ -146,7 +146,8 @@ public class SaveManager : MonoBehaviour
     }
     void Write(int chapter,int section, SaveData data)
     {
-        string path = Application.streamingAssetsPath + "/CSVFiles/Save/SaveChapter" + (chapter + 1).ToString() + ".csv";//書き込み聞く
+        string path = Application.streamingAssetsPath + "/CSVFiles/Save/SaveChapter" + (chapter + 1).ToString() + ".csv";
+        //書き込み聞く
         StreamWriter sw = new StreamWriter(path, false); //true=追記 false=上書き
         sw.WriteLine("セクション数,そのセクションをクリアしたか,倒した敵の数,達成した特別指令数");
         for (int i = 0; i < savedata[chapter].Count; i++)
