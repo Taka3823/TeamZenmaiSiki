@@ -5,8 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+
 public class ReadScenario : MonoBehaviour
 {
+    [SerializeField]
+    UnityEngine.UI.Text text;
+
+
     private static ReadScenario instance;
 
     public static ReadScenario Instance
@@ -81,83 +86,83 @@ public class ReadScenario : MonoBehaviour
     {
         //一章
         {
-            "ep1",
-            "ep1_2",
-            "ep1_3",
-            "ep1_4",
-            "ep1_5",//以下数合わせ
+            "Ep1",
+            "Ep1_2",
+            "Ep1_3",
+            "Ep1_4",
+            "Ep1_5",//以下数合わせ
         },
         //二章
         {
-            "ep2",
-            "ep2_2",
-            "ep2_3",
-            "ep2_4",
-            "ep2_5"
+            "Ep2",
+            "Ep2_2",
+            "Ep2_3",
+            "Ep2_4",
+            "Ep2_5"
         },
         //三章
         {
-            "ep3",
-            "ep3_2",
-            "ep3_3",
-            "ep3_4",
-            "ep3_5",//数合わせ
+            "Ep3",
+            "Ep3_2",
+            "Ep3_3",
+            "Ep3_4",
+            "Ep3_5",//数合わせ
         },
         //四章
         {
-            "ep4",
-            "ep4_2",
-            "ep4_3",
-            "ep4_4",
-            "ep4_5"//数合わせ
+            "Ep4",
+            "Ep4_2",
+            "Ep4_3",
+            "Ep4_4",
+            "Ep4_5"//数合わせ
         },
         //五章
         {
-            "ep5",
-            "ep5_2",
-            "ep5_3",
-            "ep5_4",
-            "ep5_5"//数合わせ
+            "Ep5",
+            "Ep5_2",
+            "Ep5_3",
+            "Ep5_4",
+            "Ep5_5"//数合わせ
         },
         //六章
         {
-            "ep6",
-            "ep6_2",
-            "ep6_3",
-            "ep6_4",
-            "ep6_5"//数合わせ
+            "Ep6",
+            "Ep6_2",
+            "Ep6_3",
+            "Ep6_4",
+            "Ep6_5"//数合わせ
         },
         //七章
         {
-            "ep7",
-            "ep7_2",
-            "ep7_3",
-            "ep7_4",
-            "ep7_5"//数合わせ
+            "Ep7",
+            "Ep7_2",
+            "Ep7_3",
+            "Ep7_4",
+            "Ep7_5"//数合わせ
         },
         //八章
         {
-            "ep8",
-            "ep8_2",
-            "ep8_3",
-            "ep8_4",//以下数合わせ
-            "ep8_5"
+            "Ep8",
+            "Ep8_2",
+            "Ep8_3",
+            "Ep8_4",//以下数合わせ
+            "Ep8_5"
         },
         //九章
         {
-            "ep9",
-            "ep9_2",
-            "ep9_3",//以下数合わせ
-            "ep9_4",
-            "ep9_5"
+            "Ep9",
+            "Ep9_2",
+            "Ep9_3",//以下数合わせ
+            "Ep9_4",
+            "Ep9_5"
         },
         //十章
         {
-            "ep10",
-            "ep10_2",
-            "ep10_3",
-            "ep10_4",//以下数合わせ
-            "ep10_5"
+            "Ep10",
+            "Ep10_2",
+            "Ep10_3",
+            "Ep10_4",//以下数合わせ
+            "Ep10_5"
         }
     };
 
@@ -174,17 +179,22 @@ public class ReadScenario : MonoBehaviour
     //ファイル読み込みをしてくれる
     //第一引数…読み込みたいシナリオの名前を入力。
     //TIPS：内部でファイルまでのパスは記述しているので、名前だけで大丈夫
-    public void ReadFile(int chapterNumber_,int sectionNumber_)
+    public void ReadFile(int chapterNumber_, int sectionNumber_)
     {
         //読み込むパスを決定
         //FIXED:データマネージャーからのデータの受け取りは、
         //ReadFileを呼ぶときに引数で渡すほうがいいかも？
 
 #if UNITY_STANDALONE
-        string path = "file://" + Application.streamingAssetsPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
+        string path = "file://" + Application.streamingAssetsPath + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_, sectionNumber_] + ".csv";
 #elif UNITY_ANDROID
         string path = "jar:file://" + Application.dataPath + "!/assets" + "/CSVFiles/Scenario/Ep" + (DataManager.Instance.ScenarioChapterNumber + 1) + "/" + scenarioDictionary[chapterNumber_,sectionNumber_] + ".csv";
 #endif
+        if(text != null)
+        {
+            text.text = path;
+        }
+
 
         //Debug.Log(path);
 
@@ -216,7 +226,7 @@ public class ReadScenario : MonoBehaviour
         {
             //一行をカンマわけされたデータを格納
             didCommaSeparationData = DataSeparation(lines[i], commaSplitter, CSVDATA_ELEMENTS);
-            
+
             scenariosData[i].command = didCommaSeparationData[(int)ElementNames.command];
 
             if (scenariosData[i].command != COMMAND_DRAW)
@@ -295,7 +305,7 @@ public class ReadScenario : MonoBehaviour
         scenariosData[elementNum_].sentences.Add(didCommaSeparationData[(int)ElementNames.sentences]);
 
         scenariosData[elementNum_].backGround.Add(didCommaSeparationData[(int)ElementNames.backGround]);
-       
+
         scenariosData[elementNum_].backGroundBgm.Add(didCommaSeparationData[(int)ElementNames.backGroundBgm]);
         scenariosData[elementNum_].soundEffect.Add(didCommaSeparationData[(int)ElementNames.soundEffect]);
 

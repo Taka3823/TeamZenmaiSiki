@@ -36,8 +36,12 @@ public class EnemyDataReader : MonoBehaviour
     public void ReadData(int episodeNum, int stageNum, int unitNumber)
     {
         //ステージまでのパスを取得
+#if UNITY_STANDALONE
         string pass = "file://" + Application.streamingAssetsPath +
-            "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+                   "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+#elif UNITY_ANDROID
+        string pass = "jar:file://" + Application.dataPath + "!/assets" +  "/CSVFiles/Search/EnemyData/Episode" + episodeNum.ToString() + "/Stage" + stageNum.ToString() + "/";
+#endif
 
         string[] str = ReadCsvFoundation.ReadCsvData(pass + "Unit" + unitNumber.ToString() + ".csv");
         char[] commaSpliter = { ',' };
