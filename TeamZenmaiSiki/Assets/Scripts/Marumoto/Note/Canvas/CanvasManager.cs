@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 手記シーンでのキャンバス内を管理。
+/// </summary>
 public class CanvasManager : MonoBehaviour {
     private static CanvasManager instance;
     public static CanvasManager Instance { get { return instance; } }

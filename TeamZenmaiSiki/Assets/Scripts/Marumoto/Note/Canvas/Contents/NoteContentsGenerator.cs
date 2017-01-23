@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// CSVデータを元に実際にコンテンツを生成。
+/// </summary>
 public class NoteContentsGenerator : MonoBehaviour {
     [SerializeField]
     GameObject noteContentsVerFlick;
