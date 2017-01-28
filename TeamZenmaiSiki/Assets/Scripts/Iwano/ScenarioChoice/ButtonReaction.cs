@@ -7,6 +7,13 @@ public class ButtonReaction : MonoBehaviour
 {
     DataInit dataInit = new DataInit();
 
+    private GameObject fade;
+
+    public GameObject Fade
+    {
+        set { fade = value; }
+    }
+
     private int chapterNumber;
 
     public int ChapterNumber
@@ -39,19 +46,17 @@ public class ButtonReaction : MonoBehaviour
         DataManager.Instance.ScenarioChapterNumber = this.chapterNumber - 1;
         DataManager.Instance.ScenarioSectionNumber = this.sectionNumber;
 
-        float waittime = 1.0f;
-        FadeManager.Instance.FadeInOut(waittime - 0.1f, 2);
-        Invoke("SceneChange", waittime);
+        fade.SetActive(true);       
+        GameObject ch = fade.transform.FindChild("RawImage").gameObject;
 
-        //TIPS:本番はこっち
+        ch.GetComponent<UnityEngine.UI.RawImage>().color = new Vector4(0, 0, 0, 0);
+        fade.GetComponent<IwanoFade>().IsFadeIn = true;
         
-        //TIPS:デバッグ用
-        //SceneManager.LoadScene("Search");
+        SceneChange();
     }
 
     void SceneChange()
     {
         SceneManager.LoadScene("Scenario");
     }
-
 }

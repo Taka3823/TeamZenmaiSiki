@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56e6a2990947ef4b94303b92d86479b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fade: {fileID: 114000013092618866, guid: 8857f77eea189c24185190dad7582240, type: 2}
 --- !u!222 &222000011375798676
 CanvasRenderer:
   m_ObjectHideFlags: 1

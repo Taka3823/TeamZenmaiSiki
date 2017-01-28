@@ -129,7 +129,7 @@ public class AudioManager : MonoBehaviour
         {
             nextBgmName = "";
             bgmAudio.clip = bgmDictionary[bgmName_] as AudioClip;
-            bgmAudio.Play();
+           // bgmAudio.Play();
         }
         else if(bgmAudio.clip.name != bgmName_)
         {

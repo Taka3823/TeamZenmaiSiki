@@ -11,7 +11,14 @@ public class CreateEpsiodeNode : MonoBehaviour
     {
         set { nodePrefab = value; }
     }
-    
+
+    private GameObject fadePrefab;
+
+    public GameObject FadePrefab
+    {
+        set { fadePrefab = value; }
+    }
+
     private ReadDirective readDirective;
 
     public ReadDirective ReadDirectiveData
@@ -28,25 +35,8 @@ public class CreateEpsiodeNode : MonoBehaviour
         set { designationChapterNum = value; }
     }
     
-    //大ちゃんからもらう数値の仮置き
-    int GetClearSectionNum = 0;
-
-    //void Start()
-    //{
-    //    DataInit();
-
-    //    Destroy(GetComponent<CreateEpsiodeNode>());
-    //}
-
     public void DataInit()
     {
-        //readDirective.ReadFile(chapterNumber);
-
-        //for (int i = 1; i < readDirective.LineLength; i++)
-        //{
-        //    CreateNode(chapterNumber, i - 1);
-        //}
-
         if(designationChapterNum <= 0)
         {
             designationChapterNum = 1;
@@ -74,6 +64,8 @@ public class CreateEpsiodeNode : MonoBehaviour
 
         obj.GetComponent<ButtonReaction>().ChapterNumber = chaptrerNum_;
         obj.GetComponent<ButtonReaction>().SectionNumber = sectionNum_;
+
+        obj.GetComponent<ButtonReaction>().Fade = fadePrefab;
 
         GameObject child = obj.transform.FindChild("EpisodeName").gameObject;
         GameObject grandChild = child.transform.FindChild("Text").gameObject;
