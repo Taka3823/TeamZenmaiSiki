@@ -132,6 +132,16 @@ public class DataManager : MonoBehaviour
         set { targetNumber = value; }
     }
 
+    //シナリオシーンからシナリオ選択シーンに帰ってくる時に使用
+    private bool isNeedFade;
+
+    public bool IsNeedFade
+    {
+        get { return isNeedFade; }
+        set { isNeedFade = value; }
+    }
+
+
     /**********************************************/
 
     //*****************************************************//

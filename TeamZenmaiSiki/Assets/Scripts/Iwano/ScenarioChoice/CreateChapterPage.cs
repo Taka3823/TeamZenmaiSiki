@@ -15,6 +15,9 @@ public class CreateChapterPage : MonoBehaviour
     GameObject nodePrefab;
 
     [SerializeField]
+    GameObject fadePrefab;
+
+    [SerializeField]
     ReadDirective readDirective;
 
     [SerializeField]
@@ -39,8 +42,9 @@ public class CreateChapterPage : MonoBehaviour
     void Start ()
     {
         //TIPS:こっちが本番
-        //for(int i = 0;i < SaveManager.Instance.GetClearChapterNum() + 1;i++)
-        for (int i = 0; i < 3 + 1; i++)
+        for(int i = 0;i < SaveManager.Instance.GetClearChapterNum() + 1;i++)
+        //Debug用
+        //for (int i = 0; i < 3 + 1; i++)
         {
             CreatePage(i);
         }
@@ -51,6 +55,7 @@ public class CreateChapterPage : MonoBehaviour
         GameObject obj = Instantiate(chapterPageBase)as GameObject;
         obj.transform.SetParent(parentObj.transform);
         obj.transform.localPosition = new Vector3(0 + Screen.width * num, 0, 0);
+        //obj.transform.localScale = new Vector2(Screen.width,Screen.height);
 
         GameObject anotherChild = obj.transform.FindChild("ChapterTitle").gameObject;
         anotherChild.GetComponent<Text>().text = title[num];
@@ -59,6 +64,7 @@ public class CreateChapterPage : MonoBehaviour
         GameObject grandChild = child.transform.FindChild("Content").gameObject;
 
         grandChild.GetComponent<CreateEpsiodeNode>().NodePrefab = nodePrefab;
+        grandChild.GetComponent<CreateEpsiodeNode>().FadePrefab = fadePrefab;
         grandChild.GetComponent<CreateEpsiodeNode>().ReadDirectiveData = readDirective;
         grandChild.GetComponent<CreateEpsiodeNode>().DesignationChapterNum = num + 1;
         grandChild.GetComponent<CreateEpsiodeNode>().DataInit();

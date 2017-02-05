@@ -120,9 +120,6 @@ public class DrawManager : MonoBehaviour
     //キャラクターを変更するときに使用
     public void DrawCharacter(string posName_, string imagePath_)
     {
-        Debug.Log(posName_);
-        Debug.Log(imagePath_);
-
         if (posName_ == "右")
         {
             rightImage.sprite = charaImageDictionary[imagePath_];
@@ -195,13 +192,22 @@ public class DrawManager : MonoBehaviour
     }
 
     //背景の画像を変えるときに使用
-    public void DrawBackGround(string pathName_)
+    public void DrawBackGround(string pathName_,IwanoFade fade)
     {
+        /**
         if (isFirst)
         {
             // FadeManager.Instance.FadeInOut(1.5f, 0.5f);
+            //FadeManager.Instance.FadeInActionFadeout(1.5f, 0.5f, () => { BackChange(pathName_); });
 
-            FadeManager.Instance.FadeInActionFadeout(1.5f, 0.5f, () => { BackChange(pathName_); });
+            if (fade != null)
+            {
+                fade.FadeInOutInit();
+            }
+
+            backGroundImage.sprite = backGroundImageDictionary[pathName_];
+
+            //StartCoroutine(BackChange(1.0f,pathName_));
 
             return;
         }
@@ -210,12 +216,23 @@ public class DrawManager : MonoBehaviour
         {
             isFirst = true;
         }
+    /**/
 
         backGroundImage.sprite = backGroundImageDictionary[pathName_];
     }
 
-    void BackChange(string pathName_)
-    {
-        backGroundImage.sprite = backGroundImageDictionary[pathName_];
-    }
+    //IEnumerator BackChange(float time_,string pathName_)
+    //{
+    //    Debug.Log(0);
+
+    //    yield return new WaitForSeconds(time_);
+
+    //    Debug.Log(1);
+    //    backGroundImage.sprite = backGroundImageDictionary[pathName_];
+    //}
+
+    //void BackChange(string pathName_)
+    //{
+    //    backGroundImage.sprite = backGroundImageDictionary[pathName_];
+    //}
 }

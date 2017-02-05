@@ -2,7 +2,6 @@
 using System.Collections;
 
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
 
 public class ScenarioManager : MonoBehaviour, ISceneBase
@@ -12,6 +11,9 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
     [SerializeField]
     Text uiName;
+
+    [SerializeField]
+    IwanoFade iwanoFade;
 
     //読み込んだシナリオデータの格納場所
     ReadScenario.ScenariosData[] scenariosData;
@@ -44,8 +46,14 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
         get { return Time.time > timeElapsed + timeUntilDisplay; }
     }
 
+    bool isFirst = true;
+
     void Start()
     {
+        iwanoFade.IsFadeOut = true;
+        iwanoFade.DuringFade = true;
+        iwanoFade.GetComponent<Canvas>().sortingOrder = 999;
+
         ReadScenario.Instance.ReadFile(DataManager.Instance.ScenarioChapterNumber, DataManager.Instance.ScenarioSectionNumber);
 
         scenariosData = new ReadScenario.ScenariosData[ReadScenario.Instance.ScenariosDatas.Length];
@@ -58,18 +66,16 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
     void Update()
     {
-
         // 文字の表示が完了してるならクリック時に次の行を表示する
-        if (IsCompleteDisplayText)
+        if (IsCompleteDisplayText && !iwanoFade.DuringFade)
         {
             //現在の行のラストまで行っていない状態でクリックするとテキストを更新
             if (lineNumber < maxSentenceElement)
             {
                 lineNumber += 1;
-
                 ExcuteSentenceSystem(lineNumber);
             }
-            else if (maxSentenceElement <= lineNumber && Input.GetMouseButtonDown(0))
+            else if (maxSentenceElement <= lineNumber && Input.GetMouseButtonDown(0) && !iwanoFade.DuringFade)
             {
                 currentLine += maxSentenceElement + 1;
 
@@ -86,40 +92,29 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
         else
         {
             // 完了してないなら文字をすべて表示する
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !iwanoFade.DuringFade)
             {
                 timeUntilDisplay = 0;
             }
         }
-
         //クリックから経過した時間が想定表示時間の何%か確認し、表示文字数を出す
         int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * drawSentences[lineNumber].Length + 1);
-
-
         // 表示文字数が前回の表示文字数と異なるならテキストを更新する
-        if (displayCharacterCount != lastUpdateCharacter)
+        if (displayCharacterCount != lastUpdateCharacter && !iwanoFade.DuringFade)
         {
             if (drawSentences[lineNumber].Length < displayCharacterCount)
             {
                 displayCharacterCount = drawSentences[lineNumber].Length;
             }
-
             uiText[lineNumber].text = drawSentences[lineNumber].Substring(0, displayCharacterCount);
-
-            float alfa;
-
-            if (FadeManager.Instance.IsFadeEffect())
-            {
-                alfa = 0;
-            }
-            else
-            {
-                alfa = 1;
-            }
-
-            uiText[lineNumber].color = new Color(0, 0, 0, alfa);
-
             lastUpdateCharacter = displayCharacterCount;
+        }
+        //Fade関連の処理
+        if (iwanoFade.IsFadeIn == false &&
+            iwanoFade.DuringFade == false &&
+            iwanoFade.CanFadeInOut == true)
+        {
+            iwanoFade.IsFadeOut = true;
         }
     }
 
@@ -142,6 +137,16 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
             maxSentenceElement = drawSentences.Length - 1;
 
+            if (scenariosData[currentLine].backGround[lineNumber] != "" &&
+               !isFirst)
+            {
+                iwanoFade.FadeInOutInit();
+            }
+            else if (isFirst)
+            {
+                isFirst = false;
+            }
+
             ExcuteSentenceSystem(lineNumber);
         }
         else if (scenariosData[currentLineNum_].command == "")
@@ -154,10 +159,16 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
         }
     }
 
+    //Sentenceコマンド時の処理
     //第一引数…文章の行番号
     void ExcuteSentenceSystem(int elementNum_)
     {
         drawSentences[elementNum_] = scenariosData[currentLine].sentences[elementNum_];
+        
+        if (scenariosData[currentLine].backGround[elementNum_] != "")
+        {   
+            DrawManager.Instance.DrawBackGround(scenariosData[currentLine].backGround[elementNum_], iwanoFade);
+        }
 
         if (scenariosData[currentLine].charaSprite[elementNum_] != "" &&
             scenariosData[currentLine].drawCharacterPos != "" &&
@@ -169,11 +180,6 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
         if (scenariosData[currentLine].drawCharacterPos != null)
         {
             DrawManager.Instance.DrawBalloon(scenariosData[currentLine].drawCharacterPos);
-        }
-
-        if (scenariosData[currentLine].backGround[elementNum_] != "")
-        {
-            DrawManager.Instance.DrawBackGround(scenariosData[currentLine].backGround[elementNum_]);
         }
 
         if (scenariosData[currentLine].backGroundBgm[elementNum_] != "")
@@ -190,7 +196,9 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
         timeElapsed = Time.time;
         lastUpdateCharacter = -1;
     }
-
+    
+    //コマンドがDrawの時の処理。
+    //背景を変えたり、キャラを削除したり挿入したりする
     void ExcuteCommandIsDraw(int elementNum_)
     {
         if (scenariosData[currentLine].charaSprite[elementNum_] != "")
@@ -202,7 +210,12 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
         if (scenariosData[currentLine].backGround[elementNum_] != "")
         {
-            DrawManager.Instance.DrawBackGround(scenariosData[currentLine].backGround[elementNum_]);
+            if (currentLine != 1)
+            {
+                iwanoFade.FadeInOutInit();
+            }
+
+            DrawManager.Instance.DrawBackGround(scenariosData[currentLine].backGround[elementNum_],iwanoFade);
         }
 
         if (scenariosData[currentLine].drawCharacterPos != "" &&
@@ -215,11 +228,27 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
 
         SetNextLine(currentLine);
     }
-
+    
+    //転移先のシーンを決める
     public void SceneAJudgment()
     {
         int chapterNum = DataManager.Instance.ScenarioChapterNumber;
         int sectionNum = DataManager.Instance.ScenarioSectionNumber;
+
+        /**
+        iwanoFade.IsFadeIn = true;
+        iwanoFade.DuringFade = true;
+        iwanoFade.GetComponent<Canvas>().sortingOrder = 999;
+        if (DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
+        {
+            SceneChange("ScenarioChoice");
+        }
+        else
+        {
+            SceneChange("Search");
+        }
+
+        /**/
 
         if (DataManager.Instance.DirectiveDatas[chapterNum][sectionNum].missionObjective == "")
         {
@@ -233,6 +262,7 @@ public class ScenarioManager : MonoBehaviour, ISceneBase
             FadeManager.Instance.FadeInOut(waitTime - 0.1f, 2);
             Invoke("ScenarioSearchLoad", waitTime);
         }
+        /**/
     }
 
     private void ScenarioChoiceLoad()
