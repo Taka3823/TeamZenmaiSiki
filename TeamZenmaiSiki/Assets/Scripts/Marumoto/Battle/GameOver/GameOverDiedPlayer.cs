@@ -36,6 +36,7 @@ public class GameOverDiedPlayer : MonoBehaviour {
 	{
 		float _startTime = Time.timeSinceLevelLoad;
 		yield return StartCoroutine(FadeEyelids(_startTime, 4.0f, topEyelid.localPosition, bottomEyelid.localPosition));
+		AudioManager.Instance.PlaySe("gameover.wav");
 		yield return StartCoroutine(FadeAlpha(gameoverImage, 0.008f));
 		yield return new WaitForSeconds(2.0f);
 		yield return StartCoroutine(FadeAlphaReverse(gameoverImage, 0.008f));

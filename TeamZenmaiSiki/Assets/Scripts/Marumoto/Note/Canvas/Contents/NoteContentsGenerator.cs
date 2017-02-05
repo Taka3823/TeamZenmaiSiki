@@ -111,6 +111,7 @@ public class NoteContentsGenerator : MonoBehaviour {
     /// <param name="_noteIndex">キャラクター内の手記の本文インデックス</param>
     public void PopupGenerate(int _charaIndex, int _noteIndex)
     {
+		AudioManager.Instance.PlaySe("note_button.wav");
         GameObject instantiatePopup = Instantiate(popup);
         instantiatePopup.transform.SetParent(this.transform, false);
         Text text = instantiatePopup.GetComponentInChildren<Text>();

@@ -57,6 +57,7 @@ public class EnemyAttackController : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
 		StartCoroutine(attackEffect.CameraShaking(0.4f, 0.4f));
 		yield return new WaitForSeconds(0.3f);
+		AudioManager.Instance.PlaySe("player_damaged.wav");
 
 		if (EnemyManager.Instance.MainSTR.Count <= 0) yield break;
 		if (PlayerHP <= 0) yield break;
