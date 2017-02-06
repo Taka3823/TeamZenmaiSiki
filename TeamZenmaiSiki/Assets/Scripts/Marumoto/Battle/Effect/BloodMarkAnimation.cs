@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 銃弾のヒット判定が生身の体だった時の出血エフェクト。
+/// </summary>
 public class BloodMarkAnimation : MonoBehaviour {
 	[SerializeField]
 	SpriteRenderer sprite;
@@ -23,6 +26,10 @@ public class BloodMarkAnimation : MonoBehaviour {
 		StartCoroutine(FadePosition());
 	}
 
+	/// <summary>
+	/// 血しぶきを次第に透明に。
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator FadeAlpha()
 	{
 		while (true)
@@ -37,6 +44,10 @@ public class BloodMarkAnimation : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 血しぶきを次第に小さくしていく。
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator FadeScale()
 	{
 		while (true)
@@ -48,6 +59,10 @@ public class BloodMarkAnimation : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 血しぶきが発生地点から落下するような動き
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator FadePosition()
 	{
 		float _fallValue = 0.0f;

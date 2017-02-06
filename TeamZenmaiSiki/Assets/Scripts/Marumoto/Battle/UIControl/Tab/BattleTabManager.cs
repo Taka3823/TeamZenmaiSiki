@@ -34,6 +34,10 @@ public class BattleTabManager : MonoBehaviour {
 		DragEnd();
 	}
 
+	/// <summary>
+	/// どれか一つでもTabが開いているかどうか。
+	/// </summary>
+	/// <returns></returns>
 	public bool IsAnyDisplaying()
 	{
 		foreach(TabControl _tabControl in tabControls)
@@ -43,6 +47,10 @@ public class BattleTabManager : MonoBehaviour {
 		return false;
 	}
 
+	/// <summary>
+	/// タブを閉じる。
+	/// </summary>
+	/// <param name="_hit2D"></param>
 	void ClosingTab(RaycastHit2D _hit2D)
 	{
 		const int _null = 3;
@@ -52,6 +60,10 @@ public class BattleTabManager : MonoBehaviour {
 		tabControls[_tabIndex].OnClickLightIsOut();
 	}
 
+	/// <summary>
+	/// タブを開く。
+	/// </summary>
+	/// <param name="_hit2D"></param>
 	void DisplayingTab(RaycastHit2D _hit2D)
 	{
 		const int _null = 3;
@@ -61,6 +73,11 @@ public class BattleTabManager : MonoBehaviour {
 		tabControls[_tabIndex].ActiveEasing();
 	}
 
+	/// <summary>
+	/// どのタブにタップしたか。
+	/// </summary>
+	/// <param name="_hit2D"></param>
+	/// <returns></returns>
 	int SearchTabIndex(RaycastHit2D _hit2D)
 	{
 		if (_hit2D.transform.name == "LeftTab") return 0;
@@ -69,6 +86,10 @@ public class BattleTabManager : MonoBehaviour {
 		else return 3;
 	}
 
+	/// <summary>
+	/// タップしたポイントにレイキャスト。
+	/// </summary>
+	/// <returns>当たったらRaycastHit2Dを返す。</returns>
 	RaycastHit2D Raycast()
 	{
 		Vector2 clickPointWorld = Camera.main.ScreenToWorldPoint(beginMousePos);
@@ -84,12 +105,19 @@ public class BattleTabManager : MonoBehaviour {
 		return result;
 	}
 
+	/// <summary>
+	/// ドラッグ判定の条件を満たしたかどうか。
+	/// </summary>
+	/// <returns>満たせばtrue</returns>
 	bool IsDrag()
 	{
 		if (endMousePos.x - beginMousePos.x <= -60.0f) return true;
 		return false;
 	}
 
+	/// <summary>
+	/// 指でタップおよびマウスでPushした瞬間。
+	/// </summary>
 	void DragBegin()
 	{
 		if (!IsTappingDown()) return;
@@ -110,6 +138,9 @@ public class BattleTabManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 指およびマウスをPullした瞬間。
+	/// </summary>
 	void DragEnd()
 	{
 		if (!IsTappingUp()) return;
@@ -130,6 +161,10 @@ public class BattleTabManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 左クリックかシングルタップされたかどうか。
+	/// </summary>
+	/// <returns></returns>
 	bool IsTappingDown()
 	{
 #if UNITY_STANDALONE
@@ -145,6 +180,10 @@ public class BattleTabManager : MonoBehaviour {
 		return false;
 	}
 
+	/// <summary>
+	/// 左クリックが離されたか、タップした指を離されたかどうか。
+	/// </summary>
+	/// <returns></returns>
 	bool IsTappingUp()
 	{
 #if UNITY_STANDALONE

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 二つ目のCircle
+/// </summary>
 public class SecondaryCircle : MonoBehaviour {
     [SerializeField]
     GameObject primaryCircle;
@@ -26,7 +29,7 @@ public class SecondaryCircle : MonoBehaviour {
     }
 
     /// <summary>
-    /// SecondaryCircleの回転。
+    /// PrimaryCircleの円周に沿ってSecondaryCircleを回転。
     /// </summary>
     public void SecondaryRotating()
     {
@@ -39,7 +42,7 @@ public class SecondaryCircle : MonoBehaviour {
     }
 
     /// <summary>
-    /// CircleCollider2Dを有効化する。
+    /// (現在使われていません)CircleCollider2Dを有効化する。
     /// </summary>
     public void IsActiveCollider()
     {

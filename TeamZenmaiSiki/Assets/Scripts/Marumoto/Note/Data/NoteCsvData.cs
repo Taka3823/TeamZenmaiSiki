@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// 手記のCSVデータを読み込む。
+/// </summary>
 public class NoteCsvData
 {
 
@@ -99,6 +100,11 @@ public class NoteCsvData
 
     public List<NoteData> GetNoteDatas() { return noteDatas; }
 
+	/// <summary>
+	/// CSVをパスに従って読み込み。
+	/// </summary>
+	/// <param name="path_">CSVファイルパス</param>
+	/// <returns></returns>
     private string[] MyCsvRead(string path_)
     {
         //ファイル読み込み

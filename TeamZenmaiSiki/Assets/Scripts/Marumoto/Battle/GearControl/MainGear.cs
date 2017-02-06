@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 一番大きい左上のギアを回す。
+/// </summary>
 public class MainGear : MonoBehaviour {
 	[SerializeField]
 	float angleSpeed;
@@ -24,6 +27,10 @@ public class MainGear : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 回転の不規則化の1ルーチン。
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator ManageRotation()
 	{
 		while (true)
@@ -42,12 +49,23 @@ public class MainGear : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// ギア回転のラッピング。
+	/// </summary>
+	/// <param name="_coroutine">使いたいコルーチン指定。</param>
+	/// <param name="_waitTime">コルーチン開始までの待機時間。</param>
+	/// <returns></returns>
 	IEnumerator RotateRoutine (IEnumerator _coroutine, float _waitTime)
 	{
 		yield return new WaitForSeconds(_waitTime);
 		yield return StartCoroutine(_coroutine);
 	}
 
+	/// <summary>
+	/// 逆回転。
+	/// </summary>
+	/// <param name="_activeTime">何秒するか。</param>
+	/// <returns></returns>
 	IEnumerator ReverseRotate(float _activeTime)
 	{
 		while (_activeTime > 0)
@@ -58,6 +76,11 @@ public class MainGear : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 加速回転。
+	/// </summary>
+	/// <param name="_activeTime">何秒するか。</param>
+	/// <returns></returns>
 	IEnumerator AccelRotate(float _activeTime)
 	{
 		while (_activeTime > 0)
@@ -68,6 +91,11 @@ public class MainGear : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 静止。
+	/// </summary>
+	/// <param name="_activeTime">何秒するか。</param>
+	/// <returns></returns>
 	IEnumerator StopRotate(float _activeTime)
 	{
 		while (_activeTime > 0)

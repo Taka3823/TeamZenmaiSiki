@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// AttackCircleプレハブ内の2つのCircleを管理。
+/// </summary>
 public class CircleManager : MonoBehaviour
 {
     [SerializeField]
